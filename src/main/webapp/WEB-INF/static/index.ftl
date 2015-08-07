@@ -1,5 +1,5 @@
 <#include "header.ftl">
-<link rel="stylesheet" href="${BASE_PATH}/common/css/index.css" />
+
 
 <body>
 
@@ -72,7 +72,7 @@
         <div class="container-fluid">
             <div class="well pxui-tab pxui-tab-nav pxui-tab-no-top">
                 <a class="selected"><i></i>首页<span></span></a>
-                <a href="category/default.htm"><i></i>分类<span></span></a>
+                <a href="sort.html"  data-transition="slide" ><i></i>分类<span></span></a>
                 <a href="brand/default.htm"><i></i>品牌<span></span></a>
                 <a href="tuan/default.htm"><i></i>团购<span></span></a>
 
@@ -258,7 +258,7 @@
         </div>
 
 
-        <div class="container-fluid">
+        <div class="container-fluid index">
             <div class="pxui-area">
                 <h3><b>Top5</b> 热销推荐<a class="pxui-button" href="topic/594.html"><span>+</span> 更多 &gt;&gt;</a></h3>
 

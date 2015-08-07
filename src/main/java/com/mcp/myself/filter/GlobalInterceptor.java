@@ -1,8 +1,4 @@
-/*
- *	Copyright © 2013 Changsha Shishuo Network Technology Co., Ltd. All rights reserved.
- *	长沙市师说网络科技有限公司 版权所有
- *	http://www.shishuo.com
- */
+
 
 package com.mcp.myself.filter;
 
@@ -38,6 +34,7 @@ public class GlobalInterceptor implements HandlerInterceptor {
 		// 系统配置参数
 		String basePath = HttpUtils.getBasePath(request);
 		modelAndView.addObject("BASE_PATH", basePath+"/static");
+		modelAndView.addObject("INTER_PATH", basePath);
 		modelAndView.addObject("UPLOAD_BASE_PATH", basePath + "/upload");
 	}
 
