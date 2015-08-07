@@ -1,7 +1,7 @@
 package com.mcp.myself.filter;
 
-import com.mcp.myself.bean.Admin;
 import com.mcp.myself.constant.SystemConstant;
+import com.mongodb.DBObject;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -27,14 +27,14 @@ public class AdminFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		Admin admin = (Admin) request.getSession().getAttribute(
+		DBObject admin = (DBObject) request.getSession().getAttribute(
 				SystemConstant.SESSION_ADMIN);
 		if (admin == null) {
 			String path = request.getContextPath();
 			String basePath = request.getScheme() + "://"
 					+ request.getServerName() + ":" + request.getServerPort()
 					+ path;
-			response.sendRedirect(basePath + "/ljj/login.html");
+			response.sendRedirect(basePath + "/haohao/login.html");
 		} else {
 			chain.doFilter(request, response);
 		}

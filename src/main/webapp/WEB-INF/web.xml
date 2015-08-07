@@ -53,6 +53,19 @@
      </filter-mapping>
 
 
+    <!-- 过滤ftl直接访问 -->
+    <filter>
+        <filter-name>admin</filter-name>
+        <filter-class>com.mcp.myself.filter.AdminFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>admin</filter-name>
+        <url-pattern>/ljj/*</url-pattern>
+    </filter-mapping>
+
+
+
       <!-- 设置  spring MVC字符集 -->
     <filter>
         <filter-name>encodingFilter</filter-name>

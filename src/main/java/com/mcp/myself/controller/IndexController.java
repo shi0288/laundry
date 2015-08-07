@@ -41,7 +41,7 @@ public class IndexController {
     }
 
 
-    @RequestMapping("ljj/login.html")
+    @RequestMapping("haohao/login.html")
     public String ljjAdmin(ModelMap modelMap) {
 
         System.out.println("----------   login");

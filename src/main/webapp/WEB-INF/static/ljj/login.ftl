@@ -113,18 +113,9 @@
                     success: function (data) {
                            console.log(data);
                         if (data.result) {
-                            //location.href = "${BASE_PATH}/business/user/list.htm";
+                            location.href = "${INTER_PATH}/ljj/user/list.htm";
                         } else {
                             showErrors($('#adminForm'), data.errors);
-                            if (data.msg == "change_captcha") {
-                                $('#captcha').attr(
-                                        "src",
-                                        "${BASE_PATH}/master/captcha.htm?"
-                                        + Math.random());
-                                $(
-                                        '#adminForm input[name="captcha"]')
-                                        .val('');
-                            }
                         }
                     }
                 });

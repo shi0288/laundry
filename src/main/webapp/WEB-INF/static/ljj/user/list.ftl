@@ -1,5 +1,5 @@
 <#assign menu="user">
-<#include "/business/head.ftl">
+<#include "/ljj/head.ftl">
 <style type="text/css">
     .pagination {
         border-radius: 4px;
@@ -38,10 +38,11 @@
     <section class="wrapper">
         <section class="panel">
             <div class="panel-body">
-                <form action="${BASE_PATH}/business/user/list.htm" method="get" enctype="multipart/form-data" id="query_form">
-                    <table class="query_table" >
-                        <input type="hidden" name="status"  value="${(cond.status)!""}"/>
-                        <input type="hidden" name="p" id="p"  value="${p!""}"/>
+                <form action="${BASE_PATH}/business/user/list.htm" method="get" enctype="multipart/form-data"
+                      id="query_form">
+                    <table class="query_table">
+                        <input type="hidden" name="status" value="${(cond.status)!""}"/>
+                        <input type="hidden" name="p" id="p" value="${p!""}"/>
                         <tr>
                             <td>手机号</td>
                             <td><input type="text" name="userName" class="form-control" value="${(cond.userName)!""}"/>
@@ -90,35 +91,37 @@
                             </tr>
                             </thead>
                             <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            <#list pageVo.list as e>
-                            <tr class="gradeA odd">
-                                <td>
-                                ${e.userName}
-                                </td>
-                                <td>
-                                    <#if e.cardType==0>
-                                        无
-                                    </#if>
-                                </td>
-                                <td>
-                                ${e.cardNum!"未填写"}
-                                </td>
-                                <td>
-                                    <#if e.status==0>
-                                        正常
-                                    </#if>
-                                </td>
-                                <td>
-                                ${e.createTime?string("yyyy-MM-dd hh:mm:ss")}
-                                </td>
-                                <td>
-                                    <!-- Icons -->
-                                    <a href="${BASE_PATH}/business/user/update.htm?userId=${e.userId}" title="编辑">
-                                        编辑
-                                    </a>
-                                </td>
-                            </tr>
-                            </#list>
+                            <#if (user.name)??>
+                                <#list pageVo.list as e>
+                                <tr class="gradeA odd">
+                                    <td>
+                                    ${e.userName}
+                                    </td>
+                                    <td>
+                                        <#if e.cardType==0>
+                                            无
+                                        </#if>
+                                    </td>
+                                    <td>
+                                    ${e.cardNum!"未填写"}
+                                    </td>
+                                    <td>
+                                        <#if e.status==0>
+                                            正常
+                                        </#if>
+                                    </td>
+                                    <td>
+                                    ${e.createTime?string("yyyy-MM-dd hh:mm:ss")}
+                                    </td>
+                                    <td>
+                                        <!-- Icons -->
+                                        <a href="${BASE_PATH}/business/user/update.htm?userId=${e.userId}" title="编辑">
+                                            编辑
+                                        </a>
+                                    </td>
+                                </tr>
+                                </#list>
+                            </#if>
                             </tbody>
                         </table>
                         <div style="height: 30px;">
@@ -216,7 +219,7 @@
                             $('#query_form').submit();
                         });
                     });
-                    function pageRun(num){
+                    function pageRun(num) {
                         $('#p').val(num);
                         $('#query_form').submit();
                     }
@@ -228,4 +231,4 @@
     </div>
     <!-- /.modal -->
 </div>
-<#include "/business/foot.ftl">
+<#include "/ljj/foot.ftl">

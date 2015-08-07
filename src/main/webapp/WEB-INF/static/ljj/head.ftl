@@ -1,4 +1,3 @@
-<#assign config_v="20140830004">
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,27 +12,27 @@
 <link rel="shortcut icon" href="img/favicon.png">
 <title>店主管理后台</title>
 <!-- Bootstrap core CSS -->
-<link href="${BASE_PATH}/static/common/css/bootstrap.min.css?v=${config_v}" rel="stylesheet">
-<link href="${BASE_PATH}/static/common/css/bootstrap-reset.css?v=${config_v}"
+<link href="${BASE_PATH}/ljj/common/css/bootstrap.min.css" rel="stylesheet">
+<link href="${BASE_PATH}/ljj/common/css/bootstrap-reset.css"
 	rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="${BASE_PATH}/static/manage/css/gallery.css?v=${config_v}" />	
+<link rel="stylesheet" type="text/css" href="${BASE_PATH}/ljj/common/css/gallery.css" />
 <!--external css-->
 <link
-	href="${BASE_PATH}/static/common/assets/font-awesome/css/font-awesome.css?v=${config_v}"
+	href="${BASE_PATH}/ljj/common/assets/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
-<link href="${BASE_PATH}/static/common/assets/fancybox/source/jquery.fancybox.css?v=${config_v}" rel="stylesheet" />
+<link href="${BASE_PATH}/ljj/common/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
 <!-- Custom styles for this template -->
-<link href="${BASE_PATH}/static/common/css/style.css?v=${config_v}" rel="stylesheet">
-<link href="${BASE_PATH}/static/common/css/style-responsive.css?v=${config_v}" rel="stylesheet" />
-<link href="${BASE_PATH}/static/common/assets/uploadify/uploadify.css?v=${config_v}" rel="stylesheet" />
-<link href="${BASE_PATH}/static/common/assets/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css?v=${config_v}" rel="stylesheet" />
+<link href="${BASE_PATH}/ljj/common/css/style.css" rel="stylesheet">
+<link href="${BASE_PATH}/ljj/common/css/style-responsive.css" rel="stylesheet" />
+<link href="${BASE_PATH}/ljj/common/assets/uploadify/uploadify.css" rel="stylesheet" />
+<link href="${BASE_PATH}/ljj/common/assets/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 
 <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
 <!--[if lt IE 9]>
-      <script src="${BASE_PATH}/static/common/js/html5shiv.js"></script>
-      <script src="${BASE_PATH}/static/common/js/respond.min.js"></script>
+      <script src="${BASE_PATH}/ljj/common/js/html5shiv.js"></script>
+      <script src="${BASE_PATH}/ljj/common/js/respond.min.js"></script>
     <![endif]-->
-<script src="${BASE_PATH}/static/common/js/jquery.js?v=${config_v}"></script>
+<script src="${BASE_PATH}/ljj/common/js/jquery.js"></script>
 </head>
 <body class="boxed-page">
 	<div class="container">
@@ -43,7 +42,7 @@
 			<div class="container" style="background-color: #ffffff; padding: 10px;">
 				<!--logo start-->
 				<a href="${BASE_PATH}/index.htm" class="logo" title="进入首页">
-					<img src="${TEMPLATE_BASE_PATH}/images/logo.png" style="height: 38px;" />
+					<img src="${BASE_PATH}/images/logo.png" style="height: 38px;" />
 				</a>
 				<!--logo end-->
 				<div class="nav notify-row" id="top_menu">
@@ -57,7 +56,7 @@
 	                  <li class="dropdown">
 	                      <button  class="btn btn-info btn-shadow dropdown-toggle" data-toggle="dropdown">
                               <i class="icon-user icon-white"></i>
-	                          <span class="username">${SESSION_BUSINESS.name}</span>
+	                          <span class="username">${SESSION_ADMIN.name}</span>
 	                          <b class="caret"></b>
 	                      </button>
 
@@ -79,7 +78,6 @@
 			<div id="sidebar" class="nav-collapse ">
 				<!-- sidebar menu goes here-->
 				<ul class="sidebar-menu" id="nav-accordion">
-					<#if SESSION_BUSINESS.isBusiness>
 					<li class="">
 						<a <#if menu="user">class="active"</#if> href="${BASE_PATH}/business/user/list.htm"> <i class="icon-book"></i> <span>用户列表</span></a>
 					</li>
@@ -98,7 +96,6 @@
 					<li class="">
                         <a <#if menu="update_password">class="active"</#if> href="${BASE_PATH}/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>
                     </li>
-					</#if>
 				</ul>
 			</div>
 		</aside>
