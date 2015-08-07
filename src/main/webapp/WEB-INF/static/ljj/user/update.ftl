@@ -1,5 +1,5 @@
 <#assign menu="user">
-<#include "/business/head.ftl">
+<#include "/ljj/head.ftl">
 <!--main content start-->
 <style type="text/css">
 

@@ -27,7 +27,6 @@ public class AdminService {
      * @param name
      * @param password
      * @param request
-     * @throws IOException
      */
     public boolean adminLogin(String name, String password,
                               HttpServletRequest request) {

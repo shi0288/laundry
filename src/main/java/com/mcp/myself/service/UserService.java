@@ -26,9 +26,6 @@ import java.util.Map;
 @Service
 public class UserService {
 
-    /**
-     * 获得所有的分页
-     */
     public PageVo<DBObject> getAllListPage(int pageNum,Map map) {
         PageVo<DBObject> pageVo = new PageVo<DBObject>(pageNum);
         pageVo.setUrlOrMethod(false);
@@ -39,7 +36,8 @@ public class UserService {
         params.put("rows", pageVo.getRows());
         List<DBObject> list = MongoUtil.queryForPage(MongoConst.MONGO_MEMBER, map, pageNum, pageVo.getRows());
         pageVo.setList(list);
-        pageVo.setCount(MongoUtil.queryCount(MongoConst.MONGO_MEMBER,map));
+        pageVo.setCount(MongoUtil.queryCount(MongoConst.MONGO_MEMBER, map));
+        System.out.println(pageNum+"   "+pageVo.getCount());
         return pageVo;
     }
 

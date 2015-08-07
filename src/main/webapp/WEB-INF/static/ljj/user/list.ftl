@@ -38,11 +38,11 @@
     <section class="wrapper">
         <section class="panel">
             <div class="panel-body">
-                <form action="${BASE_PATH}/business/user/list.htm" method="get" enctype="multipart/form-data"
+                <form action="${INTER_PATH}/ljj/user/list.htm" method="get" enctype="multipart/form-data"
                       id="query_form">
                     <table class="query_table">
                         <input type="hidden" name="status" value="${(cond.status)!""}"/>
-                        <input type="hidden" name="p" id="p" value="${p!""}"/>
+                        <input type="hidden" name="p" id="p" value="${(p)!""}"/>
                         <tr>
                             <td>手机号</td>
                             <td><input type="text" name="userName" class="form-control" value="${(cond.userName)!""}"/>
@@ -91,37 +91,31 @@
                             </tr>
                             </thead>
                             <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            <#if (user.name)??>
                                 <#list pageVo.list as e>
                                 <tr class="gradeA odd">
                                     <td>
-                                    ${e.userName}
+                                    ${e.userName!""}
                                     </td>
                                     <td>
-                                        <#if e.cardType==0>
-                                            无
-                                        </#if>
+                                    ${e.cardType!"无"}
                                     </td>
                                     <td>
                                     ${e.cardNum!"未填写"}
                                     </td>
                                     <td>
-                                        <#if e.status==0>
-                                            正常
-                                        </#if>
+                                    ${e.status!"未填写"}
                                     </td>
                                     <td>
-                                    ${e.createTime?string("yyyy-MM-dd hh:mm:ss")}
+                                    ${e.createTime!"11"}
                                     </td>
                                     <td>
                                         <!-- Icons -->
-                                        <a href="${BASE_PATH}/business/user/update.htm?userId=${e.userId}" title="编辑">
+                                        <a href="${BASE_PATH}/business/user/update.htm?userId=${e.userName}" title="编辑">
                                             编辑
                                         </a>
                                     </td>
                                 </tr>
                                 </#list>
-                            </#if>
                             </tbody>
                         </table>
                         <div style="height: 30px;">
@@ -150,16 +144,14 @@
             </div>
             <div class="modal-body">
                 <!-- page start-->
-                <form id="add_user_form" class="form-horizontal" action="${BASE_PATH}/business/user/add.json"
-                      autocomplete="off" method="post"
-                      enctype="multipart/form-data">
+                <form id="add_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/user/add.json"
+                      autocomplete="off" method="post">
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <label class="col-sm-2 col-sm-2 control-label">手机号</label>
-
                                         <div class="col-sm-10">
                                             <input type="text" style="font-size:15px;width: 300px;" class="form-control"
                                                    name="userName"
@@ -203,10 +195,11 @@
                                 $('#submit').button('loading');
                             },
                             success: function (data) {
+                                console.log(data);
                                 $('#submit').button('reset');
                                 if (data.result) {
                                     bootbox.alert("添加成功，将刷新页面", function () {
-                                        location.href = "${BASE_PATH}/business/user/list.htm";
+                                        location.href = "${INTER_PATH}/ljj/user/list.htm";
                                     });
                                 } else {
                                     bootbox.alert(data.msg, function () {
@@ -215,7 +208,7 @@
                             }
                         });
                         $('#query_button').click(function () {
-                            $('#p').val(0);
+                            $('#p').val(1);
                             $('#query_form').submit();
                         });
                     });

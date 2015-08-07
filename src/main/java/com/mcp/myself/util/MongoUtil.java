@@ -20,11 +20,10 @@ public class MongoUtil {
     public static int queryCount(String table,Map<String,String> map){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
         BasicDBObject query=new BasicDBObject();
-        if(map==null){
-            return 0;
-        }
-        for(String key:map.keySet()){
-            query.append(key,map.get(key));
+        if(map!=null){
+            for(String key:map.keySet()){
+                query.append(key,map.get(key));
+            }
         }
         int cur = collection.find(query).count();
         return cur;
@@ -34,15 +33,15 @@ public class MongoUtil {
     public static List<DBObject> queryForPage(String table,Map<String,String> map,int curPage,int pageSize){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
         BasicDBObject query=new BasicDBObject();
-        if(map==null){
-            return null;
+        if(map!=null){
+            for(String key:map.keySet()){
+                System.out.println(key+"   "+map.get(key));
+                query.append(key,map.get(key));
+            }
         }
-        for(String key:map.keySet()){
-            query.append(key,map.get(key));
-        }
-        int skip = curPage * pageSize;
-        String sortStr ="id";
-        DBCursor cur = collection.find(query).skip(skip).limit(pageSize).sort(new BasicDBObject(sortStr, 1));
+        int skip = (curPage-1) * pageSize;
+        String sortStr ="createTime";
+        DBCursor cur = collection.find(query).skip(skip).limit(pageSize).sort(new BasicDBObject(sortStr, -1));
         if(cur.count()==0){
             return new ArrayList<>();
         }
