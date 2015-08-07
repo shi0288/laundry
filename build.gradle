@@ -1,0 +1,71 @@
+apply plugin: 'java'
+apply plugin: 'war'
+
+sourceCompatibility = 1.7
+
+
+war{
+    baseName ="ROOT"
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+
+    //spring
+    compile group: 'org.springframework', name: 'spring-beans', version: springVersion
+    compile group: 'org.springframework', name: 'spring-core', version: springVersion
+    compile group: 'org.springframework', name: 'spring-web', version: springVersion
+    compile group: 'org.springframework', name: 'spring-webmvc', version: springVersion
+    compile group: 'org.springframework', name: 'spring-test', version: springVersion
+    compile group: 'org.springframework', name: 'spring-context', version: springVersion
+    compile group: 'org.springframework', name: 'spring-jdbc', version: springVersion
+    compile group: 'org.springframework', name: 'spring-orm', version: springVersion
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.1'
+    compile group: 'org.freemarker', name: 'freemarker', version: '2.3.20'
+    compile group: 'org.springframework', name: 'spring-context-support', version: springVersion
+
+    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '3.1.0'
+}
+
+project.libsDirName = 'artifacts/WEB-INF/lib/'
+
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+
+
+task copyWebNorConfig(type: Copy) {
+    into "$buildDir/artifacts/WEB-INF/classes/"
+    from "src/main/resources"
+}
+
+task copyToLib(dependsOn: configurations.runtime.buildDependencies, type: Copy) {
+    into "$buildDir/artifacts/WEB-INF/lib/"
+    from configurations.runtime
+}
+
+task copyWeb(type: Copy) {
+    into "$buildDir/artifacts/"
+    from "src/main/webapp"
+}
+
+task copyConfig(type: Copy) {
+    into "$buildDir/artifacts/WEB-INF/classes/"
+    from 'src/main/config/nor'
+    from 'src/main/config/' + target
+}
+
+copyConfig.dependsOn copyWebNorConfig
+
+project.jar.dependsOn copyWeb
+project.jar.dependsOn copyToLib
+project.jar.dependsOn copyConfig
+
+jar {
+    exclude '*.xml', '*.properties', 'config', 'META-INF'
+}
+
