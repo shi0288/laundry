@@ -36,7 +36,6 @@ public class AdminFilter implements Filter {
 					+ path;
 			response.sendRedirect(basePath + "/haohao/login.html");
 		} else {
-			System.out.println("进来了");
 			chain.doFilter(request, response);
 		}
 	}

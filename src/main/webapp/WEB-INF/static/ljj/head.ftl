@@ -42,7 +42,7 @@
 			<div class="container" style="background-color: #ffffff; padding: 10px;">
 				<!--logo start-->
 				<a href="${BASE_PATH}/index.htm" class="logo" title="进入首页">
-					<img src="${BASE_PATH}/images/logo.png" style="height: 38px;" />
+					<img src="${BASE_PATH}/common/css/images/ajax-loader.gif" style="height: 38px;" />
 				</a>
 				<!--logo end-->
 				<div class="nav notify-row" id="top_menu">
@@ -79,22 +79,22 @@
 				<!-- sidebar menu goes here-->
 				<ul class="sidebar-menu" id="nav-accordion">
 					<li class="">
-						<a <#if menu="user">class="active"</#if> href="${BASE_PATH}/business/user/list.htm"> <i class="icon-book"></i> <span>用户列表</span></a>
+						<a <#if menu="user">class="active"</#if> href="${INTER_PATH}/ljj/user/list.htm"> <i class="icon-book"></i> <span>用户列表</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="tticket">class="active"</#if> href="${BASE_PATH}/business/tticket/list.htm"> <i class="icon-folder-open"></i> <span>彩票列表</span></a>
+						<a <#if menu="mainPro">class="active"</#if> href="${INTER_PATH}/ljj/mainPro/list.htm"> <i class="icon-folder-open"></i> <span>主题管理</span></a>
 					</li>	
 					<li class="">
-						<a <#if menu="torder">class="active"</#if> href="${BASE_PATH}/business/torder/list.htm"> <i class="icon-comments"></i> <span>订单列表</span></a>
+						<a <#if menu="torder">class="active"</#if> href="${INTER_PATH}/ljj/torder/list.htm"> <i class="icon-comments"></i> <span>订单列表</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="account">class="active"</#if> href="${BASE_PATH}/business/account/list.htm"> <i class="icon-folder-open"></i> <span>充值管理</span></a>
+						<a <#if menu="account">class="active"</#if> href="${INTER_PATH}/ljj/account/list.htm"> <i class="icon-folder-open"></i> <span>充值管理</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="moneyLog">class="active"</#if> href="${BASE_PATH}/business/moneyLog/list.htm"> <i class="icon-cogs"></i> <span>交易记录</span></a>
+						<a <#if menu="moneyLog">class="active"</#if> href="${INTER_PATH}/ljj/moneyLog/list.htm"> <i class="icon-cogs"></i> <span>交易记录</span></a>
 					</li>
 					<li class="">
-                        <a <#if menu="update_password">class="active"</#if> href="${BASE_PATH}/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>
+                        <a <#if menu="update_password">class="active"</#if> href="${INTER_PATH}/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>
                     </li>
 				</ul>
 			</div>

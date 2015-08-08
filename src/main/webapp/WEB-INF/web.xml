@@ -103,6 +103,11 @@
         <location>/error/503.htm</location>
     </error-page>
 
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error/503.htm</location>
+    </error-page>
+
 
 
 </web-app>

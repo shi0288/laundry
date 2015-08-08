@@ -19,7 +19,12 @@ public class SystemConstant {
 	/**
 	 * 上传文件夹
 	 */
-	public static String UPLOAD_FOLDER = "upload/photo";
+	public static String UPLOAD_FOLDER = "/WEB-INF/upload";
+
+	/**
+	 * 上传文件夹
+	 */
+	public static long UPLOAD_FILE_SIZE = 200000;
 
 	/**
 	 * 备份文件夹
@@ -38,8 +43,8 @@ public class SystemConstant {
 
 
 	/**
-	 * 
+	 *  分页数量
 	 */
-	public static final String LANGUAGE = "language";
+	public static final int ROW = 10;
 
 }

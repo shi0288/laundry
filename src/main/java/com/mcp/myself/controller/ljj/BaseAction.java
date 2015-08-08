@@ -1,7 +1,10 @@
 package com.mcp.myself.controller.ljj;
 
+import com.mcp.myself.bean.PageVo;
 import com.mcp.myself.constant.SystemConstant;
 import com.mongodb.DBObject;
+import org.springframework.ui.ModelMap;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -35,22 +38,5 @@ public class BaseAction {
         return map;
     }
 
-
-    protected Map packageDatas(Enumeration<String> valueNames,
-                                    HttpServletRequest request) {
-        Map<String,Object> datas = null;
-        if (!valueNames.hasMoreElements()) {
-        } else {
-            datas = new HashMap<String,Object>();
-            while (valueNames.hasMoreElements()) {
-                String name = valueNames.nextElement().toString();
-                Object value = request.getParameter(name);
-                if (value!=null&&!"".equals(value.toString())) {
-                    datas.put(name, value);
-                }
-            }
-        }
-        return datas;
-    }
 
 }

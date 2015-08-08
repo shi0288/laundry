@@ -1,6 +1,7 @@
 package com.mcp.myself.util;
 
 import com.mongodb.*;
+import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class MongoUtil {
         return MongoManager.getDB(MongoConst.MONGO_NAME);
     }
 
-    public static int queryCount(String table,Map<String,String> map){
+    public static int queryCount(String table,Map<String,Object> map){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
         BasicDBObject query=new BasicDBObject();
         if(map!=null){
@@ -30,7 +31,7 @@ public class MongoUtil {
     }
 
 
-    public static List<DBObject> queryForPage(String table,Map<String,String> map,int curPage,int pageSize){
+    public static List<DBObject> queryForPage(String table,Map<String,Object> map,int curPage,int pageSize){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
         BasicDBObject query=new BasicDBObject();
         if(map!=null){
@@ -51,6 +52,13 @@ public class MongoUtil {
     public static int insert(String table,DBObject dbObject){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
         return collection.save(dbObject).getN();
+    }
+
+    public static DBObject findOne(String table,String id){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        DBObject query=new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        return collection.findOne(query);
     }
 
 

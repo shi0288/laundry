@@ -27,7 +27,6 @@ public class MangageLoginController {
                              HttpServletRequest request, ModelMap modelMap) {
         JsonVo<String> json = new JsonVo<String>();
         json.setResult(adminService.adminLogin(name,password,request));
-        System.out.println(json.isResult());
         return json;
     }
 
