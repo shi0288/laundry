@@ -13,5 +13,6 @@ public class MongoConst {
     public static final String MONGO_MEMBER="member";
     public static final String MONGO_ADMIN="admin";
     public static final String MONGO_MAINPRO="mainPro";
+    public static final String MONGO_SORTPRO="sortPro";
 
 }

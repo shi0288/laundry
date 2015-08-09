@@ -39,6 +39,9 @@ dependencies {
 
     compile group: 'org.codehaus.jackson', name: 'jackson-core-lgpl', version: '1.9.13'
     compile group: 'org.codehaus.jackson', name: 'jackson-mapper-lgpl', version: '1.9.13'
+
+    compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4',classifier:'jdk15'
+
 }
 
 project.libsDirName = 'artifacts/WEB-INF/lib/'

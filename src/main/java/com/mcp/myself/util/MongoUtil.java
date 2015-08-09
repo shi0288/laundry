@@ -30,6 +30,21 @@ public class MongoUtil {
         return cur;
     }
 
+    public static int queryCount(String table,DBObject query){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        int cur = collection.find(query).count();
+        return cur;
+    }
+
+    public static List<DBObject> queryAll(String table,DBObject query,String sort,int seq){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        DBCursor cur = collection.find(query).sort(new BasicDBObject(sort, seq));
+        if(cur.count()==0){
+            return new ArrayList<>();
+        }
+        return cur.toArray();
+    }
+
 
     public static List<DBObject> queryForPage(String table,Map<String,Object> map,int curPage,int pageSize){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
@@ -50,6 +65,11 @@ public class MongoUtil {
     }
 
     public static int insert(String table,DBObject dbObject){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        return collection.insert(dbObject).getN();
+    }
+
+    public static int save(String table,DBObject dbObject){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
         return collection.save(dbObject).getN();
     }

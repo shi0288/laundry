@@ -62,13 +62,13 @@
         <div class="login-wrap">
             <div class="form-group">
                 <label for="exampleInputEmail1">用户名</label>
-                <input type="text" name="name" class="form-control" placeholder="用户名" value="" style="*width: 250px;"
+                <input type="text" name="name" class="form-control" placeholder="用户名" value="" style="width: 100%;"
                        autofocus>
             </div>
             <div class="form-group">
                 <label for="exampleInputEmail1">密码</label>
                 <input type="password" name="password" class="form-control" placeholder="密码" value=""
-                       style="*width: 250px;">
+                       style="width: 100%;">
             </div>
             <div class="clearfix"></div>
             <div>

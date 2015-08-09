@@ -15,13 +15,21 @@ import javax.servlet.http.HttpServletRequest;
 @Service
 public class MainProService extends BaseService{
 
-    public ModelMap getAllListPageMainPro(ModelMap modelMap,HttpServletRequest request) {
-        return this.getAllListPage(MongoConst.MONGO_MAINPRO, modelMap, request);
+
+    private String MONGO_NAME=MongoConst.MONGO_MAINPRO;
+
+
+    public ModelMap getAllListPage(ModelMap modelMap,HttpServletRequest request) {
+        return this.getAllListPage(MONGO_NAME,modelMap,request);
+    }
+
+    public DBObject getById(String id) {
+        return this.getById(MONGO_NAME, id);
     }
 
 
-    public DBObject getByIdMainPro(String id) {
-        return this.getById(MongoConst.MONGO_MAINPRO,id);
+    public boolean update(DBObject dbObject) {
+        return this.update(MONGO_NAME, dbObject);
     }
 
 

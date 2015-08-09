@@ -5,7 +5,11 @@ import com.mcp.myself.bean.PageVo;
 import com.mcp.myself.constant.SystemConstant;
 import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
+import com.mongodb.WriteResult;
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
@@ -33,6 +37,12 @@ public class BaseService {
                 String name = valueNames.nextElement().toString();
                 Object value = request.getParameter(name);
                 if (value!=null&&!"".equals(value.toString())) {
+                    if("status".equals(name)){
+                        value=Integer.parseInt(value.toString());
+                    }
+                    if("tip".equals(name)){
+                        value=Integer.parseInt(value.toString());
+                    }
                     datas.put(name, value);
                 }
             }
@@ -59,5 +69,25 @@ public class BaseService {
     public DBObject getById(String tableName,String id) {
         return MongoUtil.findOne(tableName, id);
     }
+
+    public boolean update(String tableName,DBObject dbObject) {
+        DBObject query = new BasicDBObject();
+        query.put("_id", dbObject.get("_id"));
+        dbObject.removeField("_id");
+        BasicDBObject set = new BasicDBObject("$set", dbObject);
+        DBCollection collection = MongoUtil.getDb().getCollection(tableName);
+        WriteResult writeResult = collection.update(query,
+                set,
+                false,
+                false);
+        int i = writeResult.getN();
+        if(i!=1){
+            return false;
+        }
+        return true;
+    }
+
+
+
 
 }

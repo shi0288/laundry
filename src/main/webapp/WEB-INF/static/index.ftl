@@ -11,11 +11,18 @@
         <div class="com-header-area">
             <a href="default.htm" class="com-header-logo"></a>
             <dfn></dfn>
+
             <p>
-                <a class="com-header-search" id="js-com-header-search"><del></del></a>
-                <a href="login/default.htm" class="com-header-user "><del></del></a>
+                <a class="com-header-search" id="js-com-header-search">
+                    <del></del>
+                </a>
+                <a href="login/default.htm" class="com-header-user ">
+                    <del></del>
+                </a>
                 <i></i>
-                <a href="cart/default.htm" class="com-header-cart "><b id="header-cart-num">0</b><del></del></a>
+                <a href="cart/default.htm" class="com-header-cart "><b id="header-cart-num">0</b>
+                    <del></del>
+                </a>
             </p>
             <div class="clear"></div>
         </div>
@@ -72,7 +79,7 @@
         <div class="container-fluid">
             <div class="well pxui-tab pxui-tab-nav pxui-tab-no-top">
                 <a class="selected"><i></i>首页<span></span></a>
-                <a href="sort.html"  data-transition="slide" ><i></i>分类<span></span></a>
+                <a href="sort.html" data-transition="slide"><i></i>分类<span></span></a>
                 <a href="brand/default.htm"><i></i>品牌<span></span></a>
                 <a href="tuan/default.htm"><i></i>团购<span></span></a>
 
@@ -99,32 +106,66 @@
         </div>
 
         <!-- **********************   栏目 ********************** -->
-        <div class="container-fluid">
-            <div class="pxui-area styles">
-                <h2 style="background-color: #ffaf51 ; "><a href="p-_m0001s0001_.html" style="color:#FFFFFF;">衣物清洁</a>
-                </h2>
-                <a class="max" href="p-anta__1.html@page=5"><img
-                        src="http://img-cdn2.paixie.net/newspic/20140408/1396917342e17426.jpg" width="120" height="140"></a>
 
-                <div>
-                    <p>
-                        <a href="nike/default.htm"
-                           style="background-color: #ffaf51; color:#FFFFFF;border: 1px solid #ffaf51; ">蓝月亮</a>
-                        <a href="adidas/default.htm">奥妙</a>
-                        <a href="anta/default.htm">巴菲</a>
-                        <a href="erke/default.htm"
-                           style="margin-right:3px;background-color: #ffaf51; color:#FFFFFF;border: 1px solid #ffaf51; ">雕牌</a>
-                        <a href="p-m0001s0029_1.html" ">威露士</a>
-                        <a href="forbid/p-__25E7_25AF_25AE_25E7_2590_2583_25E9_259E_258B__1.html"
-                           style="background-color: #ffaf51; color:#FFFFFF;border: 1px solid #ffaf51; ">郁美净</a>
-                        <a href="p-_m0001s0064_.html" ">丽婴房</a>
-                        <a href="p-_m0001s0001_.html" class="more">更多
-                            <del><i class="arrow-right"></i></del>
-                        </a>
-                    </p>
+
+    <#list mainPro as e>
+        <#if e_index%2==0>
+            <div class="container-fluid">
+                <div class="pxui-area styles">
+                    <h2 style="background-color: ${(e.colorTip)!""} ; "><a href="p-_m0001s0001_.html" style="color:#FFFFFF;">${(e.name)!""}</a>
+                    </h2>
+                    <a class="max" href="p-anta__1.html@page=5"><img
+                            src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120" height="140"></a>
+                    <div>
+                        <p>
+                            <a href="nike/default.htm"
+                               style="background-color: ${(e.colorTip)!""} ; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">蓝月亮</a>
+                            <a href="adidas/default.htm">奥妙</a>
+                            <a href="anta/default.htm">巴菲</a>
+                            <a href="erke/default.htm"
+                               style="margin-right:3px;background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">雕牌</a>
+                            <a href="p-m0001s0029_1.html" ">威露士</a>
+                            <a href="forbid/p-__25E7_25AF_25AE_25E7_2590_2583_25E9_259E_258B__1.html"
+                               style="background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">郁美净</a>
+                            <a href="p-_m0001s0064_.html" ">丽婴房</a>
+                            <a href="p-_m0001s0001_.html" class="more">更多
+                                <del><i class="arrow-right"></i></del>
+                            </a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
+
+        <#else>
+            <div class="container-fluid">
+                <div class="pxui-area styles">
+                    <div>
+                        <p>
+                            <a href="moolecole/default.htm" style="margin-left:3px;margin-right:0px; ">蒂花之秀</a>
+                            <a href="mingdian/default.htm"
+                               style="margin-left:3px;margin-right:0px;background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">力士</a>
+                            <a href="p-daphne__1.html@special=1&amp;asc=id"
+                               style="margin-left:3px;margin-right:0px;background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">夏士莲</a>
+                            <a href="forbid/p-__25E5_258D_2595_25E9_259E_258B__1.html"
+                               style="margin-left:3px;margin-right:0px; ">飘柔</a>
+                            <a href="forbid/p-__25E9_25AB_2598_25E8_25B7_259F_25E9_259E_258B__1.html"
+                               style="margin-left:3px;margin-right:0px; ">霸王</a>
+                            <a href="p-m0003s0080_1.html" style="margin-left:3px;margin-right:0px; ">中华</a>
+                            <a href="p-_m0003s0003_.html" class="more">更多
+                                <del><i class="arrow-right"></i></del>
+                            </a>
+                        </p>
+                    </div>
+                    <a class="max" href="moolecole/@page=5"><img
+                            src="http://img-cdn2.paixie.net/newspic/20140408/13969173357d0aa6.jpg" width="120" height="140"></a>
+                    <h2 style="background-color: ${(e.colorTip)!""}"><a href="p-_m0003s0003_.html" style="color:#FFFFFF;">${(e.name)!""}</a></h2>
+                </div>
+            </div>
+
+        </#if>
+
+    </#list>
+
 
         <div class="container-fluid">
             <div class="pxui-area styles">
@@ -147,7 +188,6 @@
                 </div>
                 <a class="max" href="moolecole/@page=5"><img
                         src="http://img-cdn2.paixie.net/newspic/20140408/13969173357d0aa6.jpg" width="120" height="140"></a>
-
                 <h2 style="background-color: #ff8080"><a href="p-_m0003s0003_.html" style="color:#FFFFFF;">日化洁净</a></h2>
             </div>
         </div>
@@ -303,47 +343,49 @@
 
         <!-- **********************   底部导航 ********************** -->
 
-            <div class="com-footer-nav">
-                <a href="default.htm">首页</a><a href="help/index.html">帮助中心</a><a href="feedback/index.html">反馈建议</a>
-            </div>
+        <div class="com-footer-nav">
+            <a href="default.htm">首页</a><a href="help/index.html">帮助中心</a><a href="feedback/index.html">反馈建议</a>
+        </div>
 
         <!-- **********************   页尾  ********************** -->
         <div class="com-footer">
-                <p class="com-policy">
-                    <strong>
-                        <a class="pxui-color-white" href="javascript:void(0)">
-                            <i></i>
+            <p class="com-policy">
+                <strong>
+                    <a class="pxui-color-white" href="javascript:void(0)">
+                        <i></i>
 							<span>自营商品<br>
 							满99包邮</span>
-                        </a>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <a class="pxui-color-white" href="javascript:void(0)">
-                            <i style="background-position:-40px -108px;"></i>
+                    </a>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <a class="pxui-color-white" href="javascript:void(0)">
+                        <i style="background-position:-40px -108px;"></i>
 							<span>15天无理由<br>
 							免邮退换货</span>
-                        </a>
-                    </strong>
-                </p>
-                <br>
-                <br>
-                <p>
-                    <strong>
-                        <a style="color:#769fbf;" href="login/default.htm">登录</a>&nbsp;&nbsp;
-                        <a style="color:#769fbf;" href="register/default.htm">注册</a>
-                    </strong>
-                </p>
-                <br>
-                <p>
-                    <strong>
-                        <a href="../wap.paixie.net/default.htm">极速版</a>&nbsp;&nbsp;
-                        <a href="default.htm">触屏版</a>&nbsp;&nbsp;
-                        <a href="help/app.html">客户端</a>
-                    </strong>
-                </p>
-                <br>
-                © 2007-2013 Paixie All Rights Reserved<br>
-                闽B2-20110084
-                <br>
-            </div>
+                    </a>
+                </strong>
+            </p>
+            <br>
+            <br>
+
+            <p>
+                <strong>
+                    <a style="color:#769fbf;" href="login/default.htm">登录</a>&nbsp;&nbsp;
+                    <a style="color:#769fbf;" href="register/default.htm">注册</a>
+                </strong>
+            </p>
+            <br>
+
+            <p>
+                <strong>
+                    <a href="../wap.paixie.net/default.htm">极速版</a>&nbsp;&nbsp;
+                    <a href="default.htm">触屏版</a>&nbsp;&nbsp;
+                    <a href="help/app.html">客户端</a>
+                </strong>
+            </p>
+            <br>
+            © 2007-2013 Paixie All Rights Reserved<br>
+            闽B2-20110084
+            <br>
+        </div>
 
     </div>
 </div>
