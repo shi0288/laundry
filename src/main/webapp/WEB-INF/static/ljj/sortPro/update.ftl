@@ -1,9 +1,6 @@
 <#assign menu="sortPro">
 <#include "/ljj/head.ftl">
 <!--main content start-->
-<style type="text/css">
-
-</style>
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->

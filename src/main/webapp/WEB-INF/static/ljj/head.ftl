@@ -88,7 +88,7 @@
 						<a <#if menu="sortPro">class="active"</#if> href="${INTER_PATH}/ljj/sortPro/list.htm"> <i class="icon-comments"></i> <span>分类管理</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="account">class="active"</#if> href="${INTER_PATH}/ljj/account/list.htm"> <i class="icon-folder-open"></i> <span>充值管理</span></a>
+						<a <#if menu="brand">class="active"</#if> href="${INTER_PATH}/ljj/brand/list.htm"> <i class="icon-folder-open"></i> <span>品牌管理</span></a>
 					</li>
 					<li class="">
 						<a <#if menu="moneyLog">class="active"</#if> href="${INTER_PATH}/ljj/moneyLog/list.htm"> <i class="icon-cogs"></i> <span>交易记录</span></a>

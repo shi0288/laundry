@@ -1,19 +1,18 @@
-<#assign menu="mainPro">
+<#assign menu="brand">
 <#include "/ljj/head.ftl">
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/mainPro/update.json"
-              autocomplete="off" method="post"
-              enctype="multipart/form-data">
+        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/brand/update.json"
+              autocomplete="off" method="post" enctype="multipart/form-data">
             <fieldset>
                 <div class="row">
                     <input type="hidden" name="id" value="${e._id}">
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                修改模块信息
+                                修改分类信息
                             </header>
                             <div class="panel-body">
                                 <div class="form-group">
@@ -21,6 +20,13 @@
                                     <div class="col-sm-10">
                                         <input type="text" style="font-size:15px;width: 300px;" class="form-control"
                                                name="name" id="name" value="${e.name}"/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">图片上传</label>
+                                    <div class="col-sm-10">
+                                        <input type="file"  class="form-control" name="file" id="inputFile"/>
                                     </div>
                                 </div>
 
@@ -35,25 +41,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">主题颜色</label>
+                                    <label class="col-sm-2 col-sm-2 control-label">首字母</label>
                                     <div class="col-sm-10">
-                                        <select name="colorTip" class="form-control">
-                                            <option <#if e.colorTip=='#ffaf51'>selected</#if>   value="#ffaf51">橘黄色</option>
-                                            <option <#if e.colorTip=='#ff8080'>selected</#if>   value="#ff8080">粉红色</option>
-                                            <option <#if e.colorTip=='#688fd0'>selected</#if>   value="#688fd0">蓝色</option>
-                                            <option <#if e.colorTip=='#c49741'>selected</#if>   value="#c49741">卡其色</option>
-                                            <option <#if e.colorTip=='#875e78'>selected</#if>   value="#875e78">紫色</option>
-                                            <option <#if e.colorTip=='#94d15e'>selected</#if>   value="#94d15e">绿色</option>
-                                        </select>
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="mark" id="mark" value="${(e.mark)!''}"/>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">图片上传</label>
-                                    <div class="col-sm-10">
-                                        <input type="file"  class="form-control" name="file" id="inputFile"/>
-                                    </div>
-                                </div>
 
 
                                 <div class="form-group">
@@ -91,7 +85,7 @@
                 $('#submit').button('reset');
                 if (data.result) {
                     bootbox.alert("修改成功，将刷新页面", function () {
-                        location.href = "${INTER_PATH}/ljj/mainPro/list.htm";
+                        location.href = "${INTER_PATH}/ljj/brand/list.htm";
                     });
                 } else {
                     showErrors($('#add_user_form'), data.msg);
@@ -99,7 +93,7 @@
             }
         });
         $('#back').click(function(){
-            location.href = "${INTER_PATH}/ljj/mainPro/list.htm";
+            location.href = "${INTER_PATH}/ljj/brand/list.htm";
         })
     });
 </script>

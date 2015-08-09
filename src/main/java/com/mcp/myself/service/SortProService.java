@@ -22,7 +22,6 @@ public class SortProService extends BaseService{
     private String MONGO_NAME=MongoConst.MONGO_SORTPRO;
 
     public ModelMap getAllListPage(ModelMap modelMap,HttpServletRequest request) {
-
         modelMap=this.getAllListPage(MONGO_NAME,modelMap,request);
         PageVo<DBObject> pageVo= (PageVo<DBObject>) modelMap.get("pageVo");
         List list=pageVo.getList();
