@@ -1,10 +1,10 @@
-<#assign menu="brand">
+<#assign menu="pictures">
 <#include "/ljj/head.ftl">
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/brand/update.json"
+        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/pictures/update.json"
               autocomplete="off" method="post" enctype="multipart/form-data">
             <fieldset>
                 <div class="row">
@@ -12,7 +12,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                修改品牌信息
+                                修改图片信息
                             </header>
                             <div class="panel-body">
                                 <div class="form-group">
@@ -41,13 +41,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">首字母</label>
+                                    <label class="col-sm-2 col-sm-2 control-label">顺序</label>
                                     <div class="col-sm-10">
                                         <input type="text" style="font-size:15px;width: 300px;" class="form-control"
-                                               name="mark" id="mark" value="${(e.mark)!''}"/>
+                                               name="sort" id="sort" value="${e.sort}"/>
                                     </div>
                                 </div>
-
 
 
                                 <div class="form-group">
@@ -85,7 +84,7 @@
                 $('#submit').button('reset');
                 if (data.result) {
                     bootbox.alert("修改成功，将刷新页面", function () {
-                        location.href = "${INTER_PATH}/ljj/brand/list.htm";
+                        location.href = "${INTER_PATH}/ljj/pictures/list.htm";
                     });
                 } else {
                     showErrors($('#add_user_form'), data.msg);
@@ -93,7 +92,7 @@
             }
         });
         $('#back').click(function(){
-            location.href = "${INTER_PATH}/ljj/brand/list.htm";
+            location.href = "${INTER_PATH}/ljj/pictures/list.htm";
         })
     });
 </script>

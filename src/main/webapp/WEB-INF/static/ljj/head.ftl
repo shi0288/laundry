@@ -91,7 +91,7 @@
 						<a <#if menu="brand">class="active"</#if> href="${INTER_PATH}/ljj/brand/list.htm"> <i class="icon-folder-open"></i> <span>品牌管理</span></a>
 					</li>
 					<li class="">
-						<a <#if menu="moneyLog">class="active"</#if> href="${INTER_PATH}/ljj/moneyLog/list.htm"> <i class="icon-cogs"></i> <span>交易记录</span></a>
+						<a <#if menu="pictures">class="active"</#if> href="${INTER_PATH}/ljj/pictures/list.htm"> <i class="icon-cogs"></i> <span>轮播图管理</span></a>
 					</li>
 					<li class="">
                         <a <#if menu="update_password">class="active"</#if> href="${INTER_PATH}/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>

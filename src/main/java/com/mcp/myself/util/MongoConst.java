@@ -14,6 +14,7 @@ public class MongoConst {
     public static final String MONGO_ADMIN="admin";
     public static final String MONGO_MAINPRO="mainPro";
     public static final String MONGO_SORTPRO="sortPro";
-    public static final String MONGO_BRANK="brank";
+    public static final String MONGO_BRAND="brand";
+    public static final String MONGO_PICTURES="pictures";
 
 }

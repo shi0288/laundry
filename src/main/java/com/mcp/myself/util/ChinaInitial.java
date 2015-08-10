@@ -2,7 +2,6 @@ package com.mcp.myself.util;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * Created by Administrator on 2015/8/9.
@@ -10,9 +9,20 @@ import java.util.Random;
 public class ChinaInitial {
 
     public static void main(String[] args) {
-        String str = "歙";
-        System.out.println(getPYIndexStr(str.split("")[1],true));
-    }
+        String str = "444";
+        if(getPYIndexStr(str.split("")[1],true)==null){
+            System.out.println(111);
+        }
+        String rst=getPYIndexStr(str.split("")[1],true);
+        try {
+            int _rst=Integer.parseInt(rst);
+            System.out.println(_rst);
+        }catch (NumberFormatException e){
+            System.out.println(rst);
+        }
+
+
+}
 
 
     private static Map<String, String> exceptWords = new HashMap<String, String>();
@@ -33,7 +43,7 @@ public class ChinaInitial {
         exceptWords.put("P", "邳濮郫丕冸");
         exceptWords.put("Q", "喬綦衢岐朐邛丠丬亝冾兛匤");
         exceptWords.put("R", "榕刄");
-        exceptWords.put("S", "泗睢沭嵊歙莘嵩鄯丄丗侺兙");
+        exceptWords.put("S", "泗睢沭嵊歙莘嵩鄯丄丗侺兙嗄");
         exceptWords.put("T", "潼滕郯亣侹侻");
         exceptWords.put("W", "婺涠汶亾仼卍卐");
         exceptWords.put("X", "鑫盱浔荥淅浠亵丅伈兇");
@@ -70,7 +80,7 @@ public class ChinaInitial {
     private static String getPYIndexChar(char strChinese, boolean bUpCase, String propterty) {
 
         int charGBK = strChinese;
-        String result=null;
+        String result="";
         if (charGBK >= 45217 && charGBK <= 45252)
             result = "A";
         else if (charGBK >= 45253 && charGBK <= 45760)

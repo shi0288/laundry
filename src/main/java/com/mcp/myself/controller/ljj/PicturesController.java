@@ -2,8 +2,7 @@ package com.mcp.myself.controller.ljj;
 
 import com.mcp.myself.bean.JsonVo;
 import com.mcp.myself.constant.SystemConstant;
-import com.mcp.myself.service.BrandService;
-import com.mcp.myself.util.ChinaInitial;
+import com.mcp.myself.service.PicturesService;
 import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
@@ -24,53 +23,55 @@ import java.io.File;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("ljj/brand")
-public class BrandController extends BaseAction {
+@RequestMapping("ljj/pictures")
+public class PicturesController extends BaseAction {
 
 
     @Autowired
-    private BrandService brandService;
+    private PicturesService picturesService;
 
     @RequestMapping(value = "list.htm", method = RequestMethod.GET)
     public String list(
             HttpServletRequest request, ModelMap modelMap) {
-        modelMap = brandService.getAllListPage(modelMap, request);
-        return "ljj/brand/list";
+        modelMap = picturesService.getAllListPage(modelMap, request);
+        return "ljj/pictures/list";
     }
 
     @ResponseBody
     @RequestMapping("add.json")
-    public JsonVo<DBObject> add(String name,int status,MultipartFile file,HttpServletRequest request) throws
+    public JsonVo<DBObject> add(String name,int status,int sort,MultipartFile file,HttpServletRequest request) throws
             IOException{
         JsonVo<DBObject> json = new JsonVo<DBObject>();
 
-        String fileName=null;
-        if (file!=null) {
-            //获取文件 存储位置
-            String realPath = request.getSession().getServletContext()
-                    .getRealPath(SystemConstant.UPLOAD_FOLDER+"/img");
-            File pathFile = new File(realPath);
-            if (!pathFile.exists()) {
-                //文件夹不存 创建文件
-                pathFile.mkdirs();
-            }
-            long fileSize= file.getSize();
-            if(fileSize>SystemConstant.UPLOAD_FILE_SIZE){
-                json.setMsg("文件太大了，弄小点");
-                json.setResult(false);
-                return json;
-            }
-            //将文件copy上传到服务器
-            String[] jpgArr=file.getOriginalFilename().split("\\.");
-            String jpg=jpgArr[jpgArr.length-1];
-            if(!"jpg".equals(jpg)){
-                json.setMsg("文件格式不支持上传");
-                json.setResult(false);
-                return json;
-            }
-            fileName = System.currentTimeMillis()+"."+jpg;
-            file.transferTo(new File(realPath + "/" + fileName));
+        if (file==null) {
+            json.setMsg("必须上传图片");
+            json.setResult(false);
+            return json;
         }
+        //获取文件 存储位置
+        String realPath = request.getSession().getServletContext()
+                .getRealPath(SystemConstant.UPLOAD_FOLDER+"/img");
+        File pathFile = new File(realPath);
+        if (!pathFile.exists()) {
+            //文件夹不存 创建文件
+            pathFile.mkdirs();
+        }
+        long fileSize= file.getSize();
+        if(fileSize>SystemConstant.UPLOAD_FILE_SIZE){
+            json.setMsg("文件太大了，弄小点");
+            json.setResult(false);
+            return json;
+        }
+        //将文件copy上传到服务器
+        String[] jpgArr=file.getOriginalFilename().split("\\.");
+        String jpg=jpgArr[jpgArr.length-1];
+        if(!"jpg".equals(jpg)){
+            json.setMsg("文件格式不支持上传");
+            json.setResult(false);
+            return json;
+        }
+        String fileName = System.currentTimeMillis()+"."+jpg;
+        file.transferTo(new File(realPath + "/" + fileName));
         //校验
         if (StringUtils.isBlank(name)) {
             json.setMsg("名字不能为空");
@@ -80,23 +81,14 @@ public class BrandController extends BaseAction {
         DBObject dbObject = new BasicDBObject();
         dbObject.put("name", name);
         dbObject.put("status", status);
-        String mark = ChinaInitial.getPYIndexStr(name.split("")[1],true);
-        if(mark!=null&&!"".equals(mark)){
-            try {
-                int _rst=Integer.parseInt(mark);
-                mark="ZZ";
-            }catch (NumberFormatException e){
-            }
-            dbObject.put("mark", mark);
-        }
-        if(fileName!=null){
-            dbObject.put("fileName", fileName);
-        }
+        dbObject.put("sort", sort);
+        dbObject.put("fileName", fileName);
         dbObject.put("createTime",System.currentTimeMillis());
-        MongoUtil.getDb().getCollection(MongoConst.MONGO_BRAND).insert(dbObject);
+        MongoUtil.getDb().getCollection(MongoConst.MONGO_PICTURES).insert(dbObject);
         json.setResult(true);
         return json;
     }
+
 
 
     /**
@@ -105,9 +97,9 @@ public class BrandController extends BaseAction {
     @RequestMapping(value = "update.htm", method = RequestMethod.GET)
     public String update(@RequestParam(value = "id") String id,
                          ModelMap modelMap) {
-        DBObject dbObject = brandService.getById(id);
+        DBObject dbObject = picturesService.getById(id);
         modelMap.put("e", dbObject);
-        return "ljj/brand/update";
+        return "ljj/pictures/update";
     }
 
 
@@ -116,7 +108,7 @@ public class BrandController extends BaseAction {
      */
     @ResponseBody
     @RequestMapping("update.json")
-    public JsonVo<DBObject> updateEntity(String id,String name,String mark,int status,MultipartFile file,HttpServletRequest request) throws
+    public JsonVo<DBObject> updateEntity(String id,String name,int sort,int status,MultipartFile file,HttpServletRequest request) throws
             IOException {
         //获取文件 存储位置
         JsonVo<DBObject> json = new JsonVo<DBObject>();
@@ -162,12 +154,12 @@ public class BrandController extends BaseAction {
         dbObject.put("_id",new ObjectId(id));
         dbObject.put("name", name);
         dbObject.put("status", status);
-        dbObject.put("mark", mark);
+        dbObject.put("sort", sort);
         if(fileName!=null){
             dbObject.put("fileName", fileName);
         }
         dbObject.put("createTime",System.currentTimeMillis());
-        json.setResult(brandService.update(dbObject));
+        json.setResult(picturesService.update(dbObject));
         return json;
     }
 

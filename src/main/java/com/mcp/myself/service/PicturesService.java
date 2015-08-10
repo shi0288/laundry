@@ -14,10 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 
 
 @Service
-public class BrandService extends BaseService{
+public class PicturesService extends BaseService{
 
 
-    private String MONGO_NAME=MongoConst.MONGO_BRAND;
+    private String MONGO_NAME=MongoConst.MONGO_PICTURES;
 
 
     public ModelMap getAllListPage(ModelMap modelMap,HttpServletRequest request) {

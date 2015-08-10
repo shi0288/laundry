@@ -42,34 +42,23 @@
         <div class="touchslider">
             <div class="touchslider-viewport" style="width:100%;overflow:hidden">
                 <div>
-                    <div class="touchslider-item"><a href="topic/739.html"><img
-                            src="http://img-cdn2.paixie.net/newspic/20140408/1396940354243f5b.jpg"
-                            style="vertical-align:top;"/></a></div>
-                    <div class="touchslider-item"><a href="topic/730.html"><img
-                            src="http://img-cdn2.paixie.net/newspic/20140328/1395970986accb4f.jpg"
-                            style="vertical-align:top;"/></a></div>
-                    <div class="touchslider-item"><a href="topic/725.html"><img
-                            src="http://img-cdn2.paixie.net/newspic/20140331/1396235117d367d2.jpg"
-                            style="vertical-align:top;"/></a></div>
-                    <div class="touchslider-item"><a href="topic/733.html"><img
-                            src="http://img-cdn2.paixie.net/newspic/20140401/13963430797a3567.jpg"
-                            style="vertical-align:top;"/></a></div>
-                    <div class="touchslider-item"><a href="topic/731.html"><img
-                            src="http://img-cdn2.paixie.net/newspic/20140404/139657373135668e.jpg"
-                            style="vertical-align:top;"/></a></div>
-                    <div class="touchslider-item"><a href="topic/732.html"><img
-                            src="http://img-cdn2.paixie.net/newspic/20140331/13962355233033ac.jpg"
-                            style="vertical-align:top;"/></a></div>
+                    <#list pictures as p>
+                        <div class="touchslider-item"><a href="topic/739.html"><img
+                                src="${UPLOAD_BASE_PATH}/img/${p.fileName}"
+                                style="vertical-align:top;"/></a></div>
+
+                    </#list>
                 </div>
             </div>
 
             <div class="touchslider-navtag">
-                <span class="touchslider-nav-item touchslider-nav-item-current"></span>
-                <span class="touchslider-nav-item "></span>
-                <span class="touchslider-nav-item "></span>
-                <span class="touchslider-nav-item "></span>
-                <span class="touchslider-nav-item "></span>
-                <span class="touchslider-nav-item "></span>
+            <#list pictures as p>
+                <#if p_index==0>
+                    <span class="touchslider-nav-item touchslider-nav-item-current"></span>
+                <#else>
+                    <span class="touchslider-nav-item "></span>
+                </#if>
+            </#list>
             </div>
         </div>
 
@@ -80,8 +69,8 @@
             <div class="well pxui-tab pxui-tab-nav pxui-tab-no-top">
                 <a class="selected"><i></i>首页<span></span></a>
                 <a href="sort.html" data-transition="slide"><i></i>分类<span></span></a>
-                <a href="brand/default.htm"><i></i>品牌<span></span></a>
-                <a href="tuan/default.htm"><i></i>团购<span></span></a>
+                <a href="brand.html"><i></i>品牌<span></span></a>
+                <a href="tuan.html"><i></i>团购<span></span></a>
 
             </div>
         </div>

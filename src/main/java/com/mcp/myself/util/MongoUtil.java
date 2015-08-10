@@ -45,6 +45,15 @@ public class MongoUtil {
         return cur.toArray();
     }
 
+    public static List<DBObject> queryByGroup(String table,String key,DBObject query){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        List list = collection.distinct(key,query);
+        if(list.size()==0){
+            return new ArrayList<>();
+        }
+        return list;
+    }
+
 
     public static List<DBObject> queryForPage(String table,Map<String,Object> map,int curPage,int pageSize){
         DBCollection collection = MongoUtil.getDb().getCollection(table);

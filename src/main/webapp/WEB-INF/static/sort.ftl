@@ -27,8 +27,8 @@
             <div class="well pxui-tab pxui-tab-nav pxui-tab-no-top">
                 <a href="index.html"><i></i>首页<span></span></a>
                 <a class="selected"><i></i>分类<span></span></a>
-                <a href="brand/default.htm"><i></i>品牌<span></span></a>
-                <a href="tuan/default.htm"><i></i>团购<span></span></a>
+                <a href="brand.html"><i></i>品牌<span></span></a>
+                <a href="tuan.html"><i></i>团购<span></span></a>
             </div>
         </div>
 
