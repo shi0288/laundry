@@ -407,3 +407,67 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     max-width: 100px;
     width: 100%;
 }
+
+
+.page-title {
+    line-height: 40px;
+    font-size: 14px;
+    text-align: center;
+    background: #fb4e3a;
+    border: 1px solid #ea3520;
+    border-radius: 5px;
+    color: #fff;
+    margin-bottom: 12px;
+    position: relative;
+    height: 40px;
+    overflow: hidden;
+}
+
+.page-title a.return {
+    background-position: -76px -45px;
+    width: 62px;
+    padding-left: 0;
+    text-indent: 8px;
+    left: 0;
+}
+
+.page-title a {
+    position: absolute;
+    margin: 5px 6px;
+    background-position: 0 -144px;
+    display: inline-block;
+    padding-left: 15px;
+    line-height: 30px;
+    font-size: 14px;
+    right: 0;
+    color: #fff;
+}
+
+.page-title i {
+    display: inline-block;
+    width: 15px;
+    background-position: -124px -144px;
+    height: 30px;
+    vertical-align: top;
+}
+
+.product-tab {
+    border: 1px solid #d7d7d7;
+    border-radius: 3px;
+    background: #fefefe;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    background-image: -webkit-gradient(linear,0% 0%, 0% 100%, from(#FEFEFE), to(#f4f4f4));
+    background-image: gradient(linear,0% 0%, 0% 100%, from(#FEFEFE), to(#f4f4f4));
+}
+
+.product-tab a.selected {
+    background: #e1e1e1;
+    border-top: 2px solid #fb4e3a;
+    line-height: 33px;
+    background-image: -webkit-gradient(linear,0% 0%, 0% 100%, from(#e1e1e1), to(#fdfdfd));
+    background-image: gradient(linear,0% 0%, 0% 100%, from(#e1e1e1), to(#fdfdfd));
+    color: #fb4e3a;
+    text-shadow: 1px 1px 1px #f8f8f8;
+}

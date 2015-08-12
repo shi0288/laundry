@@ -46,7 +46,6 @@
                         <div class="touchslider-item"><a href="topic/739.html"><img
                                 src="${UPLOAD_BASE_PATH}/img/${p.fileName}"
                                 style="vertical-align:top;"/></a></div>
-
                     </#list>
                 </div>
             </div>
@@ -101,21 +100,21 @@
             <#if e_index%2==0>
                 <div class="container-fluid">
                     <div class="pxui-area styles">
-                        <h2 style="background-color: ${(e.colorTip)!""} ; "><a href="p-_m0001s0001_.html" style="color:#FFFFFF;">${(e.name)!""}</a>
+                        <h2 style="background-color: ${(e.colorTip)!""} ; "><a href="${INTER_PATH}/product.html?mainProId=${e._id}" style="color:#FFFFFF;">${(e.name)!""}</a>
                         </h2>
-                        <a class="max" href="p-anta__1.html@page=5"><img
+                        <a class="max" href="${INTER_PATH}/product.html?mainProId=${e._id}"><img
                                 src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120" height="140"></a>
                         <div>
                             <p>
                                 <#list e.sortList as s>
                                    <#if s.tip==0>
-                                       <a href="nike/default.htm"
+                                       <a href="${INTER_PATH}/product.html?sortProId=${s._id}"
                                           style="background-color: ${(e.colorTip)!""} ; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
                                    <#else>
-                                       <a href="adidas/default.htm">${s.name}</a>
+                                       <a href="${INTER_PATH}/product.html?sortProId=${s._id}">${s.name}</a>
                                    </#if>
                                 </#list>
-                                <a href="p-_m0001s0001_.html" class="more">更多
+                                <a href="${INTER_PATH}/product.html?mainProId=${e._id}" class="more">更多
                                     <del><i class="arrow-right"></i></del>
                                 </a>
                             </p>
@@ -129,22 +128,22 @@
                             <p>
                                 <#list e.sortList as s>
                                     <#if s.tip==0>
-                                        <a href="p-daphne__1.html@special=1&amp;asc=id"
+                                        <a href="${INTER_PATH}/product.html?sortProId=${s._id}"
                                            style="margin-left:3px;margin-right:0px;background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
                                     <#else>
-                                        <a href="adidas/default.htm">${s.name}</a>
+                                        <a href="${INTER_PATH}/product.html?sortProId=${s._id}">${s.name}</a>
                                     </#if>
                                 </#list>
-                                <a href="p-_m0003s0003_.html" class="more">更多
+                                <a href="${INTER_PATH}/product.html?mainProId=${e._id}" class="more">更多
                                     <del><i class="arrow-right"></i></del>
                                 </a>
                             </p>
                         </div>
-                        <a class="max" href="moolecole/@page=5"><img
-                                src="http://img-cdn2.paixie.net/newspic/20140408/13969173357d0aa6.jpg" width="120"
+                        <a class="max" href="${INTER_PATH}/product.html?mainProId=${e._id}"><img
+                                src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120"
                                 height="140"></a>
 
-                        <h2 style="background-color: ${(e.colorTip)!""}"><a href="p-_m0003s0003_.html"
+                        <h2 style="background-color: ${(e.colorTip)!""}"><a href="${INTER_PATH}/product.html?mainProId=${e._id}"
                                                                             style="color:#FFFFFF;">${(e.name)!""}</a>
                         </h2>
                     </div>

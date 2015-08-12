@@ -94,7 +94,7 @@
 						<a <#if menu="pictures">class="active"</#if> href="${INTER_PATH}/ljj/pictures/list.htm"> <i class="icon-cogs"></i> <span>轮播图管理</span></a>
 					</li>
 					<li class="">
-                        <a <#if menu="update_password">class="active"</#if> href="${INTER_PATH}/manage/admin/update.htm"> <i class="icon-cogs"></i> <span>修改密码</span></a>
+                        <a <#if menu="product">class="active"</#if> href="${INTER_PATH}/ljj/product/list.htm"> <i class="icon-cogs"></i> <span>商品管理</span></a>
                     </li>
 				</ul>
 			</div>

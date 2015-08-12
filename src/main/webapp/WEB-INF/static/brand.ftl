@@ -28,7 +28,7 @@
                 <a href="index.html"><i></i>首页<span></span></a>
                 <a href="sort.html"><i></i>分类<span></span></a>
                 <a class="selected"><i></i>品牌<span></span></a>
-                <a href="tuan/default.htm"><i></i>团购<span></span></a>
+                <a href="product.html"><i></i>团购<span></span></a>
             </div>
         </div>
         <div class="brand-tab">
@@ -53,7 +53,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="../adidas/default.htm"><i><img src="http://img-cdn2.paixie.net/newspic/20130225/1361773160886805.jpg" onerror="this.src='http://ued.paixie.net/images/brandlist/no-brand-logo.png?1'" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="${INTER_PATH}/product.html?brandId=${b._id}"><i><img src="http://img-cdn2.paixie.net/newspic/20130225/1361773160886805.jpg" onerror="this.src='http://ued.paixie.net/images/brandlist/no-brand-logo.png?1'" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="../adidas/default.htm"><i><img src="http://img-cdn2.paixie.net/newspic/20130225/1361773160886805.jpg" onerror="this.src='http://ued.paixie.net/images/brandlist/no-brand-logo.png?1'" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="${INTER_PATH}/product.html?brandId=${b._id}"><i><img src="http://img-cdn2.paixie.net/newspic/20130225/1361773160886805.jpg" onerror="this.src='http://ued.paixie.net/images/brandlist/no-brand-logo.png?1'" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>

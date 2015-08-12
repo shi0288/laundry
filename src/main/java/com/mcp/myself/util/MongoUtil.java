@@ -47,7 +47,7 @@ public class MongoUtil {
 
     public static List<DBObject> queryByGroup(String table,String key,DBObject query){
         DBCollection collection = MongoUtil.getDb().getCollection(table);
-        List list = collection.distinct(key,query);
+        List list = collection.distinct(key, query);
         if(list.size()==0){
             return new ArrayList<>();
         }
@@ -60,13 +60,28 @@ public class MongoUtil {
         BasicDBObject query=new BasicDBObject();
         if(map!=null){
             for(String key:map.keySet()){
-                System.out.println(key+"   "+map.get(key));
                 query.append(key,map.get(key));
             }
         }
         int skip = (curPage-1) * pageSize;
         String sortStr ="createTime";
         DBCursor cur = collection.find(query).skip(skip).limit(pageSize).sort(new BasicDBObject(sortStr, -1));
+        if(cur.count()==0){
+            return new ArrayList<>();
+        }
+        return cur.toArray();
+    }
+
+    public static List<DBObject> queryForPage(String table,Map<String,Object> map,int curPage,int pageSize,String sortStr,int orderBy){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        BasicDBObject query=new BasicDBObject();
+        if(map!=null){
+            for(String key:map.keySet()){
+                query.append(key,map.get(key));
+            }
+        }
+        int skip = (curPage-1) * pageSize;
+        DBCursor cur = collection.find(query).skip(skip).limit(pageSize).sort(new BasicDBObject(sortStr, orderBy));
         if(cur.count()==0){
             return new ArrayList<>();
         }

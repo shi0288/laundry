@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +53,11 @@ public class IndexService extends BaseService {
             marks.remove(i);
             marks.add(i,dbObject);
         }
+        return modelMap;
+    }
+
+    public ModelMap getIndexProduct(ModelMap modelMap,HttpServletRequest request){
+        modelMap=this.getAllListPage(MongoConst.MONGO_PRODUCT,modelMap,request);
         return modelMap;
     }
 

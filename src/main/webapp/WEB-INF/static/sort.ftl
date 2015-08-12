@@ -6,7 +6,6 @@
         <div class="com-header-area">
             <a href="default.htm" class="com-header-logo"></a>
             <dfn></dfn>
-
             <p>
                 <a class="com-header-search" id="js-com-header-search">
                     <del></del>
@@ -36,24 +35,22 @@
             <div class="well sortList" style="padding: 0">
                 <div class="pxui-list">
                     <#list mainPro as e>
-                        <a href="../p-_m0001s0001_.html">
+                        <a href="${INTER_PATH}/product.html?mainProId=${e._id}">
                             <span></span>
                             <b>${e.name}</b>
                             <i class="arrow-right"></i>
                         </a>
                         <p>
                         <#list e.sortList as s>
-                            <a href="../p-m0001s0014_1.html">${s.name}</a>&nbsp;
+                            <a href="${INTER_PATH}/product.html?sortProId=${s._id}">${s.name}</a>&nbsp;
                          </#list>
                         </p>
                     </#list>
                 </div>
             </div>
         </div>
-
     </div>
     <!-- /content -->
-
 
 </div>
 

@@ -14,10 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by bjjg11 on 2014/8/5.
@@ -26,51 +23,80 @@ import java.util.Map;
 
 public class BaseService {
 
-    public ModelMap getAllListPage(String tableName,ModelMap modelMap,HttpServletRequest request) {
 
+    public ModelMap getAllListPage(String tableName, ModelMap modelMap, HttpServletRequest request) {
         Enumeration<String> valueNames = request.getParameterNames();
-        Map<String,Object> datas = null;
+        Map<String, Object> datas = null;
         if (!valueNames.hasMoreElements()) {
         } else {
-            datas = new HashMap<String,Object>();
+            datas = new HashMap<String, Object>();
             while (valueNames.hasMoreElements()) {
                 String name = valueNames.nextElement().toString();
                 Object value = request.getParameter(name);
-                if (value!=null&&!"".equals(value.toString())) {
-                    if("status".equals(name)){
-                        value=Integer.parseInt(value.toString());
+                if (value != null && !"".equals(value.toString())) {
+                    if ("status".equals(name)) {
+                        value = Integer.parseInt(value.toString());
                     }
-                    if("tip".equals(name)){
-                        value=Integer.parseInt(value.toString());
+                    if ("tip".equals(name)) {
+                        value = Integer.parseInt(value.toString());
+                    }
+                    if ("oldPrice".equals(name)) {
+                        value = Integer.parseInt(value.toString());
+                    }
+                    if ("price".equals(name)) {
+                        value = Integer.parseInt(value.toString());
+                    }
+                    if ("clickNum".equals(name)) {
+                        value = Integer.parseInt(value.toString());
+                    }
+                    if ("saleNum".equals(name)) {
+                        value = Integer.parseInt(value.toString());
+                    }
+                    if ("orderBy".equals(name)) {
+                        value = Integer.parseInt(value.toString());
                     }
                     datas.put(name, value);
                 }
             }
         }
-        int p=1;
-        if (datas !=null && datas.get("p")!=null) {
-            p=Integer.parseInt(datas.get("p").toString());
+        int p = 1;
+        if (datas != null && datas.get("p") != null) {
+            p = Integer.parseInt(datas.get("p").toString());
             datas.remove("p");
         }
+        Map cond=new HashMap();
         PageVo<DBObject> pageVo = new PageVo<DBObject>(p);
         pageVo.setUrlOrMethod(false);
         pageVo.setRows(SystemConstant.ROW);
-        List<DBObject> list = MongoUtil.queryForPage(tableName, datas, p, pageVo.getRows());
+        List<DBObject> list = null;
+        if (datas == null) {
+            list = MongoUtil.queryForPage(tableName, datas, p, pageVo.getRows());
+        } else {
+            cond.putAll(datas);
+            if (datas.get("sortStr") == null) {
+                list = MongoUtil.queryForPage(tableName, datas, p, pageVo.getRows());
+            } else {
+                String sortStr = (String) datas.get("sortStr");
+                datas.remove("sortStr");
+                int orderBy = (int) datas.get("orderBy");
+                datas.remove("orderBy");
+                list = MongoUtil.queryForPage(tableName, datas, p, pageVo.getRows(), sortStr, orderBy);
+            }
+        }
         pageVo.setList(list);
         pageVo.setCount(MongoUtil.queryCount(tableName, datas));
         modelMap.put("pageVo", pageVo);
-        modelMap.put("cond", datas);
+        modelMap.put("cond", cond);
         modelMap.put("p", p);
         return modelMap;
     }
 
 
-
-    public DBObject getById(String tableName,String id) {
+    public DBObject getById(String tableName, String id) {
         return MongoUtil.findOne(tableName, id);
     }
 
-    public boolean update(String tableName,DBObject dbObject) {
+    public boolean update(String tableName, DBObject dbObject) {
         DBObject query = new BasicDBObject();
         query.put("_id", dbObject.get("_id"));
         dbObject.removeField("_id");
@@ -81,13 +107,11 @@ public class BaseService {
                 false,
                 false);
         int i = writeResult.getN();
-        if(i!=1){
+        if (i != 1) {
             return false;
         }
         return true;
     }
-
-
 
 
 }
