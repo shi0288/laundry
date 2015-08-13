@@ -28,25 +28,16 @@
         </div>
 
         <!-- **********************   首页轮播  ********************** -->
-        <script>
-            jQuery(function ($) {
-                $(window).resize(function () {
-                    var width = document.body.clientWidth;
-                    $('.touchslider-item a').css('width', width);
-                    $('.touchslider-viewport').css('height', 300 * (width / 640));
-                }).resize();
-                $(".touchslider").touchSlider({mouseTouch: true, autoplay: true});
-            });
-        </script>
+
 
         <div class="touchslider">
             <div class="touchslider-viewport" style="width:100%;overflow:hidden">
                 <div>
-                    <#list pictures as p>
-                        <div class="touchslider-item"><a href="topic/739.html"><img
-                                src="${UPLOAD_BASE_PATH}/img/${p.fileName}"
-                                style="vertical-align:top;"/></a></div>
-                    </#list>
+                <#list pictures as p>
+                    <div class="touchslider-item"><a href="topic/739.html"><img
+                            src="${UPLOAD_BASE_PATH}/img/nemo.jpg"
+                            style="vertical-align:top;width:100%"/></a></div>
+                </#list>
                 </div>
             </div>
 
@@ -95,61 +86,64 @@
 
         <!-- **********************   栏目 ********************** -->
 
-
     <#list mainPro as e>
-            <#if e_index%2==0>
-                <div class="container-fluid">
-                    <div class="pxui-area styles">
-                        <h2 style="background-color: ${(e.colorTip)!""} ; "><a href="${INTER_PATH}/product.html?mainProId=${e._id}" style="color:#FFFFFF;">${(e.name)!""}</a>
-                        </h2>
-                        <a class="max" href="${INTER_PATH}/product.html?mainProId=${e._id}"><img
-                                src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120" height="140"></a>
-                        <div>
-                            <p>
-                                <#list e.sortList as s>
-                                   <#if s.tip==0>
-                                       <a href="${INTER_PATH}/product.html?sortProId=${s._id}"
-                                          style="background-color: ${(e.colorTip)!""} ; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
-                                   <#else>
-                                       <a href="${INTER_PATH}/product.html?sortProId=${s._id}">${s.name}</a>
-                                   </#if>
-                                </#list>
-                                <a href="${INTER_PATH}/product.html?mainProId=${e._id}" class="more">更多
-                                    <del><i class="arrow-right"></i></del>
-                                </a>
-                            </p>
-                        </div>
+        <#if e_index%2==0>
+            <div class="container-fluid">
+                <div class="pxui-area styles">
+                    <h2 style="background-color: ${(e.colorTip)!""} ; "><a
+                            href="${INTER_PATH}/product.html?mainProId=${e._id}"
+                            style="color:#FFFFFF;">${(e.name)!""}</a>
+                    </h2>
+                    <a class="max" href="${INTER_PATH}/product.html?mainProId=${e._id}"><img
+                            src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120" height="140"></a>
+
+                    <div>
+                        <p>
+                            <#list e.sortList as s>
+                                <#if s.tip==0>
+                                    <a href="${INTER_PATH}/product.html?sortProId=${s._id}"
+                                       style="background-color: ${(e.colorTip)!""} ; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
+                                <#else>
+                                    <a href="${INTER_PATH}/product.html?sortProId=${s._id}">${s.name}</a>
+                                </#if>
+                            </#list>
+                            <a href="${INTER_PATH}/product.html?mainProId=${e._id}" class="more">更多
+                                <del><i class="arrow-right"></i></del>
+                            </a>
+                        </p>
                     </div>
                 </div>
-            <#else>
-                <div class="container-fluid">
-                    <div class="pxui-area styles">
-                        <div>
-                            <p>
-                                <#list e.sortList as s>
-                                    <#if s.tip==0>
-                                        <a href="${INTER_PATH}/product.html?sortProId=${s._id}"
-                                           style="margin-left:3px;margin-right:0px;background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
-                                    <#else>
-                                        <a href="${INTER_PATH}/product.html?sortProId=${s._id}">${s.name}</a>
-                                    </#if>
-                                </#list>
-                                <a href="${INTER_PATH}/product.html?mainProId=${e._id}" class="more">更多
-                                    <del><i class="arrow-right"></i></del>
-                                </a>
-                            </p>
-                        </div>
-                        <a class="max" href="${INTER_PATH}/product.html?mainProId=${e._id}"><img
-                                src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120"
-                                height="140"></a>
-
-                        <h2 style="background-color: ${(e.colorTip)!""}"><a href="${INTER_PATH}/product.html?mainProId=${e._id}"
-                                                                            style="color:#FFFFFF;">${(e.name)!""}</a>
-                        </h2>
+            </div>
+        <#else>
+            <div class="container-fluid">
+                <div class="pxui-area styles">
+                    <div>
+                        <p>
+                            <#list e.sortList as s>
+                                <#if s.tip==0>
+                                    <a href="${INTER_PATH}/product.html?sortProId=${s._id}"
+                                       style="margin-left:3px;margin-right:0px;background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
+                                <#else>
+                                    <a href="${INTER_PATH}/product.html?sortProId=${s._id}">${s.name}</a>
+                                </#if>
+                            </#list>
+                            <a href="${INTER_PATH}/product.html?mainProId=${e._id}" class="more">更多
+                                <del><i class="arrow-right"></i></del>
+                            </a>
+                        </p>
                     </div>
-                </div>
+                    <a class="max" href="${INTER_PATH}/product.html?mainProId=${e._id}"><img
+                            src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120"
+                            height="140"></a>
 
-            </#if>
+                    <h2 style="background-color: ${(e.colorTip)!""}"><a
+                            href="${INTER_PATH}/product.html?mainProId=${e._id}"
+                            style="color:#FFFFFF;">${(e.name)!""}</a>
+                    </h2>
+                </div>
+            </div>
+
+        </#if>
 
     </#list>
 

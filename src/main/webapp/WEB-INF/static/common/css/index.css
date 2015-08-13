@@ -180,7 +180,7 @@ Top5
     vertical-align: middle;
 }
 
-.com-header-logo,.com-header-area p a del,.page-title a,.page-title i,.com-footer i{
+.com-header-logo,.com-header-area p a del,.sale del,.page-title a,.page-title i,.com-footer i{
     background-size: 179px 175px;
     background-image: url(../css/images/public.gif@2);
 }
@@ -189,5 +189,7 @@ Top5
     display: inline-block;
     vertical-align: middle;
 }
+
+
 
 

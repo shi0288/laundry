@@ -1,6 +1,9 @@
 package com.mcp.myself.controller;
 
 import com.mcp.myself.service.IndexService;
+import com.mcp.myself.util.MongoConst;
+import com.mcp.myself.util.MongoUtil;
+import com.mongodb.DBObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -43,8 +46,16 @@ public class IndexController {
 
     @RequestMapping("product.html")
     public String product(ModelMap modelMap,HttpServletRequest request) {
-        modelMap=indexService.getIndexProduct(modelMap,request);
+        modelMap=indexService.getIndexProduct(modelMap, request);
         return "product";
+    }
+
+
+    @RequestMapping("proDetail.html")
+    public String proDetail(String proId,ModelMap modelMap,HttpServletRequest request) {
+        DBObject dbObject= MongoUtil.findOne(MongoConst.MONGO_PRODUCT,proId);
+        modelMap.put("e",dbObject);
+        return "proDetail";
     }
 
 
