@@ -11,7 +11,9 @@ import org.springframework.ui.ModelMap;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bjjg11 on 2014/8/5.
@@ -36,8 +38,19 @@ public class IndexService extends BaseService {
         List pictures = MongoUtil.queryAll(MongoConst.MONGO_PICTURES, new BasicDBObject().append("status", 0), "sort", 1);
         modelMap.put("pictures",pictures);
 
+
+        Map queryValues =new HashMap();
+        queryValues.put("tip",0);
+        queryValues.put("status",0);
+        List tuijian = MongoUtil.queryForPage(MongoConst.MONGO_PRODUCT, queryValues, 1, 5, "createTime", 1);
+        if(tuijian.size()!=5){
+            queryValues.remove("tip");
+            tuijian=MongoUtil.queryForPage(MongoConst.MONGO_PRODUCT, queryValues, 1, 5, "createTime", 1);
+        }
+        modelMap.put("tuijian",tuijian);
         return modelMap;
     }
+
 
 
     public ModelMap getIndexBrand(ModelMap modelMap){
@@ -61,19 +74,6 @@ public class IndexService extends BaseService {
         return modelMap;
     }
 
-    public static void main(String[] args) {
-        IndexService indexService=new IndexService();
-        ModelMap modelMap=indexService.getIndexBrand(new ModelMap());
-        List list= (List) modelMap.get("marks");
-        System.out.println(list.size());
-        for(int i=0;i<list.size();i++){
-            DBObject dbObject= (DBObject) list.get(i);
-            System.out.println("key:" + dbObject.get("key"));
-            List brandList= (List) dbObject.get("brandList");
-            System.out.println(brandList.size());
-        }
-
-    }
 
 
 }

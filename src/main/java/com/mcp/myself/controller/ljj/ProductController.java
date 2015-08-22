@@ -19,13 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,7 +50,7 @@ public class ProductController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("add.json")
-    public JsonVo<DBObject> add(String name, int status, String mainProId, String sortProId, String brandId, int oldPrice, int price,String desc,
+    public JsonVo<DBObject> add(String name, int status, String mainProId, String sortProId, String brandId, double oldPrice, double price,String desc,
                                 MultipartHttpServletRequest request) throws
             IOException {
         List<MultipartFile> files = request.getFiles("files");
@@ -125,8 +123,9 @@ public class ProductController extends BaseAction {
         dbObject.put("mainProId", mainProId);
         dbObject.put("sortProId", sortProId);
         dbObject.put("brandId", brandId);
-        dbObject.put("oldPrice", oldPrice);
-        dbObject.put("price", price);
+        DecimalFormat df   =new   DecimalFormat("#.00");
+        dbObject.put("oldPrice", df.format(oldPrice));
+        dbObject.put("price", df.format(price));
         dbObject.put("saleNum", 0);
         dbObject.put("clickNum", 0);
         dbObject.put("desc", desc);

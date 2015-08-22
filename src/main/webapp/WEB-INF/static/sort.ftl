@@ -4,7 +4,7 @@
     <div data-role="content">
         <!-- **********************   页头  ********************** -->
         <div class="com-header-area">
-            <a href="default.htm" class="com-header-logo"></a>
+            <a href="main.htm" class="com-header-logo"></a>
             <dfn></dfn>
             <p>
                 <a class="com-header-search" id="js-com-header-search">
@@ -24,7 +24,7 @@
         <!-- **********************   导航  ********************** -->
         <div class="container-fluid" style="margin-top: 10px">
             <div class="well pxui-tab pxui-tab-nav pxui-tab-no-top">
-                <a href="index.html"><i></i>首页<span></span></a>
+                <a href="main.html"><i></i>首页<span></span></a>
                 <a class="selected"><i></i>分类<span></span></a>
                 <a href="brand.html"><i></i>品牌<span></span></a>
                 <a href="tuan.html"><i></i>团购<span></span></a>

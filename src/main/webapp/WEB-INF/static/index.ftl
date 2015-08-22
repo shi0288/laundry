@@ -9,7 +9,7 @@
 
         <!-- **********************   页头  ********************** -->
         <div class="com-header-area">
-            <a href="default.htm" class="com-header-logo"></a>
+            <a href="main.htm" class="com-header-logo"></a>
             <dfn></dfn>
 
             <p>
@@ -58,10 +58,9 @@
         <div class="container-fluid">
             <div class="well pxui-tab pxui-tab-nav pxui-tab-no-top">
                 <a class="selected"><i></i>首页<span></span></a>
-                <a href="sort.html" data-transition="slide"><i></i>分类<span></span></a>
+                <a href="sort.html"><i></i>分类<span></span></a>
                 <a href="brand.html"><i></i>品牌<span></span></a>
                 <a href="tuan.html"><i></i>团购<span></span></a>
-
             </div>
         </div>
 
@@ -153,40 +152,38 @@
             <div class="pxui-area">
                 <h3><b>Top5</b> 热销推荐<a class="pxui-button" href="topic/594.html"><span>+</span> 更多 &gt;&gt;</a></h3>
 
+
                 <div class="pxui-shoes">
                     <div>
-                        <a href="shoe-361sport-7212220-500798.html">
+                    <#list tuijian as tui>
 
-                            <div class="img160" style="background-image: none;"><dfn></dfn><img
-                                    src="http://img12.paixie.net/361sport/201209/05/paixienet-461516-20120905-080851-p_thumb_160160.jpg">
-                            </div>
-                            <span class="name">361度 男跑步鞋 蓝/浅灰 7212220</span>
-                            <span class="price">￥159.00</span>
-                            <del class="price">￥339.00</del>
-                            <span class="tag">1</span>
-                        </a>
-                        <a href="shoe-anta-91315588-1-541341.html">
-
-                            <div class="img160" style="background-image: none;"><dfn></dfn><img
-                                    src="http://img9.paixie.net/anta/201305/22/c5d2e5dd32_thumb_160160.jpg"></div>
-                            <span class="name">安踏  男跑步鞋 安踏白/钢灰/钻石蓝/黑 91315588-1</span>
-                            <span class="price">￥169.00</span>
-                            <del class="price">￥259.00</del>
-                            <span class="tag">2</span>
-                        </a>
-
+                        <#if (tui_index<2)>
+                            <a href="shoe-361sport-7212220-500798.html">
+                                <div class="img160" style="background-image: none;"><dfn></dfn><img
+                                        src="http://img12.paixie.net/361sport/201209/05/paixienet-461516-20120905-080851-p_thumb_160160.jpg">
+                                </div>
+                                <span class="name">${tui.name}</span>
+                                <span class="price">￥${tui.price}</span>
+                                <del class="price">￥${tui.oldPrice}</del>
+                                <span class="tag">${tui_index+1}</span>
+                            </a>
+                        </#if>
+                    </#list>
                     </div>
+
                 </div>
+
+
                 <div class="pxui-list">
-                    <a href="shoe-josiny-141114130-590823.html"><span class="pxui-bg-blue pxui-color-white">3</span>
 
-                        <p>卓诗尼 休闲色拼接粗跟圆头通勤 女单鞋 绿色 141114130</p><b>￥179.00</b></a>
-                    <a href="shoe-361sport-7214418-503835.html"><span class="pxui-bg-blue pxui-color-white">4</span>
 
-                        <p>361度 男跑步鞋 黑/浅黄 7214418</p><b>￥99.00</b></a>
-                    <a href="shoe-adidas-G97666-548556.html"><span class="pxui-bg-blue pxui-color-white">5</span>
 
-                        <p>阿迪达斯 Crazy cool m 男跑步鞋 完美蓝/夜色蓝 G97666</p><b>￥499.00</b></a>
+                <#list tuijian as tui>
+                    <#if (tui_index>1) >
+                        <a href="${INTER_PATH}/proDetail.html?proId=${tui._id}"><span class="pxui-bg-blue pxui-color-white">${tui_index+1}</span>
+                            <p>${tui.name}</p><b>￥${tui.price}</b></a>
+                    </#if>
+                </#list>
                 </div>
             </div>
         </div>
@@ -195,7 +192,7 @@
         <!-- **********************   底部导航 ********************** -->
 
         <div class="com-footer-nav">
-            <a href="default.htm">首页</a><a href="help/index.html">帮助中心</a><a href="feedback/index.html">反馈建议</a>
+            <a href="index.html">首页</a><a href="help/index.html">帮助中心</a><a href="feedback/index.html">反馈建议</a>
         </div>
 
         <!-- **********************   页尾  ********************** -->

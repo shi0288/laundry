@@ -19,7 +19,7 @@ public class IndexController {
     private IndexService indexService;
 
 
-    @RequestMapping("index.html")
+    @RequestMapping("main.html")
     public String index(ModelMap modelMap) {
         modelMap=indexService.getIndexMainPro(modelMap);
         return "index";
@@ -27,8 +27,12 @@ public class IndexController {
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String init(ModelMap modelMap) {
-        modelMap=indexService.getIndexMainPro(modelMap);
-        return "index";
+        return "test";
+    }
+
+    @RequestMapping(value = "index.html", method = RequestMethod.GET)
+    public String test(ModelMap modelMap) {
+        return "test";
     }
 
 
@@ -50,6 +54,10 @@ public class IndexController {
         return "product";
     }
 
+    @RequestMapping("cart.html")
+    public String cart(ModelMap modelMap,HttpServletRequest request) {
+        return "cart";
+    }
 
     @RequestMapping("proDetail.html")
     public String proDetail(String proId,ModelMap modelMap,HttpServletRequest request) {
@@ -62,6 +70,10 @@ public class IndexController {
     @RequestMapping("haohao/login.html")
     public String ljjAdmin(ModelMap modelMap) {
         return "ljj/login";
+    }
+
+    public static void main(String[] args) {
+
     }
 
 

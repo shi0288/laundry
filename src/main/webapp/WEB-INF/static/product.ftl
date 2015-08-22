@@ -4,7 +4,7 @@
     <div data-role="content">
         <!-- **********************   页头  ********************** -->
         <div class="com-header-area">
-            <a href="default.htm" class="com-header-logo"></a>
+            <a href="main.htm" class="com-header-logo"></a>
             <dfn></dfn>
 
             <p>
@@ -46,7 +46,7 @@
                             <a href="${INTER_PATH}/proDetail.html?proId=${e._id}">
                                 <#list e.fileNames as f>
                                   <#if f_index==0>
-                                      <div class="img160" style="background-image: none;"><dfn></dfn><img src="${UPLOAD_BASE_PATH}/img/${f}"></div>
+                                      <div class="img160" style="background-image: none;"><dfn></dfn><img src="${UPLOAD_BASE_PATH}/img/${f}"   onerror="nofind();" /></div>
                                   </#if>
                                 </#list>
                                 <span class="name">${e.name}</span>

@@ -2,9 +2,11 @@
 <body>
 <div data-role="page">
     <div data-role="content">
+        <div class="card" id="card"><img width="60px" height="60px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
+        <div class="pro" id="pro"><img width="25px" height="25px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
         <!-- **********************   页头  ********************** -->
         <div class="com-header-area">
-            <a href="${INTER_PATH}/index.html" class="com-header-logo"></a>
+            <a href="main.html" class="com-header-logo"></a>
             <dfn></dfn>
             <p>
                 <a class="com-header-search" id="js-com-header-search">
@@ -14,14 +16,12 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a href="cart/default.htm" class="com-header-cart "><b id="header-cart-num">0</b>
+                <a href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>
             <div class="clear"></div>
         </div>
-
-
 
         <!-- **********************   导航  ********************** -->
         <div class="page-role container-fluid good-page" style="margin-top:15px">
@@ -38,8 +38,8 @@
                         <div>
                         <#list e.fileNames as fileName>
                             <div class="touchslider-item"><a href="topic/739.html"><span class="img320"><img
-                                    src="${UPLOAD_BASE_PATH}/img/11111.jpg"
-                                    style="vertical-align:top;width:100%"/></span></a></div>
+                                    src="${UPLOAD_BASE_PATH}/img/${fileName}"
+                                    style="vertical-align:top;width:100%"  onerror="nofind();"/></span></a></div>
                         </#list>
                         </div>
                     </div>
@@ -117,23 +117,15 @@
 
                     <li>
                         <b style="line-height:39px;">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量:</b>
-
                         <div>
-                            <p class="sizes">
-                                <a>
-                                    －
-                                </a>
-                                <span>1</span>
-                                <a>
-                                    ＋
-                                </a>
-                            </p>
+                            <div id="a" class="Spinner" style="margin-top:8px"></div>
                         </div>
+
                     </li>
                     <!--size-message-end-->
                 </ul>
                 <div class="com-footer-nav sale">
-                    <a href="default.htm">立即结算</a><a href="help/index.html" style="color:red">购物车</a>
+                    <a href="cart.html">立即结算</a><a id="toCard"  href="#" style="color:red" onClick="MoveBox(this)">购物车</a>
                 </div>
                 <h3 class="js-attrs-title">商品属性</h3>
                 <ul class="attrs">

@@ -792,3 +792,111 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     -webkit-box-shadow: 0px 0px 10px #E9E9E9;
     box-shadow: 0px 0px 10px #E9E9E9;
 }
+
+.Spinner{display:block;overflow:hidden;width:100px;margin:0 auto 15px auto;}
+.Spinner .Amount{width:36px;height:17px;padding:4px 5px;line-height:17px;border-width:1px 0;border-style:solid;border-color:#d9d9d9;float:left;text-align:center;color:#565656;outline:0;}
+.Spinner a{display:inline-block;width:25px;height:25px;border:1px solid #d9d9d9;background-color:#f7f7f7;float:left;cursor:pointer;outline:0;}
+.Spinner a i{font-style:normal;background:url(../css/images/BuynBtn.png) no-repeat;display:block;width:9px;height:9px;margin:8px;text-indent:999999%;overflow:hidden;}
+.Spinner .Decrease i{background-position:-9px -9px;}
+.Spinner .Increase i{background-position:-9px -0px;}
+.Spinner .DisDe i{background-position:-0px -9px;}
+.Spinner .DisIn i{background-position:-0px -0px;}
+
+.card {
+    display: none;
+    position:fixed;
+    top:50%;
+    left:30%;
+    margin:-30px 0 0 -50px;
+    width:100px;
+    height:60px;
+    z-index:99;
+}
+.pro{
+    display: none;
+}
+
+
+/**
+ 购物车
+*/
+
+.cart ul li table {
+    width: 100%;
+}
+
+.cart ul li:first-child {
+    border-top: 0;
+}
+
+.cart ul li {
+    width: 100%;
+    clear: both;
+    overflow: hidden;
+    border-top: 1px solid #e6e6e6;
+    padding: 10px 0;
+    list-style: none;
+}
+
+.cart ul li td p {
+    line-height: 22px;
+    font-size: 12px;
+}
+
+.cart ul li td {
+    padding-right: 5px;
+    font-size: 12px;
+}
+
+.cart ul li img {
+    border: 1px solid #e6e6e6;
+}
+
+.cart ul li .lse {
+    color: #5f7334;
+}
+
+.pl15 {
+    padding-left: 15px;
+}
+
+.cart ul li .num {
+    border: 1px solid #dcdcdc;
+    width: 40px;
+    height: 15px;
+    vertical-align: middle;
+}
+
+.cart ul li td a.del {
+    font-size: 12px;
+    color: #ec5e38;
+}
+
+.cart ul li td .checkbox {
+    font-size: 10px;
+    color: #ccc;
+    background: url(../css/images/box.png) 0 0 no-repeat;
+    background-size: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 0;
+    border: none;
+    vertical-align: middle;
+    width: 36px;
+    height: 36px;
+}
+
+
+.cart ul li td .checked {
+    font-size: 10px;
+    color: #ccc;
+    background: url(../css/images/check.png) 0 0 no-repeat;
+    background-size: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: 0;
+    border: none;
+    vertical-align: middle;
+    width: 36px;
+    height: 36px;
+}
