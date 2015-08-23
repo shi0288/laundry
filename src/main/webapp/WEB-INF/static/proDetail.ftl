@@ -1,6 +1,5 @@
-<#include "header.ftl">
 <body>
-<div data-role="page">
+<div data-role="page" data-dom-cache="false">
     <div data-role="content">
         <div class="card" id="card"><img width="60px" height="60px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
         <div class="pro" id="pro"><img width="25px" height="25px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
@@ -26,7 +25,7 @@
         <!-- **********************   导航  ********************** -->
         <div class="page-role container-fluid good-page" style="margin-top:15px">
             <div class="page-title">
-                <a class="return" href="javascript:history.back();void(0)">返 回</a>
+                <a class="return" href="javascript:history.back();">返 回</a>
                 商品详情
             </div>
             <div class="well" style="padding: 10px;">

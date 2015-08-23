@@ -10,6 +10,17 @@
     <script src="${BASE_PATH}/common/js/jquery.touchslider.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.Spinner.js"></script>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/index.css"/>
+    <script>
+        $(document).bind("mobileinit", function() {
+            // disable ajax nav
+            //$.mobile.ajaxEnabled=false;
+            $.mobile.page.prototype.options.domCache=true;
+            $.mobile.pageLoadErrorMessage = 'Sorry, something went wrong. Please try again.';
+            $.mobile.transitionFallbacks.slideout = "none";
+            $.mobile.buttonMarkup.hoverDelay = "false";
+        });
+    </script>
+
     <script src="${BASE_PATH}/common/js/jquery.mobile-1.4.5.min.js"></script>
     <script>
         $(document).on("pagebeforeshow", function (event) {
@@ -47,8 +58,12 @@
                     });
                     //全选
                     $("#check_all,#box_all").click(function(){
-                        $("input[name='check_item']").attr("checked",$(this).attr("checked"));
-                        $("input[name='check_item'],#check_all,#box_all").toggleClass("checked");
+                        console.log($(this).attr("class"));
+                        if($(this).attr("class")!="checkbox"){
+                            $("input[name='check_item'],#check_all,#box_all").removeClass("checked");
+                        }else{
+                            $("input[name='check_item'],#check_all,#box_all").addClass("checked");
+                        }
                     });
                 }
                 else {

@@ -1,4 +1,3 @@
-<#include "header.ftl">
 <body>
 <div data-role="page">
     <div data-role="content">
@@ -25,7 +24,7 @@
 
         <div class="page-role container-fluid good-page" style="margin-top:15px">
             <div class="page-title">
-                <a class="return" href="javascript:history.back();void(0)">返 回</a>
+                <a class="return" href="javascript:history.back();">返 回</a>
                 商品详情
                 <a href="list/filter.php@special=&amp;main=1&amp;style=1&amp;brand=&amp;size=&amp;sex=&amp;price=&amp;keyword=">全部清空<i></i></a>
 
@@ -60,22 +59,22 @@
                         </table>
                     </li>
                 </ul>
-
-                <div class="cart_bg">
-                    <table width="100%" border="0">
-                        <tbody><tr>
-                            <td width="3%"></td>
-                            <td width="25%"><input type="checkbox" class="checkbox checked" id="box_all"> 全选</td>
-                            <td width="49%">
-                                <p> <span class="pl15">金额合计：</span><span class="ff6">￥198.00</span></p>
-                            </td>
-                            <td width="20%"><button class="submit">去结算</button></td>
-                            <td width="3%"></td>
-                        </tr>
-                        </tbody></table>
-                </div>
-
         </div>
+
+            <div class="cart_bg">
+                <table width="100%" border="0">
+                    <tbody><tr>
+                        <td width="3%"></td>
+                        <td width="25%"><input data-role="none" type="checkbox" class="checkbox" id="box_all"> 全选</td>
+                        <td width="49%">
+                            <p> <span class="pl15">金额合计：</span><span class="ff6">￥198.00</span></p>
+                        </td>
+                        <td width="20%"><button data-role="none" class="submit">结算</button></td>
+                        <td width="3%"></td>
+                    </tr>
+                    </tbody></table>
+            </div>
+
     </div>
     <!-- /content -->
 

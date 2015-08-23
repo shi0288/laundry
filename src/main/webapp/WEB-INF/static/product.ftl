@@ -1,4 +1,3 @@
-<#include "header.ftl">
 <body>
 <div data-role="page">
     <div data-role="content">
@@ -43,7 +42,7 @@
                 <div class="pxui-shoes">
                     <div id="js-goodlist" style="position: relative;">
                         <#list pageVo.list as e >
-                            <a href="${INTER_PATH}/proDetail.html?proId=${e._id}">
+                            <a href="${INTER_PATH}/proDetail.html?proId=${e._id}"  data-transition="slide"  >
                                 <#list e.fileNames as f>
                                   <#if f_index==0>
                                       <div class="img160" style="background-image: none;"><dfn></dfn><img src="${UPLOAD_BASE_PATH}/img/${f}"   onerror="nofind();" /></div>

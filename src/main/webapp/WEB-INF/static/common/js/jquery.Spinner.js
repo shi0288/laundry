@@ -21,7 +21,6 @@
                 e.keyCode==keyCodes.up&&cv(+1);
                 e.keyCode==keyCodes.down&&cv(-1);
             });
-
             function cv(n){
                 b.val(b.val().replace(/[^\d]/g,''));
                 bv=parseInt(b.val()||options.min)+n;
@@ -29,14 +28,11 @@
                 if(bv<=options.min){b.val(options.min);f(a,2,"DisDe","Decrease");}else{f(a,2,"Decrease","DisDe");}
                 if(bv>=options.max){b.val(options.max);f(c,2,"DisIn","Increase");}else{f(c,2,"Increase","DisIn");}
             }
-
         });
-
         function f(o,t,c,s){
             t==0&&o.addClass(c).attr("href","javascript:void(0)").append("<i></i>").find("i").append(s);
             t==1&&o.addClass(c).attr({"value":options.value,"autocomplete":"off","maxlength":options.len});
             t==2&&o.addClass(c).removeClass(s);
         }
     }
-
 })(jQuery);
