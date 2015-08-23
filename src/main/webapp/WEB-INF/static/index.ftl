@@ -1,13 +1,10 @@
 <body>
 <div data-role="page" id="pageone">
 
-    <div data-role="content">
-
-        <!-- **********************   页头  ********************** -->
+    <div data-role="header" data-position="fixed">
         <div class="com-header-area">
-            <a href="main.htm" class="com-header-logo"></a>
+            <a href="main.html" class="com-header-logo"></a>
             <dfn></dfn>
-
             <p>
                 <a class="com-header-search" id="js-com-header-search">
                     <del></del>
@@ -16,12 +13,15 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a href="cart/default.htm" class="com-header-cart "><b id="header-cart-num">0</b>
+                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>
             <div class="clear"></div>
         </div>
+    </div>
+
+    <div data-role="content">
 
         <!-- **********************   首页轮播  ********************** -->
 
@@ -54,7 +54,7 @@
         <div class="container-fluid">
             <div class="well pxui-tab pxui-tab-nav pxui-tab-no-top">
                 <a class="selected"><i></i>首页<span></span></a>
-                <a href="sort.html"><i></i>分类<span></span></a>
+                <a href="sort.html" data-transition="slide" ><i></i>分类<span></span></a>
                 <a href="brand.html"><i></i>品牌<span></span></a>
                 <a href="tuan.html"><i></i>团购<span></span></a>
             </div>

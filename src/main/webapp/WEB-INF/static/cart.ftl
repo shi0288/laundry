@@ -1,11 +1,10 @@
 <body>
-<div data-role="page">
-    <div data-role="content">
-        <!-- **********************   页头  ********************** -->
-        <div class="com-header-area">
-            <a href="main.htm" class="com-header-logo"></a>
-            <dfn></dfn>
+<div data-role="page" data-dom-cache="false">
 
+    <div data-role="header" data-position="fixed">
+        <div class="com-header-area">
+            <a href="main.html" class="com-header-logo"></a>
+            <dfn></dfn>
             <p>
                 <a class="com-header-search" id="js-com-header-search">
                     <del></del>
@@ -14,13 +13,15 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a href="cart/default.htm" class="com-header-cart "><b id="header-cart-num">0</b>
+                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">1</b>
                     <del></del>
                 </a>
             </p>
             <div class="clear"></div>
         </div>
+    </div>
 
+    <div data-role="content">
 
         <div class="page-role container-fluid good-page" style="margin-top:15px">
             <div class="page-title">

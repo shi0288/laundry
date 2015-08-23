@@ -1,9 +1,7 @@
 <body>
 <div data-role="page" data-dom-cache="false">
-    <div data-role="content">
-        <div class="card" id="card"><img width="60px" height="60px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
-        <div class="pro" id="pro"><img width="25px" height="25px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
-        <!-- **********************   页头  ********************** -->
+
+    <div data-role="header" data-position="fixed">
         <div class="com-header-area">
             <a href="main.html" class="com-header-logo"></a>
             <dfn></dfn>
@@ -15,17 +13,19 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">0</b>
+                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>
             <div class="clear"></div>
         </div>
+    </div>
 
+    <div data-role="content">
         <!-- **********************   导航  ********************** -->
         <div class="page-role container-fluid good-page" style="margin-top:15px">
             <div class="page-title">
-                <a class="return" href="javascript:history.back();">返 回</a>
+                <a class="return"  data-rel="back" href="#"  >返 回</a>
                 商品详情
             </div>
             <div class="well" style="padding: 10px;">
@@ -64,8 +64,6 @@
                     </div>
                     <div style="clear:both;height:4px;margin: 0;padding: 0px; width:100%;"></div>
                 </div>
-                <a class="pxui-gray-button" href="product/imgshowid459537.html">点击查看图文详情&nbsp;&nbsp;<i
-                        class="arrow-right"></i></a>
 
                 <ul class="goodinfo" id="js-goodinfo">
                     <li>
@@ -73,8 +71,8 @@
 
                         <div>
                             <p>
-                                <strong class="pxui-color-red">￥${6?string("0.##")}</strong>
-                            <#if e.oldPrice!=0>
+                                <strong class="pxui-color-red">￥${e.price}</strong>
+                            <#if e.oldPrice?number!=0>
                                 <del class="pxui-color-gray">${e.oldPrice}</del>
                             </#if>
 
@@ -83,10 +81,9 @@
                     </li>
                     <li>
                         <b>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费:</b>
-
                         <div>
                             <p>
-                                <span>免运费 ,支持货到付款</span>
+                                <span>免运费,支持货到付款。</span>
                             </p>
                         </div>
                     </li>
@@ -95,24 +92,11 @@
 
                         <div>
                             <p>
-                                由拍鞋网销售并提供售后服务。 </p>
+                                由本网站自营销售并提供售后服务。 </p>
                         </div>
                     </li>
                     <!--size-message-->
-                    <li>
-                        <b>尺&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:</b>
 
-                        <div>
-                            <p class="sizes">
-                                <a stock="28" value="36_550" class="selected">
-                                    36
-                                </a>
-                                <a stock="27" value="38_554">
-                                    38
-                                </a>
-                            </p>
-                        </div>
-                    </li>
 
                     <li>
                         <b style="line-height:39px;">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量:</b>
@@ -128,28 +112,17 @@
                 </div>
                 <h3 class="js-attrs-title">商品属性</h3>
                 <ul class="attrs">
-                    <li>货号：8216614</li>
-                    <li>品牌：361度</li>
-                    <li>款式：板鞋/休闲鞋</li>
-                    <li>颜色：白/浅粉</li>
-                    <li>上架时间：2012-04-06</li>
-                    <li>上市年份：2012</li>
-                    <li>鞋码偏差：正常</li>
-                    <li>鞋底材质：RB/MD</li>
-                    <li>鞋面材质：合成革</li>
-                    <li>闭合方式：系带</li>
-                    <li>适合季节：春季</li>
-                    <li>性别：女</li>
-                    <li>鞋面材料：PU/人造革</li>
-                    <li>外底材料：橡胶底</li>
+                <#list e.desc?split(";") as s>
+                    <li>${s?replace(":","：")} </li>
+                </#list>
                 </ul>
                 <h3 class="js-attrs-title">服务承诺<a href="#">返回顶部<i class="arrow2-top"></i></a></h3>
                 <ul class="services">
                     <li><i></i> 正品保证 假一赔十</li>
                     <li><i></i> 15天无理由免邮退换货</li>
                     <li><i></i> 10天保值 差价返还</li>
-                    <li><i></i> 自营商品满 99 包邮</li>
-                    <li><i></i> 货到付款 全国范围</li>
+                    <li><i></i> 自营商品 免费配送</li>
+                    <li><i></i> 货到付款 全校范围</li>
                 </ul>
                 <h3 class="js-attrs-title">用户评论<a href="#">返回顶部<i class="arrow2-top"></i></a></h3>
 
@@ -160,15 +133,14 @@
                         &nbsp;大家认为：
                         <ul>
                             <li>
-                                <b>尺&nbsp;&nbsp;&nbsp;&nbsp;码</b>
-
-                                <p>合适：<i>
+                                <b>评&nbsp;&nbsp;&nbsp;&nbsp;分</b>
+                                <p>速度：<i>
                                     <del style="width:100%"></del>
                                 </i><span>100%</span></p>
-                                <p>偏大：<i>
+                                <p>质量：<i>
                                     <del style="width:76%"></del>
                                 </i><span>76%</span></p>
-                                <p>偏小：<i>
+                                <p>欢迎：<i>
                                     <del style="width:0%;"></del>
                                 </i><span>0%</span></p>
                             </li>
@@ -184,7 +156,12 @@
 
 
         </div>
+        <input type="hidden" id="proId" value="${e._id}" />
+        <input type="hidden" id="price" value="${e.price}" />
+        <input type="hidden" id="oldPrice" value="${e.oldPrice}" />
+        <input type="hidden" id="fileName" value="${e.fileNames[0]}" />
 
+        <div class="pro" id="pro"><img width="25px" height="25px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
 
     </div>
     <!-- /content -->

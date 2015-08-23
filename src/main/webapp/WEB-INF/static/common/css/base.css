@@ -920,3 +920,9 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     border-radius: 5px;
     max-width: 133px;
 }
+
+.ui-page {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+}

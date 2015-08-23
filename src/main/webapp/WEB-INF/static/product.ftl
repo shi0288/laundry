@@ -1,11 +1,10 @@
 <body>
 <div data-role="page">
-    <div data-role="content">
-        <!-- **********************   页头  ********************** -->
-        <div class="com-header-area">
-            <a href="main.htm" class="com-header-logo"></a>
-            <dfn></dfn>
 
+    <div data-role="header" data-position="fixed">
+        <div class="com-header-area">
+            <a href="main.html" class="com-header-logo"></a>
+            <dfn></dfn>
             <p>
                 <a class="com-header-search" id="js-com-header-search">
                     <del></del>
@@ -14,17 +13,20 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a href="cart/default.htm" class="com-header-cart "><b id="header-cart-num">0</b>
+                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">1</b>
                     <del></del>
                 </a>
             </p>
             <div class="clear"></div>
         </div>
+    </div>
+
+    <div data-role="content">
 
         <!-- **********************   导航  ********************** -->
         <div class="page-role container-fluid" style="margin-top:15px">
             <div class="page-title">
-                <a href="javascript:history.back();void(0)" class="return">返 回</a>
+                <a data-rel="back"  class="return">返 回</a>
                 商品浏览
                 <a href="list/filter.php@special=&amp;main=1&amp;style=1&amp;brand=&amp;size=&amp;sex=&amp;price=&amp;keyword=">高级筛选<i></i></a>
             </div>
