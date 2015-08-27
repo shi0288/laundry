@@ -13,7 +13,7 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">0</b>
+                <a  href="cart.html" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>

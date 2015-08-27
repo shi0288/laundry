@@ -1,7 +1,7 @@
 <body>
 <div data-role="page">
 
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" data-fullscreen="false">
         <div class="com-header-area">
             <a href="main.html" class="com-header-logo"></a>
             <dfn></dfn>
@@ -13,7 +13,7 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">0</b>
+                <a  href="cart.html" class="com-header-cart"><b  name="header-cart-num" id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>

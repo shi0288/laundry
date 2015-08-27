@@ -1,5 +1,5 @@
 <body>
-<div data-role="page">
+<div data-role="page"  data-dom-cache="false">
 
     <div data-role="header" data-position="fixed">
         <div class="com-header-area">
@@ -13,7 +13,7 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">1</b>
+                <a  href="cart.html" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>

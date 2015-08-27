@@ -59,6 +59,26 @@ public class IndexController {
         return "cart";
     }
 
+
+    @RequestMapping("conform.html")
+    public String conform(ModelMap modelMap,HttpServletRequest request) {
+        return "conform";
+    }
+
+    @RequestMapping("acount.html")
+    public String acount(ModelMap modelMap,HttpServletRequest request) {
+        return "acount";
+    }
+
+    @RequestMapping("login.html")
+    public String login(ModelMap modelMap,HttpServletRequest request) {
+        return "login";
+    }
+    @RequestMapping("regest.html")
+    public String regest(ModelMap modelMap,HttpServletRequest request) {
+        return "regest";
+    }
+
     @RequestMapping("proDetail.html")
     public String proDetail(String proId,ModelMap modelMap,HttpServletRequest request) {
         DBObject dbObject= MongoUtil.findOne(MongoConst.MONGO_PRODUCT,proId);
@@ -71,11 +91,6 @@ public class IndexController {
     public String ljjAdmin(ModelMap modelMap) {
         return "ljj/login";
     }
-
     public static void main(String[] args) {
-
     }
-
-
-
 }

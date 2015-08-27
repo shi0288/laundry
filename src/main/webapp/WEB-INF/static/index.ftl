@@ -1,7 +1,7 @@
 <body>
-<div data-role="page" id="pageone">
+<div data-role="page" id="pageone" data-dom-cache="false">
 
-    <div data-role="header" data-position="fixed">
+    <div data-role="header" data-position="fixed" >
         <div class="com-header-area">
             <a href="main.html" class="com-header-logo"></a>
             <dfn></dfn>
@@ -9,11 +9,11 @@
                 <a class="com-header-search" id="js-com-header-search">
                     <del></del>
                 </a>
-                <a href="login/default.htm" class="com-header-user ">
+                <a href="acount.html" class="com-header-user ">
                     <del></del>
                 </a>
                 <i></i>
-                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">0</b>
+                <a  href="cart.html" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>
@@ -212,7 +212,7 @@
 
             <p>
                 <strong>
-                    <a style="color:#769fbf;" href="login/default.htm">登录</a>&nbsp;&nbsp;
+                    <a style="color:#769fbf;" href="login.html">登录</a>&nbsp;&nbsp;
                     <a style="color:#769fbf;" href="register/default.htm">注册</a>
                 </strong>
             </p>

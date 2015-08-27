@@ -5,6 +5,7 @@
         <div class="com-header-area">
             <a href="main.html" class="com-header-logo"></a>
             <dfn></dfn>
+
             <p>
                 <a class="com-header-search" id="js-com-header-search">
                     <del></del>
@@ -13,7 +14,7 @@
                     <del></del>
                 </a>
                 <i></i>
-                <a  href="cart/default.htm" class="com-header-cart"><b id="header-cart-num">1</b>
+                <a href="cart/default.htm" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
                     <del></del>
                 </a>
             </p>
@@ -25,61 +26,40 @@
 
         <div class="page-role container-fluid good-page" style="margin-top:15px">
             <div class="page-title">
-                <a class="return" href="javascript:history.back();">返 回</a>
+                <a data-rel="back" class="return">返 回</a>
                 商品详情
-                <a href="list/filter.php@special=&amp;main=1&amp;style=1&amp;brand=&amp;size=&amp;sex=&amp;price=&amp;keyword=">全部清空<i></i></a>
-
+                <a href="#" onclick="removeAll()">全部清空<i></i></a>
             </div>
             <div class="well cart" style="padding: 10px;">
-                <ul>
-                    <li>
-                        <table>
-                            <tr>
-                                <td width="15%"><img onerror="nofind();" src="images/cart_img.jpg" width="52" height="44"></td>
-                                <td width="65%">
-                                    <p>新奇士脐橙，8斤，甜中带微</p>
-                                    <p><span class="lse">￥198.00</span> <span class="pl15">数量：<input data-role="none" type="text" name="num" class="num"> 包</span></p>
-                                </td>
-                                <td width="10%" valign="middle"><a href="#" class="del">删除</a></td>
-                                <td width="10%"> <input data-role="none" type="checkbox" class="checkbox"  name="check_item" id="check_item"></td>
-                            </tr>
-                        </table>
-                    </li>
-
-                    <li>
-                        <table>
-                            <tr>
-                                <td width="15%"><img onerror="nofind();" src="images/cart_img.jpg" width="52" height="44"></td>
-                                <td width="65%">
-                                    <p>新奇士脐橙，8斤，甜中带微</p>
-                                    <p><span class="lse">￥198.00</span> <span class="pl15">数量：<input data-role="none" type="text" name="num" class="num"> 包</span></p>
-                                </td>
-                                <td width="10%" valign="middle"><a href="#" class="del">删除</a></td>
-                                <td width="10%"> <input data-role="none" type="checkbox" class="checkbox"  name="check_item" id="check_item"></td>
-                            </tr>
-                        </table>
-                    </li>
+                <ul id="proList">
                 </ul>
-        </div>
+            </div>
 
             <div class="cart_bg">
                 <table width="100%" border="0">
-                    <tbody><tr>
+                    <tbody>
+                    <tr>
                         <td width="3%"></td>
-                        <td width="25%"><input data-role="none" type="checkbox" class="checkbox" id="box_all"> 全选</td>
-                        <td width="49%">
-                            <p> <span class="pl15">金额合计：</span><span class="ff6">￥198.00</span></p>
+                        <td width="25%"><input data-role="none" type="checkbox" class="checkbox checked" id="box_all">
+                            全选
                         </td>
-                        <td width="20%"><button data-role="none" class="submit">结算</button></td>
+                        <td width="49%">
+                            <p><span class="pl15">金额合计：</span><span class="ff6">￥0.00</span></p>
+                        </td>
+                        <td width="20%">
+                            <button onclick="toConform()" data-role="none"
+                                    class="submit">结算
+                            </button>
+                        </td>
                         <td width="3%"></td>
                     </tr>
-                    </tbody></table>
+                    </tbody>
+                </table>
             </div>
 
+        </div>
+        <!-- /content -->
     </div>
-    <!-- /content -->
-
-</div>
 
 </body>
 </html>

@@ -1,18 +1,16 @@
 /* jQuery.Spinner V1.0 CopyRight (c) 2014 by:Loyaoo Taobao:http://isseven.taobao.com */
 
+
+
 (function($) {
-
     $.fn.Spinner = function (opts) {
-
-        var defaults = {value:1, min:1, len:3, max:99}
-        var options = $.extend(defaults, opts)
-        var keyCodes = {up:38, down:40}
+        var defaults = {value:1, min:1, len:3, max:99};
+        var options = $.extend(defaults, opts);
+        var keyCodes = {up:38, down:40};
         return this.each(function() {
-
             var a = $('<a></a>'); f(a,0,"Decrease","-");	//¼Ó
             var c = $('<a></a>'); f(c,0,"Increase","+");	//¼õ
             var b = $('<input/>');f(b,1,"Amount");cv(0);	//Öµ
-
             $(this).append(a).append(b).append(c);
             a.click(function(){cv(-1)});
             b.keyup(function(){cv(0)});
@@ -27,6 +25,7 @@
                 bv>=options.min&&bv<=options.max&&b.val(bv);
                 if(bv<=options.min){b.val(options.min);f(a,2,"DisDe","Decrease");}else{f(a,2,"Decrease","DisDe");}
                 if(bv>=options.max){b.val(options.max);f(c,2,"DisIn","Increase");}else{f(c,2,"Increase","DisIn");}
+                dealPrice();
             }
         });
         function f(o,t,c,s){
