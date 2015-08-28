@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -68,6 +69,23 @@ public class IndexController {
     @RequestMapping("acount.html")
     public String acount(ModelMap modelMap,HttpServletRequest request) {
         return "acount";
+    }
+
+    @RequestMapping("address.html")
+    public String address(ModelMap modelMap,HttpServletRequest request) {
+        return "address";
+    }
+
+    @RequestMapping("editAddress.html")
+    public String editAddress(ModelMap modelMap,HttpServletRequest request) {
+        return "editAddress";
+    }
+
+    @RequestMapping("updateAddress.html")
+    public String updateAddress(@RequestParam(value = "id") String id,ModelMap modelMap) {
+        DBObject dbObject=MongoUtil.findOne(MongoConst.MONGO_ADDRESS, id);
+        modelMap.put("e",dbObject);
+        return "updateAddress";
     }
 
     @RequestMapping("login.html")

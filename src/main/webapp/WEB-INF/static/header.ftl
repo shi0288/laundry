@@ -2,7 +2,8 @@
 <html>
 <head>
     <title>林林卖卖店</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/jquery.mobile-1.4.5.min.css"/>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/base.css"/>
@@ -76,7 +77,6 @@
                     } else {
                         $(".touchsliderPro").data("touchslider").start(); // stop the slider
                     }
-
                     var proId = $("#proId").val();
                     var order = localStorage.getItem("order");
                     if (!order) {
@@ -94,7 +94,6 @@
                             break;
                         }
                     }
-
                 } else if (str == '/' || str == '/index.html') {
                     $.mobile.changePage("main.html", "pop");
                 } else if (str == '/cart.html') {
@@ -174,14 +173,42 @@
                     })
                 } else if (str == '/conform.html') {
                     var conform = localStorage.getItem("conform");
-                    var orderPrice=localStorage.getItem("orderPrice");
-                    if(orderPrice){
-                        $("#payMoney").html("￥"+localStorage.getItem("orderPrice"));
-                    }else{
+                    var orderPrice = localStorage.getItem("orderPrice");
+                    if (orderPrice) {
+                        $("#payMoney").html("￥" + localStorage.getItem("orderPrice"));
+                    } else {
                         alert("订单信息为空");
-                        $.mobile.changePage('index.html', 'slide');
+                        $.mobile.changePage('main.html', 'slide');
                         return;
                     }
+                    var name = localStorage.getItem("name");
+                    $.ajax({
+                        type: "POST",
+                        url: "/manage/addressPro.json?timestamp=" + new Date().getTime(),
+                        dataType: "json",
+                        cache: false,
+                        data: {
+                            name: name
+                        },
+                        success: function (rst) {
+                            if (rst.result) {
+                                if(rst.datas==undefined){
+                                    return;
+                                }
+                                var obj=JSON.parse(rst.datas);
+                                $("#conName").html(obj.userName);
+                                $("#conMobile").html(obj.mobile);
+                                $("#conAddress").html(obj.provice+obj.where);
+                                $("#proWhere").val(rst.datas);
+                            } else {
+                                alert("获取收货地址失败，请重试");
+                            }
+                        },
+                        error: function () {
+                            alert('请求出错');
+                        }
+                    });
+
                     if (!conform) {
                         //没有内容
                     } else {
@@ -197,28 +224,87 @@
                             $("#orderList").append(str);
                         }
                     }
-                }else if (str == '/login.html') {
-                    $(".tp-btn").click(function(){
-                        var classStr=$(this).attr("class");
-                        if(classStr=='tp-btn btn-off'){
+                } else if (str == '/login.html') {
+                    $(".tp-btn").click(function () {
+                        var classStr = $(this).attr("class");
+                        if (classStr == 'tp-btn btn-off') {
                             $(".tp-btn").addClass("btn-on");
                             $(".txt-password")[0].type = 'text';
-                        }else{
+                        } else {
                             $(".tp-btn").removeClass("btn-on");
                             $(".txt-password")[0].type = 'password';
                         }
                     })
-                }else if (str == '/regest.html') {
-                    $(".tp-btn").click(function(){
-                        var classStr=$(this).attr("class");
-                        if(classStr=='tp-btn btn-off'){
+                } else if (str == '/address.html') {
+                    var name = localStorage.getItem("name");
+                    if (name) {
+                        $.ajax({
+                            type: "POST",
+                            url: "/manage/addressList.json?timestamp=" + new Date().getTime(),
+                            dataType: "json",
+                            cache: false,
+                            data: {
+                                name: name
+                            },
+                            success: function (rst) {
+                                if (rst.result) {
+                                    $.each(rst['datas'], function (key, val) {
+                                        var obj = JSON.parse(val);
+                                        var checkStr = '';
+                                        if(obj.status==0){
+                                            checkStr = '<div class="ia-l"></div>';
+                                        }
+                                        var subFun = "selectAddress('" + obj._id.$oid + "')";
+                                        var str = '<div class="item-addr bdb-1px">' + checkStr +
+                                                '<div class="ia-m m ia-m78" onclick='+subFun+'>' +
+                                                '<div class="mt_new">' + '<span>' + obj.userName + '</span>&nbsp&nbsp&nbsp' + '<strong>' + obj.mobile + '</strong></div><div class="mc">' +
+                                                '<p>' + obj.provice + obj.where + '</p> </div></div><a class="ia-r" href="updateAddress.html?id='+obj._id.$oid+'"><span class="iar-icon"></span> </a></div>';
+                                        $(".address").append(str);
+                                    });
+                                } else {
+                                    alert("获取收货地址失败，请重试");
+                                }
+                            },
+                            error: function () {
+                                alert('请求出错');
+                            }
+                        });
+                    } else {
+                        $.mobile.changePage('login.html', 'slide');
+                    }
+
+                } else if (str == '/editAddress.html') {
+                    $("#adrBtn").click(function () {
+                        var classStr = $(this).attr("class");
+                        if (classStr == 'switch') {
+                            $(this).addClass("switched");
+                        } else {
+                            $(this).removeClass("switched");
+                        }
+                    })
+                } else if (str == '/updateAddress.html') {
+                    $("#updateBtn").click(function () {
+                        var classStr = $(this).attr("class");
+                        if (classStr == 'switch') {
+                            $(this).addClass("switched");
+                        } else {
+                            $(this).removeClass("switched");
+                        }
+                    })
+                } else if (str == '/regest.html') {
+                    $(".tp-btn").click(function () {
+                        var classStr = $(this).attr("class");
+                        if (classStr == 'tp-btn btn-off') {
                             $(".tp-btn").addClass("btn-on");
                             $(".txt-password")[0].type = 'text';
-                        }else{
+                        } else {
                             $(".tp-btn").removeClass("btn-on");
                             $(".txt-password")[0].type = 'password';
                         }
                     })
+                } else if (str == '/acount.html') {
+                    var name = localStorage.getItem("name");
+                    $("#acountName").html(name);
                 }
                 else {
                     if ($(".touchsliderPro").data("touchslider") != null) {
@@ -245,13 +331,156 @@
             $(".ff6").html(total.toFixed(2));
         }
 
-        function goBack() {
-            var previousPage = $.mobile.activePage.data('ui.prevPage');
-            if (typeof previousPage.prevObject[0] != 'undefined') {
-                $.mobile.changePage(previousPage.prevObject[0].id, 'slide', true, true);
+        function toAmount() {
+            var name = localStorage.getItem("name");
+            if (name) {
+                $.mobile.changePage('acount.html', 'slide');
+            } else {
+                $.mobile.changePage('login.html', 'slide');
             }
+
         }
 
+        function selectAddress(id) {
+            var name = localStorage.getItem("name");
+            $.ajax({
+                type: "POST",
+                url: "/manage/selectAddress.json?timestamp=" + new Date().getTime(),
+                dataType: "json",
+                cache: false,
+                data: {
+                    name:name,
+                    id: id
+                },
+                success: function (rst) {
+                    if (rst.result) {
+                        $.mobile.changePage('conform.html', 'slide');
+                    } else {
+                        alert("操作失败，请重试");
+                    }
+                },
+                error: function () {
+                    alert('请求出错');
+                }
+            });
+
+        }
+
+
+        function saveAddress() {
+            var name = localStorage.getItem("name");
+            if (name) {
+                var userName = $("#address_uersName").val();
+                var mobile = $("#address_mobile").val();
+                var provice = $("#address_provice").val();
+                var where = $("#address_where").val();
+                var adrBtn = $("#adrBtn").attr("class");
+                var first =1;
+                if(adrBtn!='switch'){
+                    first=0;
+                }
+                if (userName == null || userName == "") {
+                    alert("收货人不能为空");
+                    return;
+                }
+                if (mobile == null || mobile == "") {
+                    alert("手机号不能为空");
+                    return;
+                }
+                if (provice == null || provice == "") {
+                    alert("地址不能为空");
+                    return;
+                }
+                if (where == null || where == "") {
+                    alert("请输入详细地址");
+                    return;
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/manage/address.json?timestamp=" + new Date().getTime(),
+                    dataType: "json",
+                    cache: false,
+                    data: {
+                        name: name,
+                        userName: userName,
+                        mobile: mobile,
+                        provice: provice,
+                        where: where,
+                        first:first
+                    },
+                    success: function (rst) {
+                        if (rst.result) {
+                            alert("添加成功");
+                            $.mobile.changePage('address.html', 'slide');
+                        } else {
+                            alert("添加失败，请重试");
+                        }
+                    },
+                    error: function () {
+                        alert('请求出错');
+                    }
+                });
+
+            } else {
+                $.mobile.changePage('login.html', 'slide');
+            }
+
+        }
+
+
+        function login() {
+            var name = $("#l_mobile").val();
+            var password = $("#l_password").val();
+            $.ajax({
+                type: "POST",
+                url: "/manage/login.json?timestamp=" + new Date().getTime(),
+                dataType: "json",
+                cache: false,
+                data: {
+                    name: name,
+                    password: password
+                },
+                success: function (rst) {
+                    if (rst.result) {
+                        alert("登录成功");
+                        localStorage.setItem("name", name);
+                        $.mobile.changePage('main.html', 'slide');
+                    } else {
+                        alert("登录失败，请重试");
+                    }
+                },
+                error: function () {
+                    alert('请求出错');
+                }
+            });
+        }
+
+        function register() {
+            var name = $("#r_mobile").val();
+            var password = $("#r_password").val();
+            $.ajax({
+                type: "POST",
+                url: "/manage/register.json?timestamp=" + new Date().getTime(),
+                dataType: "json",
+                cache: false,
+                data: {
+                    name: name,
+                    password: password
+                },
+                success: function (rst) {
+                    if (rst.result) {
+                        alert("注册成功");
+                        localStorage.setItem("name", name);
+                        $.mobile.changePage('main.html', 'slide');
+                    } else {
+                        alert("注册失败，请重试");
+                    }
+                },
+                error: function () {
+                    alert('请求出错');
+                }
+            });
+        }
 
         function nofind() {
             var img = event.srcElement;
@@ -291,6 +520,12 @@
         }
 
         function toConform() {
+
+            var name = localStorage.getItem("name");
+            if (!name) {
+                $.mobile.changePage('login.html', 'slide');
+                return;
+            }
             var order = localStorage.getItem("order");
             if (!order) {
                 alert("购物车为空");
@@ -298,7 +533,7 @@
             } else {
                 order = order.split(";");
             }
-            var conform=[];
+            var conform = [];
             $(".proOne").each(function (index) {
                 var ev = $(this).find("#_check").find(".checkbox");
                 if (ev.attr("class") == "checkbox") {
@@ -310,9 +545,9 @@
                         var obj = JSON.parse(jsonStr);
                         if (obj.proId == proId) {
                             obj.numbers = numbers;
-                            var objStr=JSON.stringify(obj);
+                            var objStr = JSON.stringify(obj);
                             conform.push(objStr);
-                            order[i]=objStr;
+                            order[i] = objStr;
                             break;
                         }
                     }
@@ -320,7 +555,7 @@
                 }
             });
             conform = conform.join(";");
-            var orderPrice=$(".ff6").html();
+            var orderPrice = $(".ff6").html();
             localStorage.setItem("conform", conform.toString());
             localStorage.setItem("orderPrice", orderPrice);
             order = order.join(";");

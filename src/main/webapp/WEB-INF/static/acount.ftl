@@ -27,7 +27,7 @@
         <div class="page-role container-fluid">
             <div class="head-img">
                 <span class="my-img" style="background-image:url('${BASE_PATH}/static/common/css/images/html5/defaul.png')"></span>
-                <p>miaomiao0288</p>
+                <p id="acountName"></p>
                 <p>铜牌用户</p>
             </div>
 

@@ -1270,3 +1270,222 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     cursor: default;
     color: #bdbdbd;
 }
+
+
+/**
+地址
+*/
+
+.item-addr {
+    padding: .75em 10px;
+    overflow: hidden;
+}
+
+
+.s-item {
+    position: relative;
+    padding: .75em 9.0625% .75em 0;
+    line-height: 1.2em;
+    overflow: hidden;
+}
+
+.s-item .sitem-l {
+    float: left;
+}
+.sitem-pad {
+    padding-left: 10px;
+    padding-right: .5625em;
+}
+
+.address02 .sattr {
+    line-height: 1.6em;
+}
+
+.s-item .sattr {
+    float: left;
+    color: #666;
+}
+
+.address02 .svalue {
+    font-size: .875em;
+}
+.s-item .svalue {
+    float: left;
+    color: #222;
+}
+
+.address02 .svalue input {
+    width: 120%;
+    height: 1.5em;
+    font-size: 1.2em;
+    padding-left: 0;
+    color: #222;
+}
+
+.bdb-1px {
+    position: relative;
+}
+.address {
+    padding-bottom: 5em;
+}
+
+.item-addr .ia-l {
+    height: .875em;
+    float: left;
+    background: url(../css/images/duig.png) no-repeat;
+    background-size: 1.25em;
+    margin: 1.475em 0 0 0;
+    width: 30px;
+}
+
+.item-addr .ia-m {
+    float: left;
+    width: 86.125%;
+}
+
+.item-addr .ia-m78 {
+    width: 76.125%;
+}
+
+.item-addr .ia-m .mt_new {
+    color: #222;
+}
+.item-addr .ia-m p {
+    float: left;
+    color: #666;
+    font-size: .8125em;
+    line-height: 1.6em;
+    padding-top: .6em;
+}
+
+.item-addr .ia-r {
+    float: right;
+    border-left: 1px solid #e3e3e3;
+    padding: 0 0 0 5px;
+    display: inline-block;
+    height: 2.125em;
+    margin-top: .725em;
+    width: 10.875%;
+    text-align: center;
+}
+
+
+.item-addr .ia-r {
+    position: absolute;
+    right: 3%;
+    top: 50%;
+    margin-top: 0;
+    margin-top: -17px;
+}
+
+
+.item-addr .ia-r .iar-icon {
+    display: inline-block;
+    width: 1.1875em;
+    height: 1.1875em;
+    margin-top: .6em;
+    background: url(../css/images/edit.png) no-repeat;
+    background-size: 1.1875em;
+}
+
+.bdb-1px:after {
+    bottom: 0;
+}
+
+.bdb-1px:after {
+    border-top: 1px solid #e0e0e0;
+    content: ' ';
+    display: block;
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+
+.pay-btn {
+    height: 4em;
+    text-align: center;
+    background: #f0f2f5;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    max-width: 640px;
+    padding-top: .6em;
+    z-index: 6;
+}
+
+.s-item .ui-select{
+    margin-left:20px
+}
+
+.btn1 {
+    width: 93.75%;
+    background: #f15353;
+    color: #fff;
+    display: inline-block;
+    border-radius: 3px;
+    height: 2.75em;
+    line-height: 2.75em;
+    text-align: center;
+    font-size: 16px;
+}
+
+.pay-btn .plus {
+    margin-right: 6px;
+    font: inherit;
+}
+
+
+.address02 .svalue .textauto {
+    height: 1.5em;
+    outline: none;
+    width: 150%;
+    padding-left: 0;
+    font-size: 1.2em;
+    line-height: 20px;
+}
+
+.s-item .sitem-r {
+    float: right;
+}
+
+
+
+.switch {
+    width: 3.5em;
+    right: .625em;
+    height: 2.15625em;
+    top: 50%;
+    margin-top: -1.078125em;
+    background: url(../css/images/button-adr-1.png) no-repeat;
+    background-size: 3.5em;
+    position: absolute;
+}
+
+.switched {
+    background: url(../css/images/button-adr.png) no-repeat;
+    background-size: 3.5em;
+}
+
+.bar-btn02 {
+    padding: 1.625em 7.8125%;
+}
+
+.btn2 {
+    float: left;
+    width: 45%;
+    border: 1px solid #e0e0e0;
+    background: #fff;
+    border-radius: 3px;
+    height: 2.5em;
+    line-height: 2.5em;
+    color: #686868;
+    text-align: center;
+    font-size: 15px;
+}
+
+.ctn02 {
+    float: right;
+    color: #fff;
+    background: #f35656;
+    border: 1px solid #f35656;
+}

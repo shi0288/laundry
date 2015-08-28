@@ -9,7 +9,7 @@
                 <a class="com-header-search" id="js-com-header-search">
                     <del></del>
                 </a>
-                <a href="acount.html" class="com-header-user ">
+                <a  href="javascript:toAmount();" class="com-header-user ">
                     <del></del>
                 </a>
                 <i></i>
@@ -24,7 +24,6 @@
     <div data-role="content">
 
         <!-- **********************   首页轮播  ********************** -->
-
 
         <div class="touchslider">
             <div class="touchslider-viewport" style="width:100%;overflow:hidden">
@@ -213,7 +212,7 @@
             <p>
                 <strong>
                     <a style="color:#769fbf;" href="login.html">登录</a>&nbsp;&nbsp;
-                    <a style="color:#769fbf;" href="register/default.htm">注册</a>
+                    <a style="color:#769fbf;" href="regest.html">注册</a>
                 </strong>
             </p>
             <br>

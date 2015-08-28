@@ -31,17 +31,15 @@
             <div>
                 <div class="step1 border-1px">
                     <div class="m step1-in ">
-                        <a href="/norder/address.action?sid=15bc93e0ec38707af83754f69fef2ef5" class="s-href">
-                            <div class="mt_new">                      <div class="s1-name">
-                                <i></i><span>石清茂</span>
+                        <a href="address.html" class="s-href">
+                            <div class="mt_new"><div class="s1-name">
+                                <i></i><span id="conName"></span>
                             </div>
                                 <div class="s1-phone">
-                                    <i></i><span> 133****6503</span>
+                                    <i></i><span id="conMobile"></span>
                                 </div>
-
                             </div>
-                            <div class="mc step1-in-con">
-                                河北石家庄市正定县正定镇正华花园8号楼
+                            <div class="mc step1-in-con" id="conAddress">
                             </div>
                         </a>
                     </div>
@@ -61,7 +59,7 @@
                     </li>
                 </ul>
             </div>
-
+<input  type="hidden"  id="proWhere"  />
             <div class="well" style="padding: 10px;margin-bottom: 100px">
                 <fieldset data-role="controlgroup">
                     <legend>支付方式:</legend>

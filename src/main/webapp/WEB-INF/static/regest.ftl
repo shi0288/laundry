@@ -36,7 +36,7 @@
                     </div>
                 </div>
                 <div class="item item-phone">
-                    <input data-role="none"  class="txt-input txt-phone" type="tel" placeholder="    请输入手机号">
+                    <input data-role="none" id="r_mobile"  class="txt-input txt-phone" type="tel" placeholder="    请输入手机号">
                     <a href="javascript:;" class="btn-retransmit btn-retransmit-disabled">获取短信验证码</a>
                 </div>
 
@@ -48,13 +48,14 @@
                 </div>
                 <div class="item item-password">
                     <input data-role="none" class="txt-input txt-password" type="password" autocomplete="off"
-                           placeholder="    请输入密码" required="">
+                           id="r_password"    placeholder="     请输入密码" required="">
                     <b class="tp-btn btn-off"></b>
                     <div class="login-free login-free-selected"><b></b>注册即视为同意《XXXXX》</div>
                 </div>
 
                 <div class="item item-btns">
-                    <a class="btn-login btn-disabled" href="javascript:;">注册</a>
+                    <a class="btn-login" href="javascript:register();">注册</a>
+                    /** btn-disabled */
                 </div>
             </div>
 

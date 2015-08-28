@@ -11,6 +11,7 @@ public class MongoConst {
     public static final int  MONGO_POOLSIZE=50;
     public static final int  MONGO_BLOCKSIZE=10;
     public static final String MONGO_MEMBER="member";
+    public static final String MONGO_ADDRESS="address";
     public static final String MONGO_ADMIN="admin";
     public static final String MONGO_MAINPRO="mainPro";
     public static final String MONGO_SORTPRO="sortPro";
