@@ -1,5 +1,5 @@
 <#assign menu="torder">
-<#include "/business/head.ftl">
+<#include "/ljj/head.ftl">
 <style type="text/css">
     .pagination {
         border-radius: 4px;
@@ -8,30 +8,6 @@
         padding-left: 0;
     }
 
-    .howto, .nonessential, #edit-slug-box, .form-input-tip, .subsubsub {
-        color: #666666;
-    }
-
-    .subsubsub {
-        float: left;
-        font-size: 12px;
-        list-style: none outside none;
-        margin: 8px 0 5px;
-        padding: 0;
-    }
-
-    .form-group{
-        width:100%;
-    }
-
-    .count{
-        position:absolute ;
-        right:0px;
-    }
-
-    .arrticle_status{
-        float:left;
-    }
 </style>
 <!--main content start-->
 <section id="main-content">
@@ -39,14 +15,17 @@
         <div class="row">
             <div class="col-lg-12">
                 <#--<!--breadcrumbs start &ndash;&gt;-->
-                <#--<ul class="breadcrumb">-->
-                    <#--<li>-->
-                        <#--<a href="${BASE_PATH}/business/user/list.htm">用户列表(${allCount})</a>-->
-                    <#--</li>-->
-                    <#--<li>-->
-                        <#--<a href="${BASE_PATH}/business/user/list.htm?status=1">冻结中(${checkCount})</a>-->
-                    <#--</li>-->
-                <#--</ul>-->
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="${INTER_PATH}/ljj/order/list.htm">订单列表</a>
+                    </li>
+                    <li>
+                        <a href="${INTER_PATH}/ljj/order/list.htm?status=1100">未派送(${waitCount})</a>
+                    </li>
+                    <li>
+                        <a href="${INTER_PATH}/ljj/order/list.htm?status=1000">未付款(${payCount})</a>
+                    </li>
+                </ul>
                 <#--<!--breadcrumbs end &ndash;&gt;-->
             </div>
         </div>
@@ -68,11 +47,12 @@
                         <table class="table table-striped table-advance table-hover">
                             <thead>
                             <tr>
-                                <th>订单ID</th>
-                                <th>用户名</th>
+                                <th>账户</th>
                                 <th>金额</th>
-                                <th>投注站</th>
-                                <th>投注时间</th>
+                                <th>收货人</th>
+                                <th>联系</th>
+                                <th>地址</th>
+                                <th>时间</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -80,22 +60,25 @@
                             <#list pageVo.list as e>
                             <tr class="gradeA odd">
                                 <td>
-                                    ${e.torderId}
+                                  ${e.name}
                                 </td>
                                 <td>
-                                    ${e.userId}
+                                ${e.orderPrice}
                                 </td>
                                 <td>
-                                    ${e.amount}
+                                    ${e.conName}
                                 </td>
                                 <td>
-                                    ${e.businessId}
+                                    ${e.conMobile}
                                 </td>
                                 <td>
-                                    ${e.createTime?string("yyyy-MM-dd hh:mm:ss")}
+                                ${e.conAddress}
                                 </td>
                                 <td>
-                                    <a href="${BASE_PATH}/business/torder/update.htm?torderId=${e.torderId}" title="查看详情">
+                                    ${e.createTime?number?number_to_datetime}
+                                </td>
+                                <td>
+                                    <a href="${BASE_PATH}/business/torder/update.htm?torderId=${e._id}" title="查看详情">
                                         查看详情
                                     </a>
                                 </td>
@@ -114,4 +97,4 @@
     </section>
 </section>
 <!--main content end-->
-<#include "/business/foot.ftl">
+<#include "/ljj/foot.ftl">

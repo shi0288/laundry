@@ -1,69 +1,82 @@
-<body>
-<div data-role="page"  data-dom-cache="false">
+<#include "title.ftl">
 
-    <div data-role="header" data-position="fixed">
-        <div class="com-header-area">
-            <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
-            <p>
-                <a class="com-header-search" id="js-com-header-search">
-                    <del></del>
-                </a>
-                <a href="login/default.htm" class="com-header-user ">
-                    <del></del>
-                </a>
-                <i></i>
-                <a  href="cart.html" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
-                    <del></del>
-                </a>
-            </p>
-            <div class="clear"></div>
+<div data-role="content">
+
+    <!-- **********************   导航  ********************** -->
+    <div class="page-role container-fluid" style="margin-top:15px">
+        <div class="page-title">
+            <a href="javascript:$.mobile.changePage('sort.html', 'slide');" class="return">分 类</a>
+            商品浏览
+            <a href="#nav-panel">高级筛选<i></i></a>
         </div>
-    </div>
-
-    <div data-role="content">
-
-        <!-- **********************   导航  ********************** -->
-        <div class="page-role container-fluid" style="margin-top:15px">
-            <div class="page-title">
-                <a data-rel="back"  class="return">返 回</a>
-                商品浏览
-                <a href="list/filter.php@special=&amp;main=1&amp;style=1&amp;brand=&amp;size=&amp;sex=&amp;price=&amp;keyword=">高级筛选<i></i></a>
-            </div>
-            <div class="pxui-tab product-tab" style="margin-bottom:10px;">
-                <a href="${INTER_PATH}/product.html" class="selected" style="width: 24.4%;">推  荐</a>
-                <a href="${INTER_PATH}/product.html?sortStr=price&orderBy=<#if cond.orderBy?? && cond.orderBy==1>-1<#elseif cond.orderBy?? && cond.orderBy==-1>1<#else>-1</#if>" style="width: 24.4%;">
-                    价 格
-                    <i class="arrow2-top <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==-1>gray</#if></#if> "></i>
-                    <i class="arrow2-bottom <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==1>gray</#if></#if> "></i>
-                </a>
-                <a href="${INTER_PATH}/product.html?sortStr=saleNum&orderby=-1" style="width: 24.4%;">销 量</a>
-                <a href="${INTER_PATH}/product.html" style="width: 24.4%;">最 新</a>
-            </div>
-            <div class="pxui-area">
-                <div class="pxui-shoes">
-                    <div id="js-goodlist" style="position: relative;">
-                        <#list pageVo.list as e >
-                            <a href="${INTER_PATH}/proDetail.html?proId=${e._id}"  data-transition="slide"  >
-                                <#list e.fileNames as f>
-                                  <#if f_index==0>
-                                      <div class="img160" style="background-image: none;"><dfn></dfn><img src="${UPLOAD_BASE_PATH}/img/${f}"   onerror="nofind();" /></div>
-                                  </#if>
-                                </#list>
-                                <span class="name">${e.name}</span>
-                                <span class="price">￥${e.price}</span>
-                                <del class="price">￥${e.oldPrice}</del>
-                            </a>
+        <div class="pxui-tab product-tab" style="margin-bottom:10px;">
+            <a href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=jump&orderBy=-1" <#if cond.sortStr=='jump'>
+               class="selected" </#if> style="width: 24.4%;">推 荐</a>
+            <a href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=price&orderBy=<#if cond.sortStr=='price' && cond.orderBy==1>-1<#elseif cond.sortStr=='price' && cond.orderBy==-1>1<#else>-1</#if>" <#if cond.sortStr=='price'>
+               class="selected" </#if> style="width: 24.4%;">
+                价 格
+                <i class="arrow2-top <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==-1>gray</#if></#if> "></i>
+                <i class="arrow2-bottom <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==1>gray</#if></#if> "></i>
+            </a>
+            <a  <#if cond.sortStr=='saleNum'> class="selected" </#if>
+                                              href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=saleNum&orderBy=-1"
+                                              style="width: 24.4%;">销 量</a>
+            <a  <#if cond.sortStr=='createTime'> class="selected" </#if>
+                                                 href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=createTime&orderBy=-1"
+                                                 style="width: 24.4%;">最 新</a>
+        </div>
+        <div class="pxui-area">
+            <div class="pxui-shoes product-list">
+                <div id="js-goodlist" style="position: relative;">
+                <#list pageVo.list as e >
+                    <a href="${INTER_PATH}/proDetail.html?proId=${e._id}" data-transition="slide"
+                       style="width:33%;min-width: 0px;height:203px; ">
+                        <#list e.fileNames as f>
+                            <#if f_index==0>
+                                <div class="img160" style="background-image: none;width:100%;height: 120px">
+                                    <dfn></dfn><img style="max-height: 90px;" src="${UPLOAD_BASE_PATH}/img/${f}"
+                                                    onerror="nofind();"/></div>
+                            </#if>
                         </#list>
-                    </div>
+                        <span style="padding-top: 0px;" class="name">${e.name}</span>
+                        <span class="price">￥${e.price}</span>
+                        <del class="price">￥${e.oldPrice}</del>
+                    </a>
+                </#list>
                 </div>
             </div>
         </div>
-
-
     </div>
-    <!-- /content -->
 </div>
+<!-- /content -->
+
+<div data-role="panel" style="background-color: #f8f8f8;margin-top: 52px" data-position="left"
+     data-position-fixed="true" data-display="overlay" id="nav-panel"
+     data-theme="a">
+    <ul data-role="none" data-theme="a" data-divider-theme="a" class="nav-search">
+        <li data-icon="delete" style="background-color:#111;text-align: center">
+            <a href="#" data-rel="close" style="color:#fff;text-shadow:0 0px 0 #f3f3f3">关闭菜单</a>
+        </li>
+
+    <#list mainPro as e>
+        <li>
+            <a href="${INTER_PATH}/product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1">${e.name}</a>
+        </li>
+        <li>
+            <#list e.sortList as s>
+                <a href="${INTER_PATH}/product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1" class="ui-btn ui-btn-inline"
+                   style="font-size: 12px;">${s.name}</a>
+            </#list>
+        </li>
+    </#list>
+
+    </ul>
+    <!-- panel content goes here -->
+</div><!-- /panel -->
+
+
+</div>
+
 
 </body>
 </html>

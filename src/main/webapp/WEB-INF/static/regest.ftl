@@ -1,26 +1,4 @@
-<body>
-<div data-role="page" data-dom-cache="false">
-
-    <div data-role="header">
-        <div class="com-header-area">
-            <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
-
-            <p>
-                <a class="com-header-search" id="js-com-header-search">
-                    <del></del>
-                </a>
-                <a href="login/default.htm" class="com-header-user ">
-                    <del></del>
-                </a>
-                <i></i>
-                <a href="cart/default.htm" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
-                    <del></del>
-                </a>
-            </p>
-            <div class="clear"></div>
-        </div>
-    </div>
+<#include "title.ftl">
 
     <div data-role="content">
 
@@ -29,9 +7,9 @@
 
                 <div class="item item-captcha">
                     <div class="input-info" style="display:;">
-                        <input data-role="none" class="txt-input txt-captcha" type="text" size="11" maxlength="6"
+                        <input data-role="none" class="txt-input txt-captcha"  id="r_captcha" type="text" size="11" maxlength="6"
                                autocomplete="off" placeholder="    请输入验证码" autofocus="">
-                        <span id="captcha-img"><img src="/cgi-bin/m/authcode?mod=login" width="63" height="25"
+                        <span id="captcha-img" onclick="changeImg(this)" ><img src="${INTER_PATH}/manage/code.img" width="65" height="30"
                                                     alt=""></span>
                     </div>
                 </div>
@@ -55,7 +33,6 @@
 
                 <div class="item item-btns">
                     <a class="btn-login" href="javascript:register();">注册</a>
-                    /** btn-disabled */
                 </div>
             </div>
 

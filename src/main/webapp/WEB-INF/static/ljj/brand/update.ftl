@@ -88,7 +88,8 @@
                         location.href = "${INTER_PATH}/ljj/brand/list.htm";
                     });
                 } else {
-                    showErrors($('#add_user_form'), data.msg);
+                    bootbox.alert(data.msg, function () {
+                    });
                 }
             }
         });

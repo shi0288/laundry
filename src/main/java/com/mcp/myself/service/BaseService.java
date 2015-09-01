@@ -40,6 +40,9 @@ public class BaseService {
                     if ("tip".equals(name)) {
                         value = Integer.parseInt(value.toString());
                     }
+                    if ("jump".equals(name)) {
+                        value = Integer.parseInt(value.toString());
+                    }
                     if ("oldPrice".equals(name)) {
                         value = Integer.parseInt(value.toString());
                     }

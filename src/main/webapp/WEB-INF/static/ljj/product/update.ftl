@@ -1,66 +1,150 @@
-<#assign menu="mainPro">
+<#assign menu="product">
 <#include "/ljj/head.ftl">
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/mainPro/update.json"
+        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/product/update.json"
               autocomplete="off" method="post"
               enctype="multipart/form-data">
             <fieldset>
                 <div class="row">
-                    <input type="hidden" name="id" value="${e._id}">
+                    <input type="hidden" name="id" value="${p._id}">
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
                                 修改模块信息
                             </header>
                             <div class="panel-body">
+
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">名称</label>
+                                    <label class="col-sm-2 control-label">名称</label>
                                     <div class="col-sm-10">
                                         <input type="text" style="font-size:15px;width: 300px;" class="form-control"
-                                               name="name" id="name" value="${e.name}"/>
+                                               name="name"
+                                               placeholder="输入商品名称" id="name" value="${(p.name)!''}">
+                                        </input>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">状态</label>
+                                    <label class="col-sm-2 control-label">主题</label>
+                                    <div class="col-sm-10">
+                                        <select name="mainProId" class="form-control">
+                                            <option value="">请选择所属主题</option>
+                                        <#list mainPro as e>
+                                            <option value="${e._id}" <#if e._id==p.mainProId>selected</#if> >${e.name}</option>
+                                        </#list>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">分类</label>
+                                    <div class="col-sm-10">
+                                        <select name="sortProId" class="form-control">
+                                            <option value="">请选择所属分类</option>
+                                        <#list sortPro as e>
+                                            <option value="${e._id}" <#if e._id==p.sortProId>selected</#if>  >${e.name}</option>
+                                        </#list>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">品牌</label>
+                                    <div class="col-sm-10">
+                                        <select name="brandId" class="form-control">
+                                            <option value="">请选择所属品牌</option>
+                                        <#list brand as e>
+                                            <option value="${e._id}"  <#if e._id==p.brandId>selected</#if> >${e.name}</option>
+                                        </#list>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">原价</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="oldPrice"
+                                               placeholder="输入商品原价" value="${(p.oldPrice)!''}"  id="oldPrice">
+                                        </input>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">现价</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="price"
+                                               placeholder="输入商品现价" value="${(p.price)!''}" id="price">
+                                        </input>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">状态</label>
                                     <div class="col-sm-10">
                                         <select name="status" class="form-control">
-                                            <option  <#if e.status==0>selected</#if> value="0">显示</option>
-                                            <option  <#if e.status==1>selected</#if>  value="1">隐藏</option>
+                                            <option value="0"  <#if p.status==0>selected</#if>   >显示</option>
+                                            <option value="1"  <#if p.status==1>selected</#if> >隐藏</option>
+                                            <option value="2"  <#if p.status==2>selected</#if> >补货中</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">主题颜色</label>
+                                    <label class="col-sm-2 control-label">首页</label>
                                     <div class="col-sm-10">
-                                        <select name="colorTip" class="form-control">
-                                            <option <#if e.colorTip=='#ffaf51'>selected</#if>   value="#ffaf51">橘黄色</option>
-                                            <option <#if e.colorTip=='#ff8080'>selected</#if>   value="#ff8080">粉红色</option>
-                                            <option <#if e.colorTip=='#688fd0'>selected</#if>   value="#688fd0">蓝色</option>
-                                            <option <#if e.colorTip=='#c49741'>selected</#if>   value="#c49741">卡其色</option>
-                                            <option <#if e.colorTip=='#875e78'>selected</#if>   value="#875e78">紫色</option>
-                                            <option <#if e.colorTip=='#94d15e'>selected</#if>   value="#94d15e">绿色</option>
+                                        <select name="tip" class="form-control">
+                                            <option value="0" <#if p.tip==0>selected</#if> >不显示</option>
+                                            <option value="1" <#if p.tip==0>selected</#if> >显示</option>
                                         </select>
                                     </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">推荐</label>
+                                    <div class="col-sm-10">
+                                        <select name="jump" class="form-control">
+                                            <option value="0"   <#if p.jump==0>selected</#if> >否</option>
+                                            <option value="1"   <#if p.jump==1>selected</#if> >是</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">图片上传</label>
+                                    <div class="col-sm-10">
+                                        <input type="file"  class="form-control" name="files" id="inputFile"/>
+                                    </div>
+                                <#list p.fileNames as fileName>
+                                  <#if fileName_index==0>
+                                      <img style="margin-left: 200px" width="100px" height="100px" src="${UPLOAD_BASE_PATH}/img/${fileName}" />
+                                  </#if>
+                                </#list>
                                 </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">图片上传</label>
                                     <div class="col-sm-10">
-                                        <input type="file"  class="form-control" name="file" id="inputFile"/>
+                                        <input type="file"  class="form-control" name="files" id="inputFile"/>
                                     </div>
+                                <#list p.fileNames as fileName>
+                                    <#if fileName_index==1>
+                                        <img style="margin-left: 200px"  width="100px" height="100px" src="${UPLOAD_BASE_PATH}/img/${fileName}" />
+                                    </#if>
+                                </#list>
                                 </div>
 
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">创建时间</label>
+                                    <label class="col-sm-2 control-label">属性描述</label>
                                     <div class="col-sm-10">
-                                        <input type="text" disabled="disabled" style="font-size:15px;width: 300px;" class="form-control"
-                                               name="createTime" id="createTime" value=" ${e.createTime?number?number_to_datetime}"/>
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="desc"
+                                               placeholder="输入商品描述" value="${(p.desc)!''}" id="desc">
+                                        </input>
                                     </div>
                                 </div>
 
@@ -91,15 +175,16 @@
                 $('#submit').button('reset');
                 if (data.result) {
                     bootbox.alert("修改成功，将刷新页面", function () {
-                        location.href = "${INTER_PATH}/ljj/mainPro/list.htm";
+                        location.href = "${INTER_PATH}/ljj/product/list.htm";
                     });
                 } else {
-                    showErrors($('#add_user_form'), data.msg);
+                    bootbox.alert(data.msg, function () {
+                    });
                 }
             }
         });
         $('#back').click(function(){
-            location.href = "${INTER_PATH}/ljj/mainPro/list.htm";
+            location.href = "${INTER_PATH}/ljj/product/list.htm";
         })
     });
 </script>

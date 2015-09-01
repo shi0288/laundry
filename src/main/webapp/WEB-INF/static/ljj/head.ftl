@@ -35,7 +35,7 @@
 <script src="${BASE_PATH}/ljj/common/js/jquery.js"></script>
 </head>
 <body class="boxed-page">
-	<div class="container">
+	<div class="container" style="width: 80%;" >
 	<section id="container" class="">
 		<!--header start-->
 		<header class="white-bg">
@@ -62,8 +62,8 @@
 
 	                      <ul class="dropdown-menu extended logout">
 	                          <div class="log-arrow-up"></div>
-	                          <li><a href="${BASE_PATH}/business/business/update.htm"><i class="icon-cog"></i> 修改密码</a></li>
-	                          <li><a href="${BASE_PATH}/master/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
+	                          <li><a href="#"><i class="icon-cog"></i> 修改密码</a></li>
+	                          <li><a href="${INTER_PATH}/ljj/user/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
 	                      </ul>
 	                  </li>
 	                  <!-- user login dropdown end -->
@@ -78,6 +78,9 @@
 			<div id="sidebar" class="nav-collapse ">
 				<!-- sidebar menu goes here-->
 				<ul class="sidebar-menu" id="nav-accordion">
+                    <li class="">
+                        <a <#if menu="torder">class="active"</#if> href="${INTER_PATH}/ljj/order/list.htm"> <i class="icon-book"></i> <span>订单列表</span></a>
+                    </li>
 					<li class="">
 						<a <#if menu="user">class="active"</#if> href="${INTER_PATH}/ljj/user/list.htm"> <i class="icon-book"></i> <span>用户列表</span></a>
 					</li>

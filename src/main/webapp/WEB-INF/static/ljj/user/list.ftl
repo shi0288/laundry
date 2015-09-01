@@ -8,30 +8,10 @@
         padding-left: 0;
     }
 
-    .howto, .nonessential, #edit-slug-box, .form-input-tip, .subsubsub {
-        color: #666666;
-    }
-
-    .subsubsub {
-        float: left;
-        font-size: 12px;
-        list-style: none outside none;
-        margin: 8px 0 5px;
-        padding: 0;
-    }
-
     .form-group {
         width: 100%;
     }
 
-    .count {
-        position: absolute;
-        right: 0px;
-    }
-
-    .arrticle_status {
-        float: left;
-    }
 </style>
 <!--main content start-->
 <section id="main-content">
@@ -94,23 +74,23 @@
                                 <#list pageVo.list as e>
                                 <tr class="gradeA odd">
                                     <td>
-                                    ${e.userName!""}
+                                    ${(e.name)!""}
                                     </td>
                                     <td>
-                                    ${e.cardType!"无"}
+                                    ${(e.cardType)!"无"}
                                     </td>
                                     <td>
-                                    ${e.cardNum!"未填写"}
+                                    ${(e.cardNum)!"未填写"}
                                     </td>
                                     <td>
-                                    ${e.status!"未填写"}
+                                    ${(e.status)!"未填写"}
                                     </td>
                                     <td>
-                                    ${e.createTime!"11"}
+                                    ${(e.createTime)!"11"}
                                     </td>
                                     <td>
                                         <!-- Icons -->
-                                        <a href="${BASE_PATH}/business/user/update.htm?userId=${e.userName}" title="编辑">
+                                        <a href="${BASE_PATH}/business/user/update.htm?userId=${(e.name)!""}" title="编辑">
                                             编辑
                                         </a>
                                     </td>

@@ -40,7 +40,7 @@ public class IndexService extends BaseService {
 
 
         Map queryValues =new HashMap();
-        queryValues.put("tip",0);
+        queryValues.put("tip",1);
         queryValues.put("status",0);
         List tuijian = MongoUtil.queryForPage(MongoConst.MONGO_PRODUCT, queryValues, 1, 5, "createTime", 1);
         if(tuijian.size()!=5){

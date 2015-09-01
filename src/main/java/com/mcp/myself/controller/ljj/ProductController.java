@@ -50,7 +50,7 @@ public class ProductController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("add.json")
-    public JsonVo<DBObject> add(String name, int status, String mainProId, String sortProId, String brandId, double oldPrice, double price,String desc,
+    public JsonVo<DBObject> add(String name, int status, int tip,int jump, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
                                 MultipartHttpServletRequest request) throws
             IOException {
         List<MultipartFile> files = request.getFiles("files");
@@ -123,9 +123,11 @@ public class ProductController extends BaseAction {
         dbObject.put("mainProId", mainProId);
         dbObject.put("sortProId", sortProId);
         dbObject.put("brandId", brandId);
-        DecimalFormat df   =new   DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#.00");
         dbObject.put("oldPrice", df.format(oldPrice));
         dbObject.put("price", df.format(price));
+        dbObject.put("tip", tip);
+        dbObject.put("jump,", jump);
         dbObject.put("saleNum", 0);
         dbObject.put("clickNum", 0);
         dbObject.put("desc", desc);
@@ -144,55 +146,57 @@ public class ProductController extends BaseAction {
     public String update(@RequestParam(value = "id") String id,
                          ModelMap modelMap) {
         DBObject dbObject = productService.getById(id);
-        modelMap.put("e", dbObject);
+        modelMap.put("p", dbObject);
+        List mainPro = MongoUtil.queryAll(MongoConst.MONGO_MAINPRO, null, "createTime", 1);
+        modelMap.put("mainPro", mainPro);
+        List sortPro = MongoUtil.queryAll(MongoConst.MONGO_SORTPRO, null, "createTime", 1);
+        modelMap.put("sortPro", sortPro);
+        List brand = MongoUtil.queryAll(MongoConst.MONGO_BRAND, null, "createTime", 1);
+        modelMap.put("brand", brand);
         return "ljj/product/update";
     }
 
-    /**
-     * 更新
-     */
 
     @ResponseBody
     @RequestMapping("update.json")
-    public JsonVo<DBObject> updateEntity(String id, String name, int status, String colorTip,
-                                         MultipartFile[] files, HttpServletRequest request) throws IllegalStateException,
+    public JsonVo<DBObject> updatePro(String id, String name, int status,int tip,int jump, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
+                                      MultipartHttpServletRequest request) throws
             IOException {
-        //获取文件 存储位置
+
+        List<MultipartFile> files = request.getFiles("files");
         JsonVo<DBObject> json = new JsonVo<DBObject>();
         String fileName = null;
         List fileNames = new ArrayList();
-        if (files != null) {
-            for (int i = 0; i < files.length; i++) {
-                MultipartFile file = files[i];
-                //获取文件 存储位置
-                String realPath = request.getSession().getServletContext()
-                        .getRealPath(SystemConstant.UPLOAD_FOLDER + "/img");
-                File pathFile = new File(realPath);
-                if (!pathFile.exists()) {
-                    //文件夹不存 创建文件
-                    pathFile.mkdirs();
-                }
-                long fileSize = file.getSize();
-                if (fileSize > SystemConstant.UPLOAD_FILE_SIZE) {
-                    json.setMsg("文件太大了，弄小点");
-                    json.setResult(false);
-                    return json;
-                }
-                //将文件copy上传到服务器
-                String[] jpgArr = file.getOriginalFilename().split("\\.");
-                String jpg = jpgArr[jpgArr.length - 1];
-                if (!"jpg".equals(jpg)) {
-                    json.setMsg("文件格式不支持上传");
-                    json.setResult(false);
-                    return json;
-                }
-                fileName = System.currentTimeMillis() + "." + jpg;
-                file.transferTo(new File(realPath + "/" + fileName));
-                fileNames.add(fileName);
+        for (int i = 0; i < files.size(); i++) {
+            MultipartFile file = files.get(i);
+            //获取文件 存储位置
+            String realPath = request.getSession().getServletContext()
+                    .getRealPath(SystemConstant.UPLOAD_FOLDER + "/img");
+            File pathFile = new File(realPath);
+            if (!pathFile.exists()) {
+                //文件夹不存 创建文件
+                pathFile.mkdirs();
             }
+            long fileSize = file.getSize();
+            if (fileSize > SystemConstant.UPLOAD_FILE_SIZE) {
+                json.setMsg("文件太大了，弄小点");
+                json.setResult(false);
+                return json;
+            }
+            //将文件copy上传到服务器
+            String[] jpgArr = file.getOriginalFilename().split("\\.");
+            String jpg = jpgArr[jpgArr.length - 1];
+            if (!"jpg".equals(jpg)) {
+                json.setMsg("文件格式不支持上传");
+                json.setResult(false);
+                return json;
+            }
+            fileName = System.currentTimeMillis() + MD5.MondomStr(8).toUpperCase() + "." + jpg;
+            file.transferTo(new File(realPath + "/" + fileName));
+            fileNames.add(fileName);
         }
 
-
+        //校验
         if (StringUtils.isBlank(id)) {
             json.setMsg("id不能为空");
             json.setResult(false);
@@ -203,18 +207,48 @@ public class ProductController extends BaseAction {
             json.setResult(false);
             return json;
         }
-        if (StringUtils.isBlank(colorTip)) {
-            json.setMsg("颜色不能为空");
+        if (StringUtils.isBlank(mainProId)) {
+            json.setMsg("主题不能为空");
+            json.setResult(false);
+            return json;
+        }
+        if (StringUtils.isBlank(sortProId)) {
+            json.setMsg("分类不能为空");
+            json.setResult(false);
+            return json;
+        }
+        if (StringUtils.isBlank(brandId)) {
+            json.setMsg("品牌不能为空");
+            json.setResult(false);
+            return json;
+        }
+        if (StringUtils.isBlank(desc)) {
+            json.setMsg("描述不能为空");
             json.setResult(false);
             return json;
         }
         DBObject dbObject = new BasicDBObject();
-        dbObject.put("_id", new ObjectId(id));
-        dbObject.put("status", status);
-        dbObject.put("colorTip", colorTip);
         dbObject.put("name", name);
-        dbObject.put("fileNames", fileNames);
-        json.setResult(productService.update(dbObject));
+        dbObject.put("status", status);
+        dbObject.put("mainProId", mainProId);
+        dbObject.put("sortProId", sortProId);
+        dbObject.put("tip", tip);
+        dbObject.put("jump", jump);
+        dbObject.put("brandId", brandId);
+        DecimalFormat df = new DecimalFormat("#.00");
+        dbObject.put("oldPrice", df.format(oldPrice));
+        dbObject.put("price", df.format(price));
+        dbObject.put("desc", desc);
+        if (fileNames.size() > 0) {
+            dbObject.put("fileNames", fileNames);
+        }
+
+        dbObject.put("createTime", System.currentTimeMillis());
+        DBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        BasicDBObject tempSet = new BasicDBObject("$set", dbObject);
+        MongoUtil.getDb().getCollection(MongoConst.MONGO_PRODUCT).update(query, tempSet, false, false);
+        json.setResult(true);
         return json;
     }
 

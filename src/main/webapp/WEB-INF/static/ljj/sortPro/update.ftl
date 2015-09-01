@@ -92,7 +92,8 @@
                         location.href = "${INTER_PATH}/ljj/sortPro/list.htm";
                     });
                 } else {
-                    showErrors($('#add_user_form'), data.msg);
+                    bootbox.alert(data.msg, function () {
+                    });
                 }
             }
         });

@@ -6,6 +6,8 @@ import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import com.mongodb.WriteResult;
+import org.bson.types.ObjectId;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -17,8 +19,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 
 @Controller
@@ -34,17 +44,29 @@ public class MangageLoginController {
                              @RequestParam(value = "password") String password,
                              HttpServletRequest request, ModelMap modelMap) {
         JsonVo<String> json = new JsonVo<String>();
-        json.setResult(adminService.adminLogin(name,password,request));
+        json.setResult(adminService.adminLogin(name, password, request));
         return json;
     }
+
 
 
     @ResponseBody
     @RequestMapping(value = "register.json", method = RequestMethod.POST)
     public JsonVo register(@RequestParam(value = "name") String name,
-                             @RequestParam(value = "password") String password) {
+                           @RequestParam(value = "password") String password,
+                           @RequestParam(value = "captcha") String captcha,HttpServletRequest request) {
         JsonVo<String> json = new JsonVo<String>();
+        HttpSession session=request.getSession();
+        String code= (String) session.getAttribute("CODE");
+        if(!code.equals(captcha.toUpperCase())){
+            json.setResult(false);
+            json.setMsg("验证码不对呀亲");
+            return json;
+        }
         json.setResult(adminService.register(name, password));
+        if(!json.isResult()){
+            json.setMsg("注册失败请重试");
+        }
         return json;
     }
 
@@ -52,9 +74,20 @@ public class MangageLoginController {
     @ResponseBody
     @RequestMapping(value = "login.json", method = RequestMethod.POST)
     public JsonVo login(@RequestParam(value = "name") String name,
-                           @RequestParam(value = "password") String password) {
+                        @RequestParam(value = "password") String password,
+                        @RequestParam(value = "captcha") String captcha,HttpServletRequest request) {
         JsonVo<String> json = new JsonVo<String>();
+        HttpSession session=request.getSession();
+        String code= (String) session.getAttribute("CODE");
+        if(!code.equals(captcha.toUpperCase())){
+            json.setResult(false);
+            json.setMsg("验证码不对呀亲");
+            return json;
+        }
         json.setResult(adminService.login(name, password));
+        if(!json.isResult()){
+            json.setMsg("用户名或密码错误");
+        }
         return json;
     }
 
@@ -72,26 +105,57 @@ public class MangageLoginController {
     }
 
     @ResponseBody
+    @RequestMapping(value = "updateAddress.json", method = RequestMethod.POST)
+    public JsonVo updateAddress(@RequestParam(value = "name") String name,
+                                @RequestParam(value = "id") String id,
+                                @RequestParam(value = "userName") String userName,
+                                @RequestParam(value = "mobile") String mobile,
+                                @RequestParam(value = "provice") String provice,
+                                @RequestParam(value = "where") String where,
+                                @RequestParam(value = "first") int first) {
+        JsonVo<String> json = new JsonVo<String>();
+        json.setResult(adminService.updateAddress(name, id, userName, mobile, provice, where, first));
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "delAddress.json", method = RequestMethod.POST)
+    public JsonVo delAddress(@RequestParam(value = "id") String id) {
+        JsonVo<String> json = new JsonVo<String>();
+        DBObject dbObject = new BasicDBObject();
+        dbObject.put("_id", new ObjectId(id));
+        WriteResult writeResult = MongoUtil.getDb().getCollection(MongoConst.MONGO_ADDRESS).remove(dbObject);
+        int i = writeResult.getN();
+        if (i == 1) {
+            json.setResult(true);
+        } else {
+            json.setResult(false);
+        }
+        return json;
+    }
+
+
+    @ResponseBody
     @RequestMapping(value = "addressList.json", method = RequestMethod.POST)
     public String addressList(@RequestParam(value = "name") String name) {
-        DBObject query=new BasicDBObject();
+        DBObject query = new BasicDBObject();
         query.put("name", name);
-        List rstList= MongoUtil.queryAll(MongoConst.MONGO_ADDRESS, query, "createTime", -1);
+        List rstList = MongoUtil.queryAll(MongoConst.MONGO_ADDRESS, query, "createTime", -1);
         JSONArray results = new JSONArray();
         for (int i = 0; i < rstList.size(); i++) {
             DBObject obj = (DBObject) rstList.get(i);
             results.put(obj);
         }
-        JSONObject json=new JSONObject();
+        JSONObject json = new JSONObject();
         try {
-            json.put("result",true);
-            json.put("datas",results);
+            json.put("result", true);
+            json.put("datas", results);
             return json.toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            json.put("result",false);
+            json.put("result", false);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -101,20 +165,20 @@ public class MangageLoginController {
     @ResponseBody
     @RequestMapping(value = "addressPro.json", method = RequestMethod.POST)
     public String addressPro(@RequestParam(value = "name") String name) {
-        DBObject query=new BasicDBObject();
+        DBObject query = new BasicDBObject();
         query.put("name", name);
         query.put("status", 0);
-        DBObject dbObject= MongoUtil.getDb().getCollection(MongoConst.MONGO_ADDRESS).findOne(query);
-        JSONObject json=new JSONObject();
+        DBObject dbObject = MongoUtil.getDb().getCollection(MongoConst.MONGO_ADDRESS).findOne(query);
+        JSONObject json = new JSONObject();
         try {
-            json.put("result",true);
-            json.put("datas",dbObject);
+            json.put("result", true);
+            json.put("datas", dbObject);
             return json.toString();
         } catch (JSONException e) {
             e.printStackTrace();
         }
         try {
-            json.put("result",false);
+            json.put("result", false);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -123,15 +187,96 @@ public class MangageLoginController {
 
     @ResponseBody
     @RequestMapping(value = "selectAddress.json", method = RequestMethod.POST)
-    public JsonVo selectAddress(@RequestParam(value = "name") String name,@RequestParam(value = "id") String id) {
+    public JsonVo selectAddress(@RequestParam(value = "name") String name, @RequestParam(value = "id") String id) {
         JsonVo<String> json = new JsonVo<String>();
-        json.setResult(adminService.selectAddress(name,id));
+        json.setResult(adminService.selectAddress(name, id));
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "commitOrder.json", method = RequestMethod.POST)
+    public JsonVo commitOrder(@RequestParam(value = "name") String name,
+                              @RequestParam(value = "conName") String conName,
+                              @RequestParam(value = "conMobile") String conMobile,
+                              @RequestParam(value = "conAddress") String conAddress,
+                              @RequestParam(value = "orderStr") String orderStr,
+                              @RequestParam(value = "orderPrice") String orderPrice) {
+        JsonVo<String> json = new JsonVo<String>();
+        DBObject dbObject=new BasicDBObject();
+        dbObject.put("name",name);
+        dbObject.put("conName",conName);
+        dbObject.put("conMobile",conMobile);
+        dbObject.put("conAddress",conAddress);
+        dbObject.put("orderStr", orderStr);
+        dbObject.put("orderPrice",orderPrice);
+        dbObject.put("status",1100);
+        dbObject.put("createTime",System.currentTimeMillis());
+        try{
+            MongoUtil.insert(MongoConst.MONGO_ORDERS, dbObject);
+            json.setResult(true);
+        }catch (Exception e){
+            e.printStackTrace();
+            json.setResult(false);
+        }
         return json;
     }
 
 
 
+    @RequestMapping("code.img")
+    public void getCode(HttpServletRequest req, HttpServletResponse resp)
+            throws IOException {
+
+        int width = 90;
+        int height = 20;
+        int codeCount = 4;
+        int xx = 15;
+        int fontHeight = 18;
+        int codeY = 16;
+        char[] codeSequence = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
+                'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+                'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
 
 
+        BufferedImage buffImg = new BufferedImage(width, height,
+                BufferedImage.TYPE_INT_RGB);
+        Graphics gd = buffImg.getGraphics();
+        Random random = new Random();
+        gd.setColor(Color.WHITE);
+        gd.fillRect(0, 0, width, height);
+        Font font = new Font("Fixedsys", Font.BOLD, fontHeight);
+        gd.setFont(font);
+        gd.setColor(Color.BLACK);
+        gd.drawRect(0, 0, width - 1, height - 1);
+        gd.setColor(Color.BLACK);
+        for (int i = 0; i < 40; i++) {
+            int x = random.nextInt(width);
+            int y = random.nextInt(height);
+            int xl = random.nextInt(12);
+            int yl = random.nextInt(12);
+            gd.drawLine(x, y, x + xl, y + yl);
+        }
+        StringBuffer randomCode = new StringBuffer();
+        int red = 0, green = 0, blue = 0;
+        for (int i = 0; i < codeCount; i++) {
+            String code = String.valueOf(codeSequence[random.nextInt(36)]);
+            red = random.nextInt(255);
+            green = random.nextInt(255);
+            blue = random.nextInt(255);
+            gd.setColor(new Color(red, green, blue));
+            gd.drawString(code, (i + 1) * xx, codeY);
+            randomCode.append(code);
+        }
+        HttpSession session = req.getSession();
+        System.out.print(randomCode);
+        session.setAttribute("CODE", randomCode.toString());
+        resp.setHeader("Pragma", "no-cache");
+        resp.setHeader("Cache-Control", "no-cache");
+        resp.setDateHeader("Expires", 0);
+        resp.setContentType("image/jpeg");
+        ServletOutputStream sos = resp.getOutputStream();
+        ImageIO.write(buffImg, "jpeg", sos);
+        sos.close();
+    }
 
 }

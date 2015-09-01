@@ -54,15 +54,6 @@ public class MD5 {
 
 
     public static void main(String[] args) {
-        System.err.println("中");
-        try {
-            String queryString = "connChannel=VINUX&game=00-0&merchantId=23456789&orderId=1231234234234234234234234234&stakeNumber=01020304050607%2C01020304050607&userId=13581665881";
-            System.out.println(MD5.MD5Encode(queryString + "$R@#@#$@#V*@!"));
-        } catch (Exception e) {
-            e.printStackTrace();
-            ;
-        }
-
     }
 
 

@@ -97,7 +97,8 @@
                         location.href = "${BASE_PATH}/business/user/list.htm";
                     });
                 } else {
-                    showErrors($('#add_user_form'), data.msg);
+                    bootbox.alert(data.msg, function () {
+                    });
                 }
             }
         });

@@ -91,6 +91,44 @@ public class AdminService {
         return true;
     }
 
+    public boolean updateAddress(String name, String id,String userName, String mobile, String provice, String where, int first) {
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_ADDRESS);
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        long i=collection.count(query);
+        if (i==1) {
+            DBObject setObj=new BasicDBObject();
+            setObj.put("status", first);
+            setObj.put("userName", userName);
+            setObj.put("mobile", mobile);
+            setObj.put("provice", provice);
+            setObj.put("where", where);
+            BasicDBObject set = new BasicDBObject("$set", setObj);
+            collection.update(query, set, false, false);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean removeAddress(String name, String id,String userName, String mobile, String provice, String where, int first) {
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_ADDRESS);
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        long i=collection.count(query);
+        if (i==1) {
+            DBObject setObj=new BasicDBObject();
+            setObj.put("status", first);
+            setObj.put("userName", userName);
+            setObj.put("mobile", mobile);
+            setObj.put("provice", provice);
+            setObj.put("where", where);
+            BasicDBObject set = new BasicDBObject("$set", setObj);
+            collection.update(query, set, false, false);
+            return true;
+        }
+        return false;
+    }
+
 
     public boolean selectAddress(String name,String id) {
         DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_ADDRESS);

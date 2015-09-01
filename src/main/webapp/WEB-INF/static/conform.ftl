@@ -1,26 +1,4 @@
-<body>
-<div data-role="page" data-dom-cache="false">
-
-    <div data-role="header" data-position="fixed">
-        <div class="com-header-area">
-            <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
-
-            <p>
-                <a class="com-header-search" id="js-com-header-search">
-                    <del></del>
-                </a>
-                <a href="login/default.htm" class="com-header-user ">
-                    <del></del>
-                </a>
-                <i></i>
-                <a href="cart/default.htm" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
-                    <del></del>
-                </a>
-            </p>
-            <div class="clear"></div>
-        </div>
-    </div>
+<#include "title.ftl">
 
     <div data-role="content">
         <div class="page-role container-fluid good-page" style="margin-top:15px;">
@@ -41,6 +19,7 @@
                             </div>
                             <div class="mc step1-in-con" id="conAddress">
                             </div>
+                            <p style="font-size: 12px;color: #0000cc">(点击选择收货地址)</p>
                         </a>
                     </div>
                     <b class="s1-borderT"></b>
@@ -73,7 +52,7 @@
             <div class="pay-bar" id="pay-bar">
                 <div class="payb-con">实付款：<span id="payMoney">￥1309.00</span>
                 </div>
-                <a class="payb-btn" onclick="submitOrder('true')" href="javascript:;">
+                <a class="payb-btn" onclick="commitOrder()" href="javascript:;">
                     提交订单
                 </a>
             </div>

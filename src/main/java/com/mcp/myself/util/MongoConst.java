@@ -18,5 +18,6 @@ public class MongoConst {
     public static final String MONGO_BRAND="brand";
     public static final String MONGO_PICTURES="pictures";
     public static final String MONGO_PRODUCT="product";
+    public static final String MONGO_ORDERS="orders";
 
 }

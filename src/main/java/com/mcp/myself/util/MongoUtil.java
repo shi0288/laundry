@@ -105,5 +105,12 @@ public class MongoUtil {
         return collection.findOne(query);
     }
 
+    public static void main(String[] args) {
+        DBObject dbObject=new BasicDBObject();
+        dbObject.put("name","w44");
+        dbObject.put("password",MD5.MD5Encode("123456"));
+        MongoUtil.insert(MongoConst.MONGO_ADMIN,dbObject);
+    }
+
 
 }

@@ -243,7 +243,7 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
 */
 
 .sortList .pxui-list a {
-    height: 66px;
+    height: 78px;
     position: relative;
     display: block;
     line-height: 40px;
@@ -276,7 +276,6 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
 }
 
 .sortList .pxui-list p {
-    position: absolute;
     margin-top: -45px;
     margin-left: 76px;
 }
@@ -1488,4 +1487,11 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     color: #fff;
     background: #f35656;
     border: 1px solid #f35656;
+}
+
+.ui-panel-inner {
+    height: 500px;
+    OVERFLOW-Y: auto;
+    OVERFLOW-X: hidden;
+    -webkit-overflow-scrolling: touch;
 }

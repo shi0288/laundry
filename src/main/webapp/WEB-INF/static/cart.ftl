@@ -1,26 +1,4 @@
-<body>
-<div data-role="page" data-dom-cache="false">
-
-    <div data-role="header" data-position="fixed">
-        <div class="com-header-area">
-            <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
-
-            <p>
-                <a class="com-header-search" id="js-com-header-search">
-                    <del></del>
-                </a>
-                <a href="login/default.htm" class="com-header-user ">
-                    <del></del>
-                </a>
-                <i></i>
-                <a href="cart/default.htm" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
-                    <del></del>
-                </a>
-            </p>
-            <div class="clear"></div>
-        </div>
-    </div>
+<#include "title.ftl">
 
     <div data-role="content">
 

@@ -7,9 +7,12 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/jquery.mobile-1.4.5.min.css"/>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/base.css"/>
+    <link rel="stylesheet" href="${BASE_PATH}/common/css/sweetalert.css"/>
     <script src="${BASE_PATH}/common/js/jquery-1.8.2.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.touchslider.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.Spinner.js"></script>
+    <script src="${BASE_PATH}/common/js/basic.js"></script>
+    <script src="${BASE_PATH}/common/js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/index.css"/>
     <script>
 
@@ -17,7 +20,7 @@
             //$.mobile.ajaxEnabled=false;
             // $.mobile.page.prototype.option.addBackBtn=true;
             $.mobile.page.prototype.options.domCache = true;
-            $.mobile.pageLoadErrorMessage = 'Sorry, something went wrong. Please try again.';
+            $.mobile.pageLoadErrorMessage = '功能正在赶工，敬请期待';
             $.mobile.transitionFallbacks.slideout = "none";
             $.mobile.buttonMarkup.hoverDelay = "false";
         });
@@ -26,21 +29,6 @@
     <script src="${BASE_PATH}/common/js/jquery.mobile-1.4.5.min.js"></script>
 
     <script>
-
-        Array.prototype.remove = function (obj) {
-            for (var i = 0; i < this.length; i++) {
-                var temp = this[i];
-                if (!isNaN(obj)) {
-                    temp = i;
-                }
-                if (temp == obj) {
-                    for (var j = i; j < this.length; j++) {
-                        this[j] = this[j + 1];
-                    }
-                    this.length = this.length - 1;
-                }
-            }
-        };
 
         $(document).on("pagebeforeshow", function (event) {
             $('.com-header-area').css('width', $(window).width());
@@ -52,10 +40,10 @@
                     $(this).html(order.length);
                 });
             }
-
             jQuery(function ($) {
                 var str = window.location.pathname;
                 if (str == '/main.html') {
+                    swal("Here's a message!");
                     var width = document.body.clientWidth;
                     $('.touchslider-item a').css('width', width);
                     $('.touchslider-viewport').css('height', 300 * (width / 640));
@@ -66,6 +54,9 @@
                     } else {
                         $(".touchslider").data("touchslider").start(); // stop the slider
                     }
+                } else if (str == '/product.html') {
+                    var height = document.body.clientHeight;
+                    $(".ui-panel-inner").height(height);
                 } else if (str == '/proDetail.html') {
                     $("#a").Spinner({value: 1, min: 1, len: 4, max: 1000});
                     var width = document.body.clientWidth - 40;
@@ -99,7 +90,9 @@
                 } else if (str == '/cart.html') {
                     var order = localStorage.getItem("order");
                     if (!order) {
+                        var str='<p style="text-align: center">购物车里是空的，请去挑选<a style="color: #003399;text-decoration: underline" href="main.html">需要的商品</a>吧！</p>';
                         //没有内容
+                        $("#proList").append(str);
                     } else {
                         order = order.split(";");
                         for (var i = 0; i < order.length; i++) {
@@ -192,13 +185,13 @@
                         },
                         success: function (rst) {
                             if (rst.result) {
-                                if(rst.datas==undefined){
+                                if (rst.datas == undefined) {
                                     return;
                                 }
-                                var obj=JSON.parse(rst.datas);
+                                var obj = JSON.parse(rst.datas);
                                 $("#conName").html(obj.userName);
                                 $("#conMobile").html(obj.mobile);
-                                $("#conAddress").html(obj.provice+obj.where);
+                                $("#conAddress").html(obj.provice + obj.where);
                                 $("#proWhere").val(rst.datas);
                             } else {
                                 alert("获取收货地址失败，请重试");
@@ -251,14 +244,18 @@
                                     $.each(rst['datas'], function (key, val) {
                                         var obj = JSON.parse(val);
                                         var checkStr = '';
-                                        if(obj.status==0){
+                                        if (obj.status == 0) {
                                             checkStr = '<div class="ia-l"></div>';
                                         }
                                         var subFun = "selectAddress('" + obj._id.$oid + "')";
+                                        var stackObj = $.mobile.navigate.history.getPrev();
+                                        if (stackObj.pageUrl == '/acount.html') {
+                                            subFun = "void(0);";
+                                        }
                                         var str = '<div class="item-addr bdb-1px">' + checkStr +
-                                                '<div class="ia-m m ia-m78" onclick='+subFun+'>' +
+                                                '<div class="ia-m m ia-m78" onclick=' + subFun + '>' +
                                                 '<div class="mt_new">' + '<span>' + obj.userName + '</span>&nbsp&nbsp&nbsp' + '<strong>' + obj.mobile + '</strong></div><div class="mc">' +
-                                                '<p>' + obj.provice + obj.where + '</p> </div></div><a class="ia-r" href="updateAddress.html?id='+obj._id.$oid+'"><span class="iar-icon"></span> </a></div>';
+                                                '<p>' + obj.provice + obj.where + '</p> </div></div><a class="ia-r" href="updateAddress.html?id=' + obj._id.$oid + '"><span class="iar-icon"></span> </a></div>';
                                         $(".address").append(str);
                                     });
                                 } else {
@@ -305,8 +302,11 @@
                 } else if (str == '/acount.html') {
                     var name = localStorage.getItem("name");
                     $("#acountName").html(name);
-                }
-                else {
+                    $("#quanbudingdan").attr("href", "orders.html?name=" + name + "&status=9999");
+                    $("#waitDeliveryOrderList").attr("href", "orders.html?name=" + name + "&status=1100");
+                    $("#waite4Payment").attr("href", "orders.html?name=" + name + "&status=1000");
+
+                } else {
                     if ($(".touchsliderPro").data("touchslider") != null) {
                         $(".touchsliderPro").data("touchslider").stop(); // stop the slider
                     }
@@ -314,305 +314,6 @@
             });
         });
 
-        function dealPrice() {
-            var total = 0;
-            $(".proOne").each(function (index) {
-                var ev = $(this).find("#_check").find(".checkbox");
-                if (ev.attr("class") == "checkbox") {
-                } else {
-                    var number = ev.parent().prevAll("#_content").find("input[class='Amount']").val();
-                    number = number * 1;
-                    var price = ev.parent().prevAll("#_content").find(".lse").html().split("￥")[1];
-                    price = price * 1;
-                    var totalPrice = price * 100 * number / 100;
-                    total += totalPrice;
-                }
-            });
-            $(".ff6").html(total.toFixed(2));
-        }
-
-        function toAmount() {
-            var name = localStorage.getItem("name");
-            if (name) {
-                $.mobile.changePage('acount.html', 'slide');
-            } else {
-                $.mobile.changePage('login.html', 'slide');
-            }
-
-        }
-
-        function selectAddress(id) {
-            var name = localStorage.getItem("name");
-            $.ajax({
-                type: "POST",
-                url: "/manage/selectAddress.json?timestamp=" + new Date().getTime(),
-                dataType: "json",
-                cache: false,
-                data: {
-                    name:name,
-                    id: id
-                },
-                success: function (rst) {
-                    if (rst.result) {
-                        $.mobile.changePage('conform.html', 'slide');
-                    } else {
-                        alert("操作失败，请重试");
-                    }
-                },
-                error: function () {
-                    alert('请求出错');
-                }
-            });
-
-        }
-
-
-        function saveAddress() {
-            var name = localStorage.getItem("name");
-            if (name) {
-                var userName = $("#address_uersName").val();
-                var mobile = $("#address_mobile").val();
-                var provice = $("#address_provice").val();
-                var where = $("#address_where").val();
-                var adrBtn = $("#adrBtn").attr("class");
-                var first =1;
-                if(adrBtn!='switch'){
-                    first=0;
-                }
-                if (userName == null || userName == "") {
-                    alert("收货人不能为空");
-                    return;
-                }
-                if (mobile == null || mobile == "") {
-                    alert("手机号不能为空");
-                    return;
-                }
-                if (provice == null || provice == "") {
-                    alert("地址不能为空");
-                    return;
-                }
-                if (where == null || where == "") {
-                    alert("请输入详细地址");
-                    return;
-                }
-                $.ajax({
-                    type: "POST",
-                    url: "/manage/address.json?timestamp=" + new Date().getTime(),
-                    dataType: "json",
-                    cache: false,
-                    data: {
-                        name: name,
-                        userName: userName,
-                        mobile: mobile,
-                        provice: provice,
-                        where: where,
-                        first:first
-                    },
-                    success: function (rst) {
-                        if (rst.result) {
-                            alert("添加成功");
-                            $.mobile.changePage('address.html', 'slide');
-                        } else {
-                            alert("添加失败，请重试");
-                        }
-                    },
-                    error: function () {
-                        alert('请求出错');
-                    }
-                });
-
-            } else {
-                $.mobile.changePage('login.html', 'slide');
-            }
-
-        }
-
-
-        function login() {
-            var name = $("#l_mobile").val();
-            var password = $("#l_password").val();
-            $.ajax({
-                type: "POST",
-                url: "/manage/login.json?timestamp=" + new Date().getTime(),
-                dataType: "json",
-                cache: false,
-                data: {
-                    name: name,
-                    password: password
-                },
-                success: function (rst) {
-                    if (rst.result) {
-                        alert("登录成功");
-                        localStorage.setItem("name", name);
-                        $.mobile.changePage('main.html', 'slide');
-                    } else {
-                        alert("登录失败，请重试");
-                    }
-                },
-                error: function () {
-                    alert('请求出错');
-                }
-            });
-        }
-
-        function register() {
-            var name = $("#r_mobile").val();
-            var password = $("#r_password").val();
-            $.ajax({
-                type: "POST",
-                url: "/manage/register.json?timestamp=" + new Date().getTime(),
-                dataType: "json",
-                cache: false,
-                data: {
-                    name: name,
-                    password: password
-                },
-                success: function (rst) {
-                    if (rst.result) {
-                        alert("注册成功");
-                        localStorage.setItem("name", name);
-                        $.mobile.changePage('main.html', 'slide');
-                    } else {
-                        alert("注册失败，请重试");
-                    }
-                },
-                error: function () {
-                    alert('请求出错');
-                }
-            });
-        }
-
-        function nofind() {
-            var img = event.srcElement;
-            img.src = "../static/common/css/images/error.png";
-            img.onerror = null;
-        }
-
-
-        function removeAll() {
-            localStorage.removeItem("order");
-            var o = $("#proList");
-            o.find(".proOne").remove();
-            $("b[name='header-cart-num']").each(function (index) {
-                $(this).html(0);
-            });
-            dealPrice();
-        }
-
-        function removeStorage(proId) {
-            var order = localStorage.getItem("order");
-            if (!order) {
-                alert("购物车为空");
-                return;
-            } else {
-                order = order.split(";");
-            }
-            for (var i = 0; i < order.length; i++) {
-                var jsonStr = order[i];
-                var obj = JSON.parse(jsonStr);
-                if (obj.proId == proId) {
-                    order.remove(i);
-                    break;
-                }
-            }
-            order = order.join(";");
-            localStorage.setItem("order", order.toString());
-        }
-
-        function toConform() {
-
-            var name = localStorage.getItem("name");
-            if (!name) {
-                $.mobile.changePage('login.html', 'slide');
-                return;
-            }
-            var order = localStorage.getItem("order");
-            if (!order) {
-                alert("购物车为空");
-                return;
-            } else {
-                order = order.split(";");
-            }
-            var conform = [];
-            $(".proOne").each(function (index) {
-                var ev = $(this).find("#_check").find(".checkbox");
-                if (ev.attr("class") == "checkbox") {
-                } else {
-                    var proId = $(this).find("input[name='proId']").val();
-                    var numbers = ev.parent().prevAll("#_content").find("input[class='Amount']").val();
-                    for (var i = 0; i < order.length; i++) {
-                        var jsonStr = order[i];
-                        var obj = JSON.parse(jsonStr);
-                        if (obj.proId == proId) {
-                            obj.numbers = numbers;
-                            var objStr = JSON.stringify(obj);
-                            conform.push(objStr);
-                            order[i] = objStr;
-                            break;
-                        }
-                    }
-
-                }
-            });
-            conform = conform.join(";");
-            var orderPrice = $(".ff6").html();
-            localStorage.setItem("conform", conform.toString());
-            localStorage.setItem("orderPrice", orderPrice);
-            order = order.join(";");
-            localStorage.setItem("order", order.toString());
-            $.mobile.changePage('conform.html', 'slide');
-        }
-
-        function MoveBox(obj) {
-            var proId = $("#proId").val();
-            var name = $("#name").val();
-            var price = $("#price").val();
-            var oldPrice = $("#oldPrice").val();
-            var fileName = $("#fileName").val();
-            var numbers = $(".Amount").val();
-            var product = {
-                proId: proId,
-                name: name,
-                price: price,
-                oldPrice: oldPrice,
-                fileName: fileName,
-                numbers: numbers,
-            };
-            var order = localStorage.getItem("order");
-            if (!order) {
-                order = [];
-            } else {
-                order = order.split(";");
-            }
-            order.push(JSON.stringify(product));
-            order = order.join(";");
-            localStorage.setItem("order", order.toString());
-            var num = parseInt($("#header-cart-num").html()) + 1;
-            $("b[name='header-cart-num']").each(function (index) {
-                $(this).html(num);
-            });
-            $("#pro").show();
-            var divTop = $(obj).offset().top;
-            var divLeft = $(obj).offset().left;
-            $("#pro").css({
-                "position": "absolute",
-                "z-index": "500",
-                "left": divLeft + "px",
-                "top": divTop + "px"
-            });
-            $("#pro").animate({
-                        "left": $(window).width() - 25 + "px",
-                        "top": $("#header-cart-num").offset().top + "px",
-                        "width": "50px",
-                        "height": "25px",
-                        opacity: "0.1"
-                    },
-                    500, null, function () {
-                        $("#toCard").html("已添加");
-                        $("#toCard").css({"color": "#575757"});
-                        $("#toCard").removeAttr("onclick");
-                    }).hide(0);
-        }
 
     </script>
 </head>

@@ -1,26 +1,4 @@
-<body>
-<div data-role="page">
-
-    <div data-role="header" data-position="fixed" data-fullscreen="false">
-        <div class="com-header-area">
-            <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
-            <p>
-                <a class="com-header-search" id="js-com-header-search">
-                    <del></del>
-                </a>
-                <a href="login/default.htm" class="com-header-user ">
-                    <del></del>
-                </a>
-                <i></i>
-                <a  href="cart.html" class="com-header-cart"><b  name="header-cart-num" id="header-cart-num">0</b>
-                    <del></del>
-                </a>
-            </p>
-            <div class="clear"></div>
-        </div>
-    </div>
-
+<#include "title.ftl">
     <div data-role="content">
         <!-- **********************   导航  ********************** -->
         <div class="container-fluid" style="margin-top: 10px">
@@ -53,7 +31,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="${INTER_PATH}/product.html?brandId=${b._id}"><i><img src="http://img-cdn2.paixie.net/newspic/20130225/1361773160886805.jpg" onerror="this.src='http://ued.paixie.net/images/brandlist/no-brand-logo.png?1'" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="${INTER_PATH}/product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="${UPLOAD_BASE_PATH}/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>
@@ -65,7 +43,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="${INTER_PATH}/product.html?brandId=${b._id}"><i><img src="http://img-cdn2.paixie.net/newspic/20130225/1361773160886805.jpg" onerror="this.src='http://ued.paixie.net/images/brandlist/no-brand-logo.png?1'" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="${INTER_PATH}/product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="${UPLOAD_BASE_PATH}/img/${b.fileName}" onerror="nofind()'" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>

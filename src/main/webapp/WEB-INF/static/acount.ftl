@@ -1,46 +1,24 @@
-<body>
-<div data-role="page" data-dom-cache="false">
-
-    <div data-role="header" data-position="fixed">
-        <div class="com-header-area">
-            <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
-
-            <p>
-                <a class="com-header-search" id="js-com-header-search">
-                    <del></del>
-                </a>
-                <a href="login/default.htm" class="com-header-user ">
-                    <del></del>
-                </a>
-                <i></i>
-                <a href="cart/default.htm" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
-                    <del></del>
-                </a>
-            </p>
-            <div class="clear"></div>
-        </div>
-    </div>
+<#include "title.ftl">
 
     <div data-role="content">
 
         <div class="page-role container-fluid">
             <div class="head-img">
-                <span class="my-img" style="background-image:url('${BASE_PATH}/static/common/css/images/html5/defaul.png')"></span>
+                <span class="my-img" style="background-image:url('${BASE_PATH}/common/css/images/defaul.png')"></span>
                 <p id="acountName"></p>
                 <p>铜牌用户</p>
             </div>
 
             <ul class="padding-list current-half-width">
                 <li>
-                    <a id="waite4Payment" href="/user/waite4Payment.action?sid=4ac04a98d532655bbe1ce06c5f3c498b">
-                        <p id="waite4PaymentSum">0</p>
+                    <a id="waite4Payment" href="#">
+                        <p id="waite4PaymentSum">${(payNum)!"0"}</p>
                         <p>待付款</p>
                     </a>
                 </li>
                 <li>
-                    <a id="waitDeliveryOrderList" href="/user/waitDeliveryOrderList.action?sid=4ac04a98d532655bbe1ce06c5f3c498b">
-                        <p id="waitDeliveryOrderListSum">0</p>
+                    <a id="waitDeliveryOrderList" href="#">
+                        <p id="waitDeliveryOrderListSum">${(waitNum)!"0"}</p>
                         <p>待收货</p>
                     </a>
                 </li>
@@ -48,7 +26,7 @@
 
             <ul class="menu-list">
                 <li>
-                    <a id="quanbudingdan" href="/user/allOrders.action?functionId=quanbudingdan&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="quanbudingdan" href="#">
                         <img src="${BASE_PATH}/common/css/images/order.png" alt="">
                         <p>全部订单</p>
                     </a>
@@ -56,28 +34,28 @@
 
 
                 <li>
-                    <a id="liulanjilu" href="/myJd/history/wareHistory.action?functionId=liulanjilu&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="shouhuodizhi" href="address.html">
                         <img src="${BASE_PATH}/common/css/images/history.png" alt="">
                         <p>收货地址</p>
                     </a>
                 </li>
 
                 <li>
-                    <a id="zhanghuguanli" href="/user/accountCenter.action?functionId=zhanghuguanli&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="zhanghuguanli" href="#">
                         <img src="${BASE_PATH}/common/css/images/acount.png" alt="">
                         <p>账户管理</p>
                     </a>
                 </li>
 
                 <li>
-                    <a id="wodeyuyue" href="/user/preSells.action?functionId=wodeyuyue&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="wodeyuyue" href="#">
                         <img src="${BASE_PATH}/common/css/images/time.png" alt="">
                         <p>最新活动</p>
                     </a>
                 </li>
 
                 <li>
-                    <a id="wodeqianbao" href="/wallet/wallet.action?functionId=wodeqianbao&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="wodeqianbao" href="#">
                         <img src="${BASE_PATH}/common/css/images/package.png" alt="">
                         <p>我的优惠</p>
                     </a>
@@ -85,21 +63,21 @@
 
 
                 <li>
-                    <a id="wodeguanzhu" href="/myJd/myFocus/focusWare.action?functionId=wodeguanzhu&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="wodeguanzhu" href="#">
                         <img src="${BASE_PATH}/common/css/images/love.png" alt="">
                         <p>我的收藏</p>
                     </a>
                 </li>
 
                 <li>
-                    <a id="fuwuguanjia" href="/user/services.action?functionId=fuwuguanjia&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="fuwuguanjia" href="#">
                         <img src="${BASE_PATH}/common/css/images/lingdai.png" alt="">
                         <p>服务建议</p>
                     </a>
                 </li>
 
                 <li>
-                    <a id="yingyongtuijian" href="//m.jd.com/download/downApp.html?functionId=yingyongtuijian&amp;sid=4ac04a98d532655bbe1ce06c5f3c498b">
+                    <a id="yingyongtuijian" href="#">
                         <img src="${BASE_PATH}/common/css/images/app.png" alt="">
                         <p>咱滴应用</p>
                     </a>

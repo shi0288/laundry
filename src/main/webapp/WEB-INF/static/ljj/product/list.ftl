@@ -18,6 +18,53 @@
                                     <option value="">所有</option>
                                     <option <#if (cond.status)??> <#if  cond.status==0>selected</#if> </#if> value="0">显示</option>
                                     <option <#if (cond.status)??> <#if  cond.status==1>selected</#if> </#if>  value="1">隐藏</option>
+                                    <option <#if (cond.status)??> <#if  cond.status==2>selected</#if> </#if>  value="2">补货中</option>
+                                </select>
+                            </td>
+
+                            <td>首页</td>
+                            <td>
+                                <select name="tip" class="form-control">
+                                    <option value="">所有</option>
+                                    <option <#if (cond.tip)??> <#if  cond.tip==0>selected</#if> </#if> value="0">否</option>
+                                    <option <#if (cond.tip)??> <#if  cond.tip==1>selected</#if> </#if>  value="1">是</option>
+                                </select>
+                            </td>
+
+                            <td>推荐</td>
+                            <td>
+                                <select name="jump" class="form-control">
+                                    <option value="">所有</option>
+                                    <option <#if (cond.jump)??> <#if  cond.status==0>selected</#if> </#if> value="0">不推荐</option>
+                                    <option <#if (cond.jump)??> <#if  cond.status==1>selected</#if> </#if>  value="1">推荐</option>
+                                </select>
+                            </td>
+
+                            <td>主题</td>
+                            <td>
+                                <select name="mainProId" class="form-control">
+                                    <option value="">所有</option>
+                                   <#list mainPro as e>
+                                       <option <#if (cond.mainProId)??> <#if  cond.mainProId==e._id>selected</#if> </#if> value="${e._id}">${e.name}</option>
+                                   </#list>
+                                </select>
+                            </td>
+                            <td>分类</td>
+                            <td>
+                                <select name="sortProId" class="form-control">
+                                    <option value="">所有</option>
+                                    <#list sortPro as e>
+                                    <option <#if (cond.sortProId)??> <#if  cond.sortProId==e._id>selected</#if> </#if> value="${e._id}">${e.name}</option>
+                                    </#list>
+                                </select>
+                            </td>
+                            <td>品牌</td>
+                            <td>
+                                <select name="brandId" class="form-control">
+                                    <option value="">所有</option>
+                                <#list brand as e>
+                                    <option <#if (cond.brandId)??> <#if  cond.brandId==e._id>selected</#if> </#if> value="${e._id}">${e.name}</option>
+                                </#list>
                                 </select>
                             </td>
                         </tr>
@@ -55,6 +102,8 @@
                                 <th>分类</th>
                                 <th>品牌</th>
                                 <th>状态</th>
+                                <th>首页</th>
+                                <th>推荐</th>
                                 <th>原价</th>
                                 <th>现价</th>
                                 <th>销量</th>
@@ -71,19 +120,35 @@
                                 ${e.name}
                                 </td>
                                 <td>
-                                ${e.mainProId}
+                                ${e.mainPro.name}
                                 </td>
                                 <td>
-                                ${e.sortProId}
+                                ${e.sortPro.name}
                                 </td>
                                 <td>
-                                ${e.brandId}
+                                ${e.brand.name}
                                 </td>
                                 <td>
                                     <#if e.status==0>
                                       显示
-                                    <#else>
+                                    <#elseif e.status==1>
                                        隐藏
+                                    <#else>
+                                        补货中
+                                    </#if>
+                                </td>
+                                <td>
+                                    <#if e.tip==0>
+                                        否
+                                    <#else>
+                                        是
+                                    </#if>
+                                </td>
+                                <td>
+                                    <#if e.jump==0>
+                                        不推荐
+                                    <#else>
+                                        推荐
                                     </#if>
                                 </td>
                                 <td>
@@ -219,6 +284,24 @@
                                                 <option value="0">显示</option>
                                                 <option value="1">隐藏</option>
                                                 <option value="2">补货中</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">首页</label>
+                                        <div class="col-sm-10">
+                                            <select name="tip" class="form-control">
+                                                <option value="0">不显示</option>
+                                                <option value="1">显示</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">推荐</label>
+                                        <div class="col-sm-10">
+                                            <select name="jump" class="form-control">
+                                                <option value="0">否</option>
+                                                <option value="1">是</option>
                                             </select>
                                         </div>
                                     </div>

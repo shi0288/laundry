@@ -1,5 +1,5 @@
 <body>
-<div data-role="page" data-dom-cache="false" data-fullscreen="false">
+<div data-role="page" data-dom-cache="false" >
 
     <div data-role="header" data-position="fixed" data-fullscreen="false">
         <div class="com-header-area">

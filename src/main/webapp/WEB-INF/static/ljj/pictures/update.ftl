@@ -87,7 +87,8 @@
                         location.href = "${INTER_PATH}/ljj/pictures/list.htm";
                     });
                 } else {
-                    showErrors($('#add_user_form'), data.msg);
+                    bootbox.alert(data.msg, function () {
+                    });
                 }
             }
         });
