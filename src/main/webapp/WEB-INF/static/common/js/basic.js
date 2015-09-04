@@ -13,6 +13,46 @@ Array.prototype.remove = function (obj) {
     }
 };
 
+function before(){
+    $("body").append('<div class="cover3" id="before-cover" style="display:block"></div><img id="login-img" src="../static/common/css/images/009.gif">');
+    var height=$(window).height();
+    if(height<$(document).height()){
+        height=	$(document).height();
+    }
+    $("#before-cover").height(height);
+}
+function after(){
+    if($("#login-img").length>0&&$("#before-cover").length>0){
+        $("#login-img").remove();
+        $("#before-cover").remove();
+    }
+}
+
+
+window.alert = function(mes, onClick){
+    var html='<div class="cover3"></div><div id="alert"><div class="alert-title">提示</div><div class="alert-message">'+mes+'</div><div class="alert-ok">确定</div></div>';
+    $("body").eq(0).append(html);
+    var iheight=$(document).height();
+    if($(window).height()>$(document).height()){
+        iheight=$(window).height();
+    }
+    $(".cover3").height(iheight);
+    var height = $("#alert").height();
+
+    $("#alert").css({'margin-top': -height/2});
+    $("#alert .alert-ok").die().click(function() {
+        closeAlert();
+        if (onClick) {
+            onClick();
+        }
+    });
+};
+function closeAlert(){
+    $(".cover3").remove();
+    $("#alert").remove();
+}
+
+
 function dealPrice() {
     var total = 0;
     $(".proOne").each(function (index) {

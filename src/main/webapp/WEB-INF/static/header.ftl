@@ -7,12 +7,10 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/jquery.mobile-1.4.5.min.css"/>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/base.css"/>
-    <link rel="stylesheet" href="${BASE_PATH}/common/css/sweetalert.css"/>
     <script src="${BASE_PATH}/common/js/jquery-1.8.2.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.touchslider.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.Spinner.js"></script>
     <script src="${BASE_PATH}/common/js/basic.js"></script>
-    <script src="${BASE_PATH}/common/js/sweetalert.min.js"></script>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/index.css"/>
     <script>
 
@@ -20,7 +18,7 @@
             //$.mobile.ajaxEnabled=false;
             // $.mobile.page.prototype.option.addBackBtn=true;
             $.mobile.page.prototype.options.domCache = true;
-            $.mobile.pageLoadErrorMessage = '功能正在赶工，敬请期待';
+            $.mobile.pageLoadErrorMessage = '功能正在完善，敬请期待';
             $.mobile.transitionFallbacks.slideout = "none";
             $.mobile.buttonMarkup.hoverDelay = "false";
         });
@@ -43,7 +41,6 @@
             jQuery(function ($) {
                 var str = window.location.pathname;
                 if (str == '/main.html') {
-                    swal("Here's a message!");
                     var width = document.body.clientWidth;
                     $('.touchslider-item a').css('width', width);
                     $('.touchslider-viewport').css('height', 300 * (width / 640));
