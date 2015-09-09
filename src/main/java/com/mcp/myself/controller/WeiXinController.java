@@ -132,6 +132,9 @@ public class WeiXinController {
         if("SUCCESS".equals(m.get("result_code").toString())){
             //支付成功
             String outerId=m.get("out_trade_no").toString();
+            DBObject queryForPrePay=new BasicDBObject();
+            queryForPrePay.put("orderId",outerId);
+            MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY).remove(queryForPrePay);
             DBObject dbObject= MongoUtil.findOne(MongoConst.MONGO_ORDERS, outerId);
             if (dbObject != null) {
                 BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1100));

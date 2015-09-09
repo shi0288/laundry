@@ -1,6 +1,8 @@
 package com.mcp.myself.util;
 
 import com.mcp.myself.constant.WeiXinConstant;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import org.bson.types.ObjectId;
 import org.codehaus.jettison.json.JSONException;
@@ -79,6 +81,12 @@ public class PayCoreUtil {
         return boot.toString();
     }
 
+    public static void main(String[] args) {
+        String dd="0001";
+        System.out.println(Integer.parseInt(dd));
+
+    }
+
 
     public static String jsApi(HttpServletRequest request,String orderPrice,DBObject dbObject){
 
@@ -90,6 +98,7 @@ public class PayCoreUtil {
         String nonce_str= UUID.randomUUID().toString().replace("-", "");
         String spbill_create_ip=request.getRemoteAddr();
         String total_fee=orderPrice.replace(".", "");
+        total_fee=String.valueOf(Integer.parseInt(total_fee));
         String notify_url=WeiXinConstant.NOTIFY_URL;
         String trade_type = WeiXinConstant.TRADE_TYPE;
         String openid= (String) request.getSession().getAttribute("openId");
@@ -149,15 +158,13 @@ public class PayCoreUtil {
         System.out.println("获取交易ID:  "+prepay_id);
 
         SortedMap<String, String> finalpackage = new TreeMap<String, String>();
-        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);;
+        String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         String packages = "prepay_id="+prepay_id;
         finalpackage.put("appId", appid);
         finalpackage.put("timeStamp", timestamp);
         finalpackage.put("nonceStr", nonce_str);
         finalpackage.put("package", packages);
         finalpackage.put("signType", "MD5");
-        //要签名
-
         //除去数组中的空值和签名参数
         Map<String, String> finalpackageTemp = PayCoreUtil.paraFilter(finalpackage);
         //生成签名结果
@@ -178,7 +185,14 @@ public class PayCoreUtil {
             e.printStackTrace();
         }
 
-        prepay_id=resultJSON.toString();
+        //
+        prepay_id = resultJSON.toString();
+        DBCollection prePayCollection=MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY);
+        DBObject prePayObj=new BasicDBObject();
+        prePayObj.put("orderId",out_trade_no);
+        prePayObj.put("createTime",System.currentTimeMillis());
+        prePayObj.put("prepay_id",prepay_id);
+        prePayCollection.insert(prePayObj);
         System.out.println("V3 jsApi package:"+resultJSON.toString());
         return prepay_id;
 

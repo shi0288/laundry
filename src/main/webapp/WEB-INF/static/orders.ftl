@@ -21,7 +21,7 @@
                         <tr>
                             <td colspan="3" style="font-size: 14px;font-weight:bold;">订单信息：<span
                                     style="color:red"><#if o.status==1100>派送中<#elseif o.status==1200>
-                                已完成<#elseif o.status==1000>代付款</#if></span>，${(o.orderPrice)!""}
+                                已完成<#elseif o.status==1000><a href="#" onclick="goToPay(${(o._id)!""})">继续付款</a></#if></span>，${(o.orderPrice)!""}
                                 元，${(o.createTime?number?number_to_datetime)!""}</td>
                         </tr>
                         <tr>

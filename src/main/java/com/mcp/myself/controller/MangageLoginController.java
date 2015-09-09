@@ -230,6 +230,31 @@ public class MangageLoginController {
         return json;
     }
 
+    @ResponseBody
+    @RequestMapping(value = "goToPay.json", method = RequestMethod.POST)
+    public JsonVo goToPay( @RequestParam(value = "id") String id) {
+        JsonVo<String> json = new JsonVo<String>();
+        DBObject query=new BasicDBObject();
+        query.put("orderId",id);
+        List list=MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY).find(query).toArray();
+        if(list.size()==1){
+            DBObject dbObject= (DBObject) list.get(0);
+            String prepay_id= (String) dbObject.get("prepay_id");
+            long createTime= (long) dbObject.get("createTime");
+            if(System.currentTimeMillis()-createTime>300000){
+                json.setResult(false);
+                json.setObject("该订单支付时间超时，请重新下单");
+                return json;
+            }
+            json.setResult(true);
+            json.setObject(prepay_id);
+            return json;
+        }
+        json.setResult(false);
+        json.setMsg("该订单已经过期，请重新下单");
+        return json;
+    }
+
 
     @ResponseBody
     @RequestMapping(value = "commitOrder.json", method = RequestMethod.POST)

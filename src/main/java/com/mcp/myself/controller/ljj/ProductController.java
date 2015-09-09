@@ -238,7 +238,7 @@ public class ProductController extends BaseAction {
         dbObject.put("num", num);
         dbObject.put("jump", jump);
         dbObject.put("brandId", brandId);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("######0.00");
         dbObject.put("oldPrice", df.format(oldPrice));
         dbObject.put("price", df.format(price));
         dbObject.put("desc", desc);

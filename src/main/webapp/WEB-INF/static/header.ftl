@@ -10,7 +10,7 @@
     <script src="${BASE_PATH}/common/js/jquery-1.8.2.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.touchslider.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.Spinner.js"></script>
-    <script src="${BASE_PATH}/common/js/basic.js?v=0.3.5"></script>
+    <script src="${BASE_PATH}/common/js/basic.js?v=0.3.6"></script>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/index.css"/>
     <script>
 

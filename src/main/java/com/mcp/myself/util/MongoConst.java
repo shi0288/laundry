@@ -19,6 +19,7 @@ public class MongoConst {
     public static final String MONGO_PICTURES="pictures";
     public static final String MONGO_PRODUCT="product";
     public static final String MONGO_ORDERS="orders";
+    public static final String MONGO_PREPAY="prepay";
 
 
     public static final String MONGO_WEIXINCONF="winxininfo";

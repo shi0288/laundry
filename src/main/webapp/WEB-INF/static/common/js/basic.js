@@ -376,6 +376,40 @@ function delAddress() {
     }
 }
 
+function goToPay(id){
+    before();
+    $.ajax({
+        type: "POST",
+        url: "manage/goToPay.json?timestamp=" + new Date().getTime(),
+        dataType: "json",
+        cache: false,
+        data: {
+            id: id
+        },
+        success: function (rst) {
+            if (rst.result) {
+                    WeixinJSBridge.invoke('getBrandWCPayRequest',JSON.parse(rst.object),function(res){
+                        //支付成功或失败前台判断
+                        after();
+                        if(res.err_msg=='get_brand_wcpay_request:ok'){
+                            alert('恭喜您，支付成功!',function(){
+                                $.mobile.changePage('main.html', 'slide');
+                            });
+                        }else{
+                            alert('支付失败');
+                        }
+                    });
+            } else {
+                after();
+                alert(rst.msg);
+            }
+        },
+        error: function () {
+            after();
+            alert('请求出错');
+        }
+})
+}
 
 function commitOrder() {
 
@@ -430,46 +464,74 @@ function commitOrder() {
             success: function (rst) {
                 if (rst.result) {
                     if(payType==1){
+                        var commitOrder = orderStr.split(";");
+                        var order = localStorage.getItem("order");
+                        order = order.split(";");
+                        for (var j = 0; j < commitOrder.length; j++) {
+                            var jsonCommitStr = commitOrder[j];
+                            var objCommit = JSON.parse(jsonCommitStr);
+                            for (var i = 0; i < order.length; i++) {
+                                var jsonStr = order[i];
+                                var obj = JSON.parse(jsonStr);
+                                if (obj.proId == objCommit.proId) {
+                                    order.remove(i);
+                                    break;
+                                }
+                            }
+                        }
+                        localStorage.removeItem("conform");
+                        localStorage.removeItem("orderPrice");
+                        $("b[name='header-cart-num']").each(function (index) {
+                            $(this).html(order.length);
+                        });
+                        if (order.length == 0) {
+                            localStorage.removeItem("order");
+                        } else {
+                            order = order.join(";");
+                            localStorage.setItem("order", order.toString());
+                        }
                         WeixinJSBridge.invoke('getBrandWCPayRequest',JSON.parse(rst.object),function(res){
                                 //支付成功或失败前台判断
                                 if(res.err_msg=='get_brand_wcpay_request:ok'){
-                                    var commitOrder = orderStr.split(";");
-                                    var order = localStorage.getItem("order");
-                                    order = order.split(";");
-                                    for (var j = 0; j < commitOrder.length; j++) {
-                                        var jsonCommitStr = commitOrder[j];
-                                        var objCommit = JSON.parse(jsonCommitStr);
-                                        for (var i = 0; i < order.length; i++) {
-                                            var jsonStr = order[i];
-                                            var obj = JSON.parse(jsonStr);
-                                            if (obj.proId == objCommit.proId) {
-                                                order.remove(i);
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    localStorage.removeItem("conform");
-                                    localStorage.removeItem("orderPrice");
-                                    $("b[name='header-cart-num']").each(function (index) {
-                                        $(this).html(order.length);
-                                    });
-                                    if (order.length == 0) {
-                                        localStorage.removeItem("order");
-                                    } else {
-                                        order = order.join(";");
-                                        localStorage.setItem("order", order.toString());
-                                    }
                                     after();
-                                    alert('恭喜您，支付成功!', function () {
-                                        $.mobile.changePage('main.html', 'slide');
-                                    });
+                                    alert('恭喜您，支付成功!');
+                                    $.mobile.changePage('main.html', 'slide');
                                 }else{
                                     alert('支付失败');
+                                    $.mobile.changePage('acount.html', 'slide');
                                 }
                             });
+                    }else{
+                        var commitOrder = orderStr.split(";");
+                        var order = localStorage.getItem("order");
+                        order = order.split(";");
+                        for (var j = 0; j < commitOrder.length; j++) {
+                            var jsonCommitStr = commitOrder[j];
+                            var objCommit = JSON.parse(jsonCommitStr);
+                            for (var i = 0; i < order.length; i++) {
+                                var jsonStr = order[i];
+                                var obj = JSON.parse(jsonStr);
+                                if (obj.proId == objCommit.proId) {
+                                    order.remove(i);
+                                    break;
+                                }
+                            }
+                        }
+                        localStorage.removeItem("conform");
+                        localStorage.removeItem("orderPrice");
+                        $("b[name='header-cart-num']").each(function (index) {
+                            $(this).html(order.length);
+                        });
+                        if (order.length == 0) {
+                            localStorage.removeItem("order");
+                        } else {
+                            order = order.join(";");
+                            localStorage.setItem("order", order.toString());
+                        }
+                        alert('恭喜您，下单成功!');
+                        $.mobile.changePage('main.html', 'slide');
 
                     }
-
                 } else {
                     after();
                     alert(rst.msg);
