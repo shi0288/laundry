@@ -25,8 +25,8 @@ gradle build
 devSrc=build/artifacts/WEB-INF/lib/*
 #打包路径
 goalSrc=E:/apache-tomcatTet/webapps/
-rm -rf E:/apache-tomcatTet/webapps/ROOT
-rm -rf E:/apache-tomcatTet/webapps/ROOT.war
+rm -rf E:/apache-tomcatTet/webapps/laundry
+rm -rf E:/apache-tomcatTet/webapps/laundry.war
 echo '=========第二步copy到容器==========='
 cp -R $devSrc $goalSrc
 echo '.'

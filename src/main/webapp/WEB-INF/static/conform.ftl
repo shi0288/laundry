@@ -42,10 +42,10 @@
             <div class="well" style="padding: 10px;margin-bottom: 100px">
                 <fieldset data-role="controlgroup">
                     <legend>支付方式:</legend>
-                    <input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked">
+                    <input type="radio" name="radio-choice-1" value="0" id="radio-choice-1" data-cacheval="false"  checked="checked">
                     <label for="radio-choice-1">货到付款</label>
-                    <input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2">
-                    <label for="radio-choice-2">支付宝</label>
+                    <input type="radio" name="radio-choice-1" value="1" id="radio-choice-2" data-cacheval="true">
+                    <label for="radio-choice-2">微信支付</label>
                 </fieldset>
             </div>
 

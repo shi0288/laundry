@@ -1495,3 +1495,58 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     OVERFLOW-X: hidden;
     -webkit-overflow-scrolling: touch;
 }
+
+/**
+限量
+*/
+
+.tuan-list {
+    height: 120px;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1px solid #b5bfd7;
+    margin-bottom: 5px;
+}
+
+
+.tuan-list .img120 {
+    float: left;
+    margin-right: 10px;
+}
+
+.tuan-list .title, .tuan-list .detail {
+    display: block;
+    overflow: hidden;
+    color: #575757;
+    font-size: 14px;
+}
+
+.tuan-list .title {
+    height: 40px;
+    padding-top: 6px;
+    line-height: 20px;
+    padding-right: 10px;
+}
+
+.tuan-list p {
+    height: 24px;
+    overflow: hidden;
+}
+
+.tuan-list p span {
+    margin-right: 5px;
+}
+.pxui-color-red {
+    color: #FB4E3A;
+}
+
+.pxui-color-gray {
+    color: #ABABAB;
+}
+
+.tuan-list p span {
+    margin-right: 5px;
+}
+.pxui-color-yellow {
+    color: #ffc832;
+}

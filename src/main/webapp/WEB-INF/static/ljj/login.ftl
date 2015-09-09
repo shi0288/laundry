@@ -89,7 +89,7 @@
                         if (data.result) {
                             location.href = "${INTER_PATH}/ljj/order/list.htm";
                         } else {
-                           alert( data.errors);
+                           alert("用户名或密码错误");
                         }
                     }
                 });

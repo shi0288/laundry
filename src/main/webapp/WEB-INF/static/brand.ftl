@@ -6,7 +6,7 @@
                 <a href="main.html"><i></i>首页<span></span></a>
                 <a href="sort.html"><i></i>分类<span></span></a>
                 <a class="selected"><i></i>品牌<span></span></a>
-                <a href="product.html"><i></i>团购<span></span></a>
+                <a href="tuan.html?sortStr=jump&orderBy=-1"><i></i>团购<span></span></a>
             </div>
         </div>
         <div class="brand-tab">
@@ -31,7 +31,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="${INTER_PATH}/product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="${UPLOAD_BASE_PATH}/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="${UPLOAD_BASE_PATH}/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="${INTER_PATH}/product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="${UPLOAD_BASE_PATH}/img/${b.fileName}" onerror="nofind()'" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="${UPLOAD_BASE_PATH}/img/${b.fileName}" onerror="nofind()'" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>

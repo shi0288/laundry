@@ -94,11 +94,11 @@
                     <a class="pxui-color-white" href="javascript:void(0)">
                         <i></i>
 							<span>自营商品<br>
-							满99包邮</span>
+							满9.9包邮</span>
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a class="pxui-color-white" href="javascript:void(0)">
                         <i style="background-position:-40px -108px;"></i>
-							<span>15天无理由<br>
+							<span>3天无理由<br>
 							免邮退换货</span>
                     </a>
                 </strong>
@@ -113,8 +113,7 @@
                 </strong>
             </p>
             <br>
-            © 2007-2013 Paixie All Rights Reserved<br>
-            闽B2-20110084
+            © 2015-2020 YunCai All Rights Reserved<br>
             <br>
         </div>
 

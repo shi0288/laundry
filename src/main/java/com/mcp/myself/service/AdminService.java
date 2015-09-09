@@ -61,6 +61,43 @@ public class AdminService {
         return false;
     }
 
+
+    public boolean updatePassWord(String name, String password) {
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_MEMBER);
+        BasicDBObject query = new BasicDBObject();
+        query.put("name", name);
+        List list = collection.find(query).toArray();
+        if (list.size() == 1) {
+            BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("password",  MD5.MD5Encode(password)));
+            collection.update(query, set, false, false);
+            return true;
+        }
+        return false;
+    }
+
+
+    public boolean updateNum(String id, int num,boolean is) {
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_PRODUCT);
+        BasicDBObject query = new BasicDBObject();
+        query.put("_id", new ObjectId(id));
+        List list = collection.find(query).toArray();
+        if (list.size() == 1) {
+            DBObject dbObject= (DBObject) list.get(0);
+            int numTemp= (int) dbObject.get("num");
+            int saleNum= (int) dbObject.get("saleNum");
+            BasicDBObject set =null;
+            if(is){
+                set= new BasicDBObject("$set", new BasicDBObject("num", numTemp+num));
+            }else{
+                set= new BasicDBObject("$set", new BasicDBObject("num", numTemp-num).append("saleNum",saleNum+num));
+            }
+            collection.update(query, set, false, false);
+            return true;
+        }
+        return false;
+    }
+
+
     public boolean address(String name, String userName, String mobile, String provice, String where, int first) {
         DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_ADDRESS);
         BasicDBObject query = new BasicDBObject();

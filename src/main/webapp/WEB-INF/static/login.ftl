@@ -17,7 +17,7 @@
                     <div class="input-info" style="display:;">
                         <input data-role="none" class="txt-input txt-captcha"  id="l_captcha"  type="text" size="11" maxlength="6"
                                autocomplete="off" placeholder="    请输入验证码">
-                        <span onclick="changeImg(this)" id="captcha-img"><img src="${INTER_PATH}/manage/code.img" width="65" height="30"
+                        <span onclick="changeImg(this)" id="captcha-img"><img src="manage/code.img" width="65" height="30"
                                                     alt=""></span>
                     </div>
                     <div class="login-free login-free-selected"><b></b>一个月内免登录</div>
@@ -30,7 +30,7 @@
                 <a href="regest.html" style="font-size:16px">免费注册</a>
             </span>
             <span class="retrieve-password">
-                <a href="https://passport.m.jd.com/findloginpassword/fillAccountName.action" style="font-size:16px">找回密码</a>
+                <a href="getPassWord.html" style="font-size:16px">找回密码</a>
             </span>
                 </div>
             </div>

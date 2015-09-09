@@ -1,10 +1,14 @@
 package com.mcp.myself.controller;
 
+import com.mcp.myself.bean.JsonVo;
+import com.mcp.myself.bean.PageVo;
 import com.mcp.myself.service.IndexService;
+import com.mcp.myself.util.DigestPassDeom;
 import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import org.bson.types.ObjectId;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -14,8 +18,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,6 +65,7 @@ public class IndexController {
     @RequestMapping("product.html")
     public String product(ModelMap modelMap, HttpServletRequest request) {
         modelMap = indexService.getIndexMainPro(modelMap);
+        request.setAttribute("toWhat", 0);
         modelMap = indexService.getIndexProduct(modelMap, request);
         return "product";
     }
@@ -74,14 +81,120 @@ public class IndexController {
         return "conform";
     }
 
+    @RequestMapping("tuan.html")
+    public String tuan(ModelMap modelMap, HttpServletRequest request) {
+        request.setAttribute("toWhat", 1);
+        modelMap = indexService.getIndexProduct(modelMap, request);
+        return "tuan";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "tuanP.json", method = RequestMethod.POST)
+    public JsonVo tuanP(ModelMap modelMap, HttpServletRequest request) {
+        JsonVo<String> json = new JsonVo<String>();
+        request.setAttribute("toWhat", 1);
+        modelMap = indexService.getIndexProduct(modelMap, request);
+        List list = ((PageVo) modelMap.get("pageVo")).getList();
+        for (int oo = 0; oo < list.size(); oo++) {
+            DBObject dbObject = (DBObject) list.get(oo);
+            list.set(oo, dbObject.toString());
+        }
+        json.setObject(list);
+        json.setResult(true);
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "pP.json", method = RequestMethod.POST)
+    public JsonVo pP(ModelMap modelMap, HttpServletRequest request) {
+        JsonVo<String> json = new JsonVo<String>();
+        request.setAttribute("toWhat", 0);
+        modelMap = indexService.getIndexProduct(modelMap, request);
+        List list = ((PageVo) modelMap.get("pageVo")).getList();
+        for (int oo = 0; oo < list.size(); oo++) {
+            DBObject dbObject = (DBObject) list.get(oo);
+            list.set(oo, dbObject.toString());
+        }
+        json.setObject(list);
+        json.setResult(true);
+        return json;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "sendMsg.json", method = RequestMethod.POST)
+    public JsonVo sendMsg(ModelMap modelMap, String r_captcha, String r_mobile, HttpServletRequest request) {
+        JsonVo<String> json = new JsonVo<String>();
+        if (r_captcha == null || "".equals(r_captcha)) {
+            json.setResult(false);
+            json.setMsg("验证码不能为空");
+            return json;
+        }
+        if (r_mobile == null || "".equals(r_mobile)) {
+            json.setResult(false);
+            json.setMsg("手机号不能为空");
+            return json;
+        }
+        HttpSession session = request.getSession();
+        String captcha = (String) session.getAttribute("CODE");
+        if (captcha == null) {
+            json.setResult(false);
+            json.setMsg("验证码已失效，请重新获取");
+            return json;
+        }
+
+        if (captcha.equals(r_captcha.toUpperCase())) {
+            int a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
+            String msgCode = String.valueOf(a);
+            session.setAttribute("MSGCODE", msgCode);
+            if (DigestPassDeom.SendMsg(r_mobile, msgCode)) {
+                json.setResult(true);
+                return json;
+            }else{
+                json.setResult(false);
+                json.setMsg("信息发送失败，请重试");
+                return json;
+            }
+        } else {
+            json.setResult(false);
+            json.setMsg("验证码输入有误");
+            return json;
+        }
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "testProduct.json", method = RequestMethod.POST)
+    public JsonVo testProduct(@RequestParam(value = "id") String id,@RequestParam(value = "numbers") int numbers) {
+        JsonVo<String> json = new JsonVo<String>();
+        DBObject dbObject = MongoUtil.findOne(MongoConst.MONGO_PRODUCT, id);
+        int status = (int) dbObject.get("status");
+        int num = (int) dbObject.get("num");
+        if (status != 0) {
+            json.setResult(false);
+            return json;
+        }
+        if (num < 1) {
+            json.setResult(false);
+            return json;
+        }
+        if(num<numbers){
+            json.setResult(false);
+            return json;
+        }
+        json.setResult(true);
+        return json;
+    }
+
+
     @RequestMapping("acount.html")
-    public String acount(@RequestParam(value = "name") String name,ModelMap modelMap, HttpServletRequest request) {
-        DBObject dbObject=new BasicDBObject();
-        dbObject.put("name",name);
+    public String acount(@RequestParam(value = "name") String name, ModelMap modelMap, HttpServletRequest request) {
+        DBObject dbObject = new BasicDBObject();
+        dbObject.put("name", name);
         dbObject.put("status", 1000);
-        int payNum = MongoUtil.queryCount(MongoConst.MONGO_ORDERS,dbObject);
-        dbObject.put("status",1100);
-        int waitNum = MongoUtil.queryCount(MongoConst.MONGO_ORDERS,dbObject);
+        int payNum = MongoUtil.queryCount(MongoConst.MONGO_ORDERS, dbObject);
+        dbObject.put("status", 1100);
+        int waitNum = MongoUtil.queryCount(MongoConst.MONGO_ORDERS, dbObject);
         modelMap.put("payNum", payNum);
         modelMap.put("waitNum", waitNum);
         return "acount";
@@ -114,12 +227,18 @@ public class IndexController {
         return "regest";
     }
 
+    @RequestMapping("getPassWord.html")
+    public String getPassWord(ModelMap modelMap, HttpServletRequest request) {
+        return "getPassWord";
+    }
+
+
     @RequestMapping("orders.html")
-    public String orders(@RequestParam(value = "name") String name,@RequestParam(value = "status") int status,ModelMap modelMap, HttpServletRequest request) throws JSONException {
+    public String orders(@RequestParam(value = "name") String name, @RequestParam(value = "status") int status, ModelMap modelMap, HttpServletRequest request) throws JSONException {
         Map map = new HashMap();
-        map.put("name",name);
-        if(status!=9999){
-            map.put("status",status);
+        map.put("name", name);
+        if (status != 9999) {
+            map.put("status", status);
         }
         List list = MongoUtil.queryForPage(MongoConst.MONGO_ORDERS, map, 1, 10, "createTime", -1);
         modelMap.put("e", list);
@@ -140,5 +259,6 @@ public class IndexController {
     }
 
     public static void main(String[] args) {
+
     }
 }

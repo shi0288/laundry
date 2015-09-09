@@ -10,26 +10,28 @@
             <a href="#nav-panel">高级筛选<i></i></a>
         </div>
         <div class="pxui-tab product-tab" style="margin-bottom:10px;">
-            <a href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=jump&orderBy=-1" <#if cond.sortStr=='jump'>
+            <input  type="hidden"  id="pP"  value="${(p)!"1"}" />
+            <input  type="hidden"  id="pStr"  value="${(cond.sortStr)!""};${(cond.orderBy)!""};${(cond.mainProId)!""};${(cond.sortProId)!""};${(cond.brandId)!""}" />
+            <a href="product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=jump&orderBy=-1" <#if cond.sortStr=='jump'>
                class="selected" </#if> style="width: 24.4%;">推 荐</a>
-            <a href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=price&orderBy=<#if cond.sortStr=='price' && cond.orderBy==1>-1<#elseif cond.sortStr=='price' && cond.orderBy==-1>1<#else>-1</#if>" <#if cond.sortStr=='price'>
+            <a href="product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=price&orderBy=<#if cond.sortStr=='price' && cond.orderBy==1>-1<#elseif cond.sortStr=='price' && cond.orderBy==-1>1<#else>-1</#if>" <#if cond.sortStr=='price'>
                class="selected" </#if> style="width: 24.4%;">
                 价 格
                 <i class="arrow2-top <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==-1>gray</#if></#if> "></i>
                 <i class="arrow2-bottom <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==1>gray</#if></#if> "></i>
             </a>
             <a  <#if cond.sortStr=='saleNum'> class="selected" </#if>
-                                              href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=saleNum&orderBy=-1"
+                                              href="product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=saleNum&orderBy=-1"
                                               style="width: 24.4%;">销 量</a>
             <a  <#if cond.sortStr=='createTime'> class="selected" </#if>
-                                                 href="${INTER_PATH}/product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=createTime&orderBy=-1"
+                                                 href="product.html?mainProId=${(cond.mainProId)!""}&sortProId=${(cond.sortProId)!""}&brandId=${(cond.brandId)!""}&sortStr=createTime&orderBy=-1"
                                                  style="width: 24.4%;">最 新</a>
         </div>
         <div class="pxui-area">
             <div class="pxui-shoes product-list">
                 <div id="js-goodlist" style="position: relative;">
                 <#list pageVo.list as e >
-                    <a href="${INTER_PATH}/proDetail.html?proId=${e._id}" data-transition="slide"
+                    <a href="proDetail.html?proId=${e._id}" data-transition="slide"
                        style="width:33%;min-width: 0px;height:203px; ">
                         <#list e.fileNames as f>
                             <#if f_index==0>
@@ -60,11 +62,11 @@
 
     <#list mainPro as e>
         <li>
-            <a href="${INTER_PATH}/product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1">${e.name}</a>
+            <a href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1">${e.name}</a>
         </li>
         <li>
             <#list e.sortList as s>
-                <a href="${INTER_PATH}/product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1" class="ui-btn ui-btn-inline"
+                <a href="product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1" class="ui-btn ui-btn-inline"
                    style="font-size: 12px;">${s.name}</a>
             </#list>
         </li>

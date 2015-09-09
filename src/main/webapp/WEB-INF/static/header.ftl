@@ -10,13 +10,13 @@
     <script src="${BASE_PATH}/common/js/jquery-1.8.2.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.touchslider.min.js"></script>
     <script src="${BASE_PATH}/common/js/jquery.Spinner.js"></script>
-    <script src="${BASE_PATH}/common/js/basic.js"></script>
+    <script src="${BASE_PATH}/common/js/basic.js?v=0.3.5"></script>
     <link rel="stylesheet" href="${BASE_PATH}/common/css/index.css"/>
     <script>
 
         $(document).bind("mobileinit", function () {
             //$.mobile.ajaxEnabled=false;
-            // $.mobile.page.prototype.option.addBackBtn=true;
+            //$.mobile.page.prototype.option.addBackBtn=true;
             $.mobile.page.prototype.options.domCache = true;
             $.mobile.pageLoadErrorMessage = '功能正在完善，敬请期待';
             $.mobile.transitionFallbacks.slideout = "none";
@@ -40,6 +40,11 @@
             }
             jQuery(function ($) {
                 var str = window.location.pathname;
+                var temp=str.split('/');
+                if(temp.length>2){
+                    var splitStr=temp[1];
+                    str=str.split(splitStr)[1];
+                }
                 if (str == '/main.html') {
                     var width = document.body.clientWidth;
                     $('.touchslider-item a').css('width', width);
@@ -54,6 +59,20 @@
                 } else if (str == '/product.html') {
                     var height = document.body.clientHeight;
                     $(".ui-panel-inner").height(height);
+                    var is = true;
+                    $("#js-goodlist").on("scrollstart", function () {
+                        var dheight = $(document).height();
+                        var wheight = $(window).height();
+                        var sctop = $(window).scrollTop();
+                        if (is) {
+                            if (sctop >= dheight - wheight) {
+                                is = false;
+                                getPP(function () {
+                                    is = true;
+                                });
+                            }
+                        }
+                    });
                 } else if (str == '/proDetail.html') {
                     $("#a").Spinner({value: 1, min: 1, len: 4, max: 1000});
                     var width = document.body.clientWidth - 40;
@@ -83,11 +102,11 @@
                         }
                     }
                 } else if (str == '/' || str == '/index.html') {
-                    $.mobile.changePage("main.html", "pop");
+                    $.mobile.changePage("main.html?showwxpaytitle=1", "pop");
                 } else if (str == '/cart.html') {
                     var order = localStorage.getItem("order");
                     if (!order) {
-                        var str='<p style="text-align: center">购物车里是空的，请去挑选<a style="color: #003399;text-decoration: underline" href="main.html">需要的商品</a>吧！</p>';
+                        var str = '<p style="text-align: center">购物车里是空的，请去挑选<a style="color: #003399;text-decoration: underline" href="main.html">需要的商品</a>吧！</p>';
                         //没有内容
                         $("#proList").append(str);
                     } else {
@@ -174,7 +193,7 @@
                     var name = localStorage.getItem("name");
                     $.ajax({
                         type: "POST",
-                        url: "/manage/addressPro.json?timestamp=" + new Date().getTime(),
+                        url: "manage/addressPro.json?timestamp=" + new Date().getTime(),
                         dataType: "json",
                         cache: false,
                         data: {
@@ -214,6 +233,21 @@
                             $("#orderList").append(str);
                         }
                     }
+                } else if (str == '/tuan.html') {
+                    var is = true;
+                    $("#tuan-goodlist").on("scrollstart", function () {
+                        var dheight = $(document).height();
+                        var wheight = $(window).height();
+                        var sctop = $(window).scrollTop();
+                        if (is) {
+                            if (sctop >= dheight - wheight) {
+                                is = false;
+                                getTuanP(function () {
+                                    is = true;
+                                });
+                            }
+                        }
+                    });
                 } else if (str == '/login.html') {
                     $(".tp-btn").click(function () {
                         var classStr = $(this).attr("class");
@@ -230,7 +264,7 @@
                     if (name) {
                         $.ajax({
                             type: "POST",
-                            url: "/manage/addressList.json?timestamp=" + new Date().getTime(),
+                            url: "manage/addressList.json?timestamp=" + new Date().getTime(),
                             dataType: "json",
                             cache: false,
                             data: {
@@ -295,14 +329,26 @@
                             $(".tp-btn").removeClass("btn-on");
                             $(".txt-password")[0].type = 'password';
                         }
-                    })
+                    });
+
+                }else if (str == '/getPassWord.html') {
+                    $(".tp-btn").click(function () {
+                        var classStr = $(this).attr("class");
+                        if (classStr == 'tp-btn btn-off') {
+                            $(".tp-btn").addClass("btn-on");
+                            $(".txt-password")[0].type = 'text';
+                        } else {
+                            $(".tp-btn").removeClass("btn-on");
+                            $(".txt-password")[0].type = 'password';
+                        }
+                    });
+
                 } else if (str == '/acount.html') {
                     var name = localStorage.getItem("name");
                     $("#acountName").html(name);
                     $("#quanbudingdan").attr("href", "orders.html?name=" + name + "&status=9999");
                     $("#waitDeliveryOrderList").attr("href", "orders.html?name=" + name + "&status=1100");
                     $("#waite4Payment").attr("href", "orders.html?name=" + name + "&status=1000");
-
                 } else {
                     if ($(".touchsliderPro").data("touchslider") != null) {
                         $(".touchsliderPro").data("touchslider").stop(); // stop the slider

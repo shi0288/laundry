@@ -1,13 +1,39 @@
 <#assign menu="product">
 <#include "/ljj/head.ftl">
+<style type="text/css">
+    .pagination {
+        border-radius: 4px;
+        display: inline-block;
+        margin: 0;
+        padding-left: 0;
+    }
+
+</style>
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper">
+
+        <section class="panel">
+            <div class="col-lg-12">
+            <#--<!--breadcrumbs start &ndash;&gt;-->
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="${INTER_PATH}/ljj/product/list.htm?toWhat=0">商品</a>
+                    </li>
+                    <li>
+                        <a href="${INTER_PATH}/ljj/product/list.htm?toWhat=1">限量</a>
+                    </li>
+                </ul>
+            <#--<!--breadcrumbs end &ndash;&gt;-->
+            </div>
+
+        </section>
         <section class="panel">
             <div class="panel-body">
                 <form action="${INTER_PATH}/ljj/product/list.htm" method="get" id="query_form">
                     <table class="query_table">
                         <input type="hidden" name="p" id="p" value="${(p)!""}"/>
+                        <input type="hidden" name="toWhat" id="toWhat" value="${(cond.toWhat)!""}"/>
                         <tr>
                             <td>名称</td>
                             <td><input type="text" name="name" class="form-control" value="${(cond.name)!""}"/>
@@ -35,8 +61,8 @@
                             <td>
                                 <select name="jump" class="form-control">
                                     <option value="">所有</option>
-                                    <option <#if (cond.jump)??> <#if  cond.status==0>selected</#if> </#if> value="0">不推荐</option>
-                                    <option <#if (cond.jump)??> <#if  cond.status==1>selected</#if> </#if>  value="1">推荐</option>
+                                    <option <#if (cond.jump)??> <#if  cond.jump==0>selected</#if> </#if> value="0">不推荐</option>
+                                    <option <#if (cond.jump)??> <#if  cond.jump==1>selected</#if> </#if>  value="1">推荐</option>
                                 </select>
                             </td>
 
@@ -106,6 +132,7 @@
                                 <th>推荐</th>
                                 <th>原价</th>
                                 <th>现价</th>
+                                <th>库存</th>
                                 <th>销量</th>
                                 <th>点击量</th>
                                 <th>描述</th>
@@ -158,6 +185,9 @@
                                 ${e.price}
                                 </td>
                                 <td>
+                                ${e.num!"0"}
+                                </td>
+                                <td>
                                 ${e.saleNum!"0"}
                                 </td>
                                 <td>
@@ -204,13 +234,21 @@
             </div>
             <div class="modal-body">
                 <!-- page start-->
-
                 <form id="add_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/product/add.json"
                       autocomplete="off" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-12">
                             <section class="panel">
                                 <div class="panel-body">
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">栏目</label>
+                                        <div class="col-sm-10">
+                                            <select id="inToWhat" name="toWhat" class="form-control">
+                                                <option value="0">商品</option>
+                                                <option value="1">限量</option>
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">名称</label>
@@ -331,6 +369,15 @@
                                         </div>
                                     </div>
 
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">库存</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                                   name="num"
+                                                   placeholder="输入库存" value="0"  id="num">
+                                            </input>
+                                        </div>
+                                    </div>
 
 
                                     <div class="form-group">
@@ -360,11 +407,11 @@
                                 $('#submit').button('loading');
                             },
                             success: function (data) {
-                                console.log(data);
                                 $('#submit').button('reset');
                                 if (data.result) {
                                     bootbox.alert("添加成功，将刷新页面", function () {
-                                        location.href = "${INTER_PATH}/ljj/product/list.htm";
+                                        var inToWhat=$("#inToWhat").val();
+                                        location.href = "${INTER_PATH}/ljj/product/list.htm?toWhat="+inToWhat;
                                     });
                                 } else {
                                     bootbox.alert(data.msg, function () {

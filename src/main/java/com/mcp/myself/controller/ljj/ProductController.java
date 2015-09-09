@@ -50,7 +50,7 @@ public class ProductController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("add.json")
-    public JsonVo<DBObject> add(String name, int status, int tip,int jump, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
+    public JsonVo<DBObject> add(int toWhat, String name, int status, int tip,int jump,int num, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
                                 MultipartHttpServletRequest request) throws
             IOException {
         List<MultipartFile> files = request.getFiles("files");
@@ -123,11 +123,13 @@ public class ProductController extends BaseAction {
         dbObject.put("mainProId", mainProId);
         dbObject.put("sortProId", sortProId);
         dbObject.put("brandId", brandId);
-        DecimalFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("######0.00");
         dbObject.put("oldPrice", df.format(oldPrice));
         dbObject.put("price", df.format(price));
         dbObject.put("tip", tip);
-        dbObject.put("jump,", jump);
+        dbObject.put("toWhat", toWhat);
+        dbObject.put("num", num);
+        dbObject.put("jump", jump);
         dbObject.put("saleNum", 0);
         dbObject.put("clickNum", 0);
         dbObject.put("desc", desc);
@@ -137,7 +139,6 @@ public class ProductController extends BaseAction {
         json.setResult(true);
         return json;
     }
-
 
     /**
      * 进入更新
@@ -159,7 +160,7 @@ public class ProductController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("update.json")
-    public JsonVo<DBObject> updatePro(String id, String name, int status,int tip,int jump, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
+    public JsonVo<DBObject> updatePro( int toWhat,String id, String name,int num, int status,int tip,int jump, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
                                       MultipartHttpServletRequest request) throws
             IOException {
 
@@ -233,6 +234,8 @@ public class ProductController extends BaseAction {
         dbObject.put("mainProId", mainProId);
         dbObject.put("sortProId", sortProId);
         dbObject.put("tip", tip);
+        dbObject.put("toWhat", toWhat);
+        dbObject.put("num", num);
         dbObject.put("jump", jump);
         dbObject.put("brandId", brandId);
         DecimalFormat df = new DecimalFormat("#.00");

@@ -18,6 +18,16 @@
                             <div class="panel-body">
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">栏目</label>
+                                    <div class="col-sm-10">
+                                        <select id="inToWhat"  name="toWhat" class="form-control">
+                                            <option value="0" <#if p.toWhat==0>selected</#if> >商品</option>
+                                            <option value="1" <#if p.toWhat==1>selected</#if> >限量</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">名称</label>
                                     <div class="col-sm-10">
                                         <input type="text" style="font-size:15px;width: 300px;" class="form-control"
@@ -149,6 +159,16 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">库存</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="num"
+                                               placeholder="输入库存" value="${(p.num)!''}"  id="num">
+                                        </input>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
                                     <div class="col-lg-offset-2 col-lg-10">
                                         <button class="btn btn-shadow btn-primary" data-loading-text='稍等...' type="submit" id="submit">修改</button>
                                         &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -175,7 +195,8 @@
                 $('#submit').button('reset');
                 if (data.result) {
                     bootbox.alert("修改成功，将刷新页面", function () {
-                        location.href = "${INTER_PATH}/ljj/product/list.htm";
+                        var inToWhat=$("#inToWhat").val();
+                        location.href = "${INTER_PATH}/ljj/product/list.htm?toWhat="+inToWhat;
                     });
                 } else {
                     bootbox.alert(data.msg, function () {

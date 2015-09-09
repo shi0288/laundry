@@ -103,12 +103,11 @@
                         <div>
                             <div id="a" class="Spinner" style="margin-top:8px"></div>
                         </div>
-
                     </li>
                     <!--size-message-end-->
                 </ul>
                 <div class="com-footer-nav sale">
-                    <a href="cart.html">立即结算</a><a id="toCard"  href="#" style="color:red" onClick="MoveBox(this)">购物车</a>
+                    <a href="#" onclick="goToCart()">立即结算</a><a id="toCard"  href="#" style="color:red" onClick="MoveBox(this)">购物车</a>
                 </div>
                 <h3 class="js-attrs-title">商品属性</h3>
                 <ul class="attrs">
@@ -124,34 +123,6 @@
                     <li><i></i> 自营商品 免费配送</li>
                     <li><i></i> 货到付款 全校范围</li>
                 </ul>
-                <h3 class="js-attrs-title">用户评论<a href="#">返回顶部<i class="arrow2-top"></i></a></h3>
-
-                <div id="js-comment-list">
-                    <div class="comment-info">
-                        <div><p>综合满意指数：<br>&nbsp;&nbsp;&nbsp;&nbsp;<b class="pxui-color-red">4.6</b> 分</p>
-                            <span>评论人数：<br>&nbsp;&nbsp;&nbsp;&nbsp;206人</span></div>
-                        &nbsp;大家认为：
-                        <ul>
-                            <li>
-                                <b>评&nbsp;&nbsp;&nbsp;&nbsp;分</b>
-                                <p>速度：<i>
-                                    <del style="width:100%"></del>
-                                </i><span>100%</span></p>
-                                <p>质量：<i>
-                                    <del style="width:76%"></del>
-                                </i><span>76%</span></p>
-                                <p>欢迎：<i>
-                                    <del style="width:0%;"></del>
-                                </i><span>0%</span></p>
-                            </li>
-                        </ul>
-                    </div>
-                    <ul class="comment-list" id="js-commentlist"></ul>
-                    <div class="pxui-show-more" lastid="1" template="#js-good-comment" srcproperty="commentsrc"
-                         container="#js-commentlist" url="/comment/ajax?good_id=445111&amp;item_id=459537">
-                        <a>查看更多 <i class="arrow2-bottom"></i></a>
-                    </div>
-                </div>
             </div>
 
 
