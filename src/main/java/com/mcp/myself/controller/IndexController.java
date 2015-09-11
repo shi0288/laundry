@@ -258,6 +258,11 @@ public class IndexController {
         return "ljj/login";
     }
 
+    @RequestMapping("zhuanpan.html")
+    public String activiteZhuan(ModelMap modelMap) {
+        return "zhuanpan";
+    }
+
     public static void main(String[] args) {
 
     }

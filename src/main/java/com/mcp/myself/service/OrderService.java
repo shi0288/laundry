@@ -2,6 +2,7 @@ package com.mcp.myself.service;
 
 
 import com.mcp.myself.util.MongoConst;
+import com.mongodb.DBObject;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 
@@ -21,6 +22,11 @@ public class OrderService extends BaseService{
     public ModelMap getAllListPage(ModelMap modelMap,HttpServletRequest request) {
         return this.getAllListPage(MONGO_NAME,modelMap,request);
     }
-
+    public DBObject getById(String id) {
+        return this.getById(MONGO_NAME, id);
+    }
+    public boolean update(DBObject dbObject) {
+        return this.update(MONGO_NAME, dbObject);
+    }
 }
 
