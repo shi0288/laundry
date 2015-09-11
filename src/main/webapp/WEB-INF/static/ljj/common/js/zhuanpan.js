@@ -18,7 +18,7 @@
               }
               $.ajax({
                   type: "POST",
-                  url: "/laundry/activity/zhuanpan.json"+ new Date().getTime(),
+                  url: "/laundry/activity/zhuanpan.json?timestamp="+ new Date().getTime(),
                   dataType: "json",
                   cache: false,
                   async: false,
