@@ -5,7 +5,7 @@
     <section class="wrapper">
         <section class="panel">
             <div class="panel-body">
-                <form action="${INTER_PATH}/ljj/brand/list.htm" method="get" id="query_form">
+                <form action="../../ljj/brand/list.htm" method="get" id="query_form">
                     <table class="query_table">
                         <input type="hidden" name="p" id="p" value="${(p)!""}"/>
                         <tr>
@@ -73,7 +73,7 @@
                                 ${e.createTime?number?number_to_datetime}
                                 </td>
                                 <td>
-                                    <a href="${INTER_PATH}/ljj/brand/update.htm?id=${e._id}" title="编辑">
+                                    <a href="../../ljj/brand/update.htm?id=${e._id}" title="编辑">
                                         编辑
                                     </a>
                                 </td>
@@ -109,7 +109,7 @@
             </div>
             <div class="modal-body">
                 <!-- page start-->
-                <form id="add_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/brand/add.json"
+                <form id="add_user_form" class="form-horizontal" action="../../ljj/brand/add.json"
                       autocomplete="off" method="post" enctype="multipart/form-data">
                     <div class="row">
                         <div class="col-lg-12">
@@ -173,7 +173,7 @@
                                 $('#submit').button('reset');
                                 if (data.result) {
                                     bootbox.alert("添加成功，将刷新页面", function () {
-                                        location.href = "${INTER_PATH}/ljj/brand/list.htm";
+                                        location.href = "../../ljj/brand/list.htm";
                                     });
                                 } else {
                                     bootbox.alert(data.msg, function () {

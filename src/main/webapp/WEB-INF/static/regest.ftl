@@ -8,7 +8,7 @@
                 <div class="item item-captcha">
                     <div class="input-info" style="display:;">
                         <input data-role="none" class="txt-input txt-captcha"  id="r_captcha" type="text" size="11" maxlength="6"
-                               autocomplete="off" placeholder="    请输入验证码" autofocus="">
+                               autocomplete="off" placeholder="    请输入验证码">
                         <span id="captcha-img" onclick="changeImg(this)" ><img src="manage/code.img" width="65" height="30"
                                                     alt=""></span>
                     </div>

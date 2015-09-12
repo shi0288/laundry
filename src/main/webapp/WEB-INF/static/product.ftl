@@ -36,7 +36,7 @@
                         <#list e.fileNames as f>
                             <#if f_index==0>
                                 <div class="img160" style="background-image: none;width:100%;height: 120px">
-                                    <dfn></dfn><img style="max-height: 90px;" src="${UPLOAD_BASE_PATH}/img/${f}"
+                                    <dfn></dfn><img style="max-height: 90px;" src="../../upload/img/${f}"
                                                     onerror="nofind();"/></div>
                             </#if>
                         </#list>

@@ -1,4 +1,6 @@
+<#include "header.ftl">
 <#include "title.ftl">
+
 
     <div data-role="content">
 
@@ -6,7 +8,7 @@
             <div class="main">
                 <div class="item item-username">
                     <input data-role="none" class="txt-input txt-username" id="l_mobile" type="text" placeholder="    请输入用户名/邮箱/已验证手机"
-                           autofocus="" required="">
+                           required="">
                 </div>
                 <div class="item item-password">
                     <input data-role="none" class="txt-input txt-password" id="l_password" type="password" autocomplete="off"

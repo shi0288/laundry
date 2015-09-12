@@ -14,7 +14,7 @@ public class SystemConstant {
 	/**
 	 * 上传文件夹
 	 */
-	public static String UPLOAD_FOLDER = "/WEB-INF/upload";
+	public static String UPLOAD_FOLDER = "/data/www/upload";
 
 	/**
 	 * 上传文件夹

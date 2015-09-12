@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>林林卖卖店</title>
+    <title>乐小购</title>
     <meta name="viewport"
           content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="${BASE_PATH}/common/css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="${BASE_PATH}/common/css/base.css"/>
-    <script src="${BASE_PATH}/common/js/jquery-1.8.2.min.js"></script>
-    <script src="${BASE_PATH}/common/js/jquery.touchslider.min.js"></script>
-    <script src="${BASE_PATH}/common/js/jquery.Spinner.js"></script>
-    <script src="${BASE_PATH}/common/js/basic.js?v=0.3.6"></script>
-    <link rel="stylesheet" href="${BASE_PATH}/common/css/index.css"/>
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="0">
+    <meta name="format-detection" content="telephone=no"/>
+    <link rel="stylesheet" href="static/common/css/jquery.mobile-1.4.5.min.css"/>
+    <link rel="stylesheet" href="static/common/css/base.css"/>
+    <script src="static/common/js/jquery-1.8.2.min.js"></script>
+    <script src="static/common/js/jquery.touchslider.min.js"></script>
+    <script src="static/common/js/jquery.Spinner.js"></script>
+    <script src="static/common/js/basic.js?v=0.3.7"></script>
+    <link rel="stylesheet" href="static/common/css/index.css"/>
     <script>
 
         $(document).bind("mobileinit", function () {
@@ -20,14 +24,14 @@
             $.mobile.page.prototype.options.domCache = true;
             $.mobile.pageLoadErrorMessage = '功能正在完善，敬请期待';
             $.mobile.transitionFallbacks.slideout = "none";
+            $.mobile.defaultPageTransition = "pop";
             $.mobile.buttonMarkup.hoverDelay = "false";
         });
     </script>
 
-    <script src="${BASE_PATH}/common/js/jquery.mobile-1.4.5.min.js"></script>
+    <script src="static/common/js/jquery.mobile-1.4.5.min.js"></script>
 
     <script>
-
         $(document).on("pagebeforeshow", function (event) {
             $('.com-header-area').css('width', $(window).width());
             var order = localStorage.getItem("order");
@@ -101,8 +105,10 @@
                             break;
                         }
                     }
-                } else if (str == '/' || str == '/index.html') {
-                    $.mobile.changePage("main.html?showwxpaytitle=1", "pop");
+                } else if (str == '/' || str == '/index.html' || str.indexOf("index.html")!=-1||str.indexOf("jsessionid")!=-1) {
+                    $.mobile.changePage("main.html", {
+                        transition: "pop"
+                    });
                 } else if (str == '/cart.html') {
                     var order = localStorage.getItem("order");
                     if (!order) {
@@ -117,7 +123,7 @@
                             var str = '<li class="proOne">' +
                                     '<input  type="hidden"  name="proId"  value="' + o.proId + '"  />' +
                                     '<table><tr>' +
-                                    '<td width="15%"><img onerror="nofind();" src="images/cart_img.jpg" width="52" height="44"></td>' +
+                                    '<td width="15%"><img  src="../../upload/img/'+o.fileName+'" width="52" height="44"></td>' +
                                     '<td width="65%" id="_content">' +
                                     '<p>' + o.name + '</p>' +
                                     '<p><span class="lse">￥' + o.price + '</span>' +
@@ -181,12 +187,12 @@
                         dealPrice();
                     })
                 } else if (str == '/conform.html') {
+                    localStorage.removeItem("acount");
                     var conform = localStorage.getItem("conform");
                     var orderPrice = localStorage.getItem("orderPrice");
                     if (orderPrice) {
                         $("#payMoney").html("￥" + localStorage.getItem("orderPrice"));
                     } else {
-                        alert("订单信息为空");
                         $.mobile.changePage('main.html', 'slide');
                         return;
                     }
@@ -259,6 +265,7 @@
                             $(".txt-password")[0].type = 'password';
                         }
                     })
+                    changeImg($("#captcha-img"));
                 } else if (str == '/address.html') {
                     var name = localStorage.getItem("name");
                     if (name) {
@@ -280,7 +287,11 @@
                                         }
                                         var subFun = "selectAddress('" + obj._id.$oid + "')";
                                         var stackObj = $.mobile.navigate.history.getPrev();
-                                        if (stackObj.pageUrl == '/acount.html') {
+                                        var isAcount= localStorage.getItem("acount");
+                                        if (stackObj.pageUrl.indexOf("acount.html")!=-1) {
+                                            localStorage.setItem("acount","000");
+                                            subFun = "void(0);";
+                                        }else if(isAcount!=null||isAcount!=undefined){
                                             subFun = "void(0);";
                                         }
                                         var str = '<div class="item-addr bdb-1px">' + checkStr +
@@ -330,6 +341,7 @@
                             $(".txt-password")[0].type = 'password';
                         }
                     });
+                    changeImg($("#captcha-img"));
 
                 }else if (str == '/getPassWord.html') {
                     $(".tp-btn").click(function () {
@@ -342,6 +354,7 @@
                             $(".txt-password")[0].type = 'password';
                         }
                     });
+                    changeImg($("#captcha-img"));
 
                 } else if (str == '/acount.html') {
                     var name = localStorage.getItem("name");
@@ -356,7 +369,5 @@
                 }
             });
         });
-
-
     </script>
 </head>

@@ -1,25 +1,5 @@
-<body>
-<div data-role="page" data-dom-cache="false" >
+<#include "title.ftl">
 
-    <div data-role="header" data-position="fixed" data-fullscreen="false">
-        <div class="com-header-area">
-            <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
-            <p>
-                <a class="com-header-search" id="js-com-header-search">
-                    <del></del>
-                </a>
-                <a href="login/default.htm" class="com-header-user ">
-                    <del></del>
-                </a>
-                <i></i>
-                <a  href="cart.html" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
-                    <del></del>
-                </a>
-            </p>
-            <div class="clear"></div>
-        </div>
-    </div>
 
     <div data-role="content">
         <!-- **********************   导航  ********************** -->
@@ -37,7 +17,7 @@
                         <div>
                         <#list e.fileNames as fileName>
                             <div class="touchslider-item"><a href="topic/739.html"><span class="img320"><img
-                                    src="${UPLOAD_BASE_PATH}/img/${fileName}"
+                                    src="../../upload/img/${fileName}"
                                     style="vertical-align:top;width:100%"  onerror="nofind();"/></span></a></div>
                         </#list>
                         </div>
@@ -75,7 +55,6 @@
                             <#if e.oldPrice?number!=0>
                                 <del class="pxui-color-gray">${e.oldPrice}</del>
                             </#if>
-
                             </p>
                         </div>
                     </li>
@@ -96,8 +75,6 @@
                         </div>
                     </li>
                     <!--size-message-->
-
-
                     <li>
                         <b style="line-height:39px;">数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量:</b>
                         <div>
@@ -115,10 +92,10 @@
                     <li>${s?replace(":","：")} </li>
                 </#list>
                 </ul>
-                <h3 class="js-attrs-title">服务承诺<a href="#">返回顶部<i class="arrow2-top"></i></a></h3>
+                <h3 class="js-attrs-title">服务承诺</h3>
                 <ul class="services">
                     <li><i></i> 正品保证 假一赔十</li>
-                    <li><i></i> 15天无理由免邮退换货</li>
+                    <li><i></i> 3天无理由免邮退换货</li>
                     <li><i></i> 10天保值 差价返还</li>
                     <li><i></i> 自营商品 免费配送</li>
                     <li><i></i> 货到付款 全校范围</li>

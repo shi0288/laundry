@@ -1,15 +1,14 @@
 package com.mcp.myself.controller;
 
-import com.mcp.myself.constant.SystemConstant;
 import com.mcp.myself.constant.WeiXinConstant;
 import com.mcp.myself.service.CoreService;
-import com.mcp.myself.service.IndexService;
 import com.mcp.myself.service.WeiXinService;
 import com.mcp.myself.util.HttpClientWrapper;
 import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import org.apache.log4j.Logger;
 import org.codehaus.jettison.json.JSONObject;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -37,6 +36,8 @@ public class WeiXinController {
     @Autowired
     private WeiXinService weiXinService;
 
+    private static Logger logger = Logger.getLogger(WeiXinController.class);
+
 
     @RequestMapping(value = "api", method = {RequestMethod.POST, RequestMethod.GET})
     @ResponseBody
@@ -44,7 +45,7 @@ public class WeiXinController {
         // 将请求、响应的编码均设置为UTF-8（防止中文乱码）
         request.setCharacterEncoding("UTF-8");  //微信服务器POST消息时用的是UTF-8编码，在接收时也要用同样的编码，否则中文会乱码；
         response.setCharacterEncoding("UTF-8"); //在响应消息（回复消息给用户）时，也将编码方式设置为UTF-8，原理同上；
-        System.out.println("微信消息推送");
+        logger.info("微信消息推送");
         //判断token的缓存情况 ， 更新缓存
         try {
             Map token = weiXinService.findToken();
@@ -52,14 +53,14 @@ public class WeiXinController {
                 long updateTime = (Long) token.get("updateTime");
                 if (new Date().getTime() - updateTime > 1000 * 60 * 100) {//大于1小时40分钟 更新token
                     String result = HttpClientWrapper.getUrl(WeiXinConstant.QUERY_TOKEN_URL);
-                    System.out.println("查询到的token，并更新" + result);
+                    logger.info("查询到的token，并更新" + result);
                     JSONObject jsonObject = new JSONObject(result);
                     String access_token = jsonObject.get("access_token").toString();
                     weiXinService.updateToken(access_token);
                 }
             } else {
                 String result = HttpClientWrapper.getUrl(WeiXinConstant.QUERY_TOKEN_URL);
-                System.out.println("查询到的token，并更新" + result);
+                logger.info("查询到的token，并更新" + result);
                 JSONObject jsonObject = new JSONObject(result);
                 String access_token = jsonObject.get("access_token").toString();
                 weiXinService.saveToken(access_token);
@@ -80,14 +81,14 @@ public class WeiXinController {
         //第一步微信 登陆认证回掉地址
         String webcode = request.getParameter("code");
         String state = request.getParameter("state");
-        System.out.println("webCode:" + webcode);
-        System.out.println("state:" + state);
+        logger.info("webCode:" + webcode);
+        logger.info("state:" + state);
         //根据 webCode 获webtoken  并获取用户的 openId
         String webTokenUrl = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + WeiXinConstant.APPID + "&secret=" + WeiXinConstant.APPSECRET + "&code=" + webcode + "&grant_type=authorization_code";
         String result = HttpClientWrapper.getUrl(webTokenUrl);
         JSONObject jsonObject = new JSONObject(result);
         String openId = jsonObject.getString("openid");
-        System.out.println("openId:" + openId);
+        logger.info("openId:" + openId);
         request.getSession().setAttribute("openId", openId);
         //根据参数 state 可以跳转到不同菜单的页面
         return "redirect:/index.html";
@@ -95,7 +96,7 @@ public class WeiXinController {
 
     @RequestMapping(value = "dealWeiPay", method = {RequestMethod.POST, RequestMethod.GET})
     public void dealWeiPay(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        System.out.print("微信支付回调数据开始");
+        logger.info("微信支付回调数据开始");
         String inputLine;
         String notityXml = "";
         String resXml = "";
@@ -108,7 +109,7 @@ public class WeiXinController {
             e.printStackTrace();
         }
 
-        System.out.println("接收到的报文：" + notityXml);
+        logger.info("接收到的报文：" + notityXml);
 
         Map m = parseXmlToList2(notityXml);
 //        WxPayResult wpr = new WxPayResult();
@@ -147,7 +148,7 @@ public class WeiXinController {
                     + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
         }
 
-        System.out.println("微信支付回调数据结束");
+        logger.info("微信支付回调数据结束");
 
         BufferedOutputStream out = new BufferedOutputStream(
                 response.getOutputStream());

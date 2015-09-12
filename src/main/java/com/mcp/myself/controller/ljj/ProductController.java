@@ -65,8 +65,7 @@ public class ProductController extends BaseAction {
         for (int i = 0; i < files.size(); i++) {
             MultipartFile file = files.get(i);
             //获取文件 存储位置
-            String realPath = request.getSession().getServletContext()
-                    .getRealPath(SystemConstant.UPLOAD_FOLDER + "/img");
+            String realPath = SystemConstant.UPLOAD_FOLDER + "/img";
             File pathFile = new File(realPath);
             if (!pathFile.exists()) {
                 //文件夹不存 创建文件
@@ -171,8 +170,7 @@ public class ProductController extends BaseAction {
         for (int i = 0; i < files.size(); i++) {
             MultipartFile file = files.get(i);
             //获取文件 存储位置
-            String realPath = request.getSession().getServletContext()
-                    .getRealPath(SystemConstant.UPLOAD_FOLDER + "/img");
+            String realPath = SystemConstant.UPLOAD_FOLDER + "/img";
             File pathFile = new File(realPath);
             if (!pathFile.exists()) {
                 //文件夹不存 创建文件

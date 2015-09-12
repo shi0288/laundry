@@ -17,13 +17,13 @@
                 <#--<!--breadcrumbs start &ndash;&gt;-->
                 <ul class="breadcrumb">
                     <li>
-                        <a href="${INTER_PATH}/ljj/order/list.htm">订单列表</a>
+                        <a href="../../ljj/order/list.htm">订单列表</a>
                     </li>
                     <li>
-                        <a href="${INTER_PATH}/ljj/order/list.htm?status=1100">未派送(${waitCount})</a>
+                        <a href="../../ljj/order/list.htm?status=1100">未派送(${waitCount})</a>
                     </li>
                     <li>
-                        <a href="${INTER_PATH}/ljj/order/list.htm?status=1000">未付款(${payCount})</a>
+                        <a href="../../ljj/order/list.htm?status=1000">未付款(${payCount})</a>
                     </li>
                 </ul>
                 <#--<!--breadcrumbs end &ndash;&gt;-->
@@ -78,7 +78,7 @@
                                     ${e.createTime?number?number_to_datetime}
                                 </td>
                                 <td>
-                                    <a href="${BASE_PATH}/business/torder/update.htm?torderId=${e._id}" title="查看详情">
+                                    <a href="static/business/torder/update.htm?torderId=${e._id}" title="查看详情">
                                         查看详情
                                     </a>
                                 </td>

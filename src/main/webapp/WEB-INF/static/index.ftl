@@ -1,3 +1,4 @@
+<#include "header.ftl">
 <#include "title.ftl">
 
 <div data-role="content"  >
@@ -7,7 +8,7 @@
             <div>
             <#list pictures as p>
                 <div class="touchslider-item"><a href="topic/739.html"><img
-                        src="${UPLOAD_BASE_PATH}/img/${p.fileName}"
+                        src="../../upload/img/${p.fileName}"
                         style="vertical-align:top;width:100%"/></a></div>
             </#list>
             </div>
@@ -42,13 +43,13 @@
             <table border="0" cellspacing="5" cellpadding="0">
                 <tbody>
                 <tr>
-                    <td colspan="2"><a href="help/app.html"><i></i>立家净APP<br>总能找到你的至爱</a></td>
+                    <td colspan="2"><a href="help/app.html"><i></i>乐小购APP<br>总能找到你的至爱</a></td>
                     <td><a href="topic/612.html"><i></i>3折封顶</a></td>
                     <td rowspan="2"><a href="topic/612.html"><i></i>限<br>时<br>促<br>销</a></td>
                 </tr>
                 <tr>
                     <td><a href="topic/612.html"><b>最新</b><br>上架</a></td>
-                    <td colspan="2"><a href="help/weixin.html">立家净微信<br>你的随身好帮手<i></i></a></td>
+                    <td colspan="2"><a href="help/weixin.html">乐小购微信<br>你的随身好帮手<i></i></a></td>
                 </tr>
                 </tbody>
             </table>
@@ -73,7 +74,7 @@
                             <div class="img160" style="background-image: none;"><dfn></dfn>
                                 <#list tui.fileNames as f>
                                     <#if f_index==0>
-                                        <img src="${UPLOAD_BASE_PATH}/img/${f}">
+                                        <img src="../../upload/img/${f}">
                                     </#if>
                                 </#list>
                             </div>
@@ -113,7 +114,7 @@
                         style="color:#FFFFFF;">${(e.name)!""}</a>
                 </h2>
                 <a class="max" href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1"><img
-                        src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120" height="140"></a>
+                        src="../../upload/img/${e.fileName}" width="120" height="140"></a>
 
                 <div>
                     <p>
@@ -151,7 +152,7 @@
                     </p>
                 </div>
                 <a class="max" href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1"><img
-                        src="${UPLOAD_BASE_PATH}/img/${e.fileName}" width="120"
+                        src="../../upload/img/${e.fileName}" width="120"
                         height="140"></a>
 
                 <h2 style="background-color: ${(e.colorTip)!""}"><a
@@ -181,11 +182,11 @@
                 <a class="pxui-color-white" href="javascript:void(0)">
                     <i></i>
 							<span>自营商品<br>
-							满99包邮</span>
+							满9.9包邮</span>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <a class="pxui-color-white" href="javascript:void(0)">
                     <i style="background-position:-40px -108px;"></i>
-							<span>15天无理由<br>
+							<span>3天无理由<br>
 							免邮退换货</span>
                 </a>
             </strong>
@@ -209,8 +210,7 @@
             </strong>
         </p>
         <br>
-        © 2007-2013 Paixie All Rights Reserved<br>
-        闽B2-20110084
+        © 2015-2020 YunCai All Rights Reserved<br>
         <br>
     </div>
 

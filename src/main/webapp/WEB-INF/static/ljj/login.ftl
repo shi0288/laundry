@@ -7,26 +7,26 @@
     <title>彩店管理登录</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${BASE_PATH}/ljj/common/css/bootstrap.min.css"
+    <link href="../static/ljj/common/css/bootstrap.min.css"
           rel="stylesheet">
-    <link href="${BASE_PATH}/ljj/common/css/bootstrap-reset.css"
+    <link href="../static/ljj/common/css/bootstrap-reset.css"
           rel="stylesheet">
     <!--external css-->
     <link
-            href="${BASE_PATH}/ljj/common/assets/font-awesome/css/font-awesome.css"
+            href="../static/ljj/common/assets/font-awesome/css/font-awesome.css"
             rel="stylesheet"/>
     <!-- Custom styles for this template -->
-    <link href="${BASE_PATH}/ljj/common/css/style.css" rel="stylesheet">
-    <link href="${BASE_PATH}/ljj/common/css/style-responsive.css"
+    <link href="../static/ljj/common/css/style.css" rel="stylesheet">
+    <link href="../static/ljj/common/css/style-responsive.css"
           rel="stylesheet"/>
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 tooltipss and media queries -->
     <!--[if lt IE 9]>
-    <script src="${BASE_PATH}/ljj/common/js/html5shiv.js"></script>
-    <script src="${BASE_PATH}/ljj/common/js/respond.min.js"></script>
+    <script src="../static/ljj/common/js/html5shiv.js"></script>
+    <script src="../static/ljj/common/js/respond.min.js"></script>
     <![endif]-->
-    <script src="${BASE_PATH}/ljj/common/js/jquery.js"></script>
-    <script src="${BASE_PATH}/ljj/common/js/jquery.form.min.js"></script>
+    <script src="../static/ljj/common/js/jquery.js"></script>
+    <script src="../static/ljj/common/js/jquery.form.min.js"></script>
     <style type="text/css">
         p.error {
             color: #DE5959;
@@ -53,7 +53,7 @@
 <div class="container">
 
     <form class="form-signin" id="adminForm"
-          action="${INTER_PATH}/manage/admin.json" autocomplete="off"
+          action="../manage/admin.json" autocomplete="off"
           method="post">
         <h2 class="form-signin-heading">
             管理员登录
@@ -87,9 +87,9 @@
                     dataType: 'json',
                     success: function (data) {
                         if (data.result) {
-                            location.href = "${INTER_PATH}/ljj/order/list.htm";
+                            location.href = "../ljj/order/list.htm";
                         } else {
-                           alert("用户名或密码错误");
+                            alert("用户名或密码错误");
                         }
                     }
                 });

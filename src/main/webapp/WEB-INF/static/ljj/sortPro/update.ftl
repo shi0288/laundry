@@ -4,7 +4,7 @@
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/sortPro/update.json"
+        <form id="update_user_form" class="form-horizontal" action="../../ljj/sortPro/update.json"
               autocomplete="off" method="post">
             <fieldset>
                 <div class="row">
@@ -89,7 +89,7 @@
                 $('#submit').button('reset');
                 if (data.result) {
                     bootbox.alert("修改成功，将刷新页面", function () {
-                        location.href = "${INTER_PATH}/ljj/sortPro/list.htm";
+                        location.href = "../../ljj/sortPro/list.htm";
                     });
                 } else {
                     bootbox.alert(data.msg, function () {
@@ -98,7 +98,7 @@
             }
         });
         $('#back').click(function(){
-            location.href = "${INTER_PATH}/ljj/sortPro/list.htm";
+            location.href = "../../ljj/sortPro/list.htm";
         })
     });
 </script>

@@ -134,6 +134,13 @@ public class AdminService {
         query.put("_id", new ObjectId(id));
         long i=collection.count(query);
         if (i==1) {
+            if (first == 0) {
+                DBObject temp=new BasicDBObject();
+                temp.put("status", 0);
+                temp.put("name", name);
+                BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1));
+                collection.update(temp, set, false, false);
+            }
             DBObject setObj=new BasicDBObject();
             setObj.put("status", first);
             setObj.put("userName", userName);

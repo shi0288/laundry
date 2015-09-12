@@ -147,9 +147,7 @@ function saveAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    alert("添加成功", function () {
-                        $.mobile.changePage('address.html', 'slide');
-                    });
+                    $.mobile.changePage('address.html', 'slide');
                 } else {
                     alert("添加失败，请重试");
                 }
@@ -188,7 +186,7 @@ function getTuanP(onClick) {
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
                     var htmlStr = '<div class="tuan-list"><div class="img120"><a href="proDetail.html?proId=' + obj._id.$oid + '"><dfn></dfn>'
-                        + '<img src="upload/img/' + obj.fileNames[0] + '"  onerror="nofind();"/><a/></div>'
+                        + '<img src="../../upload/img/' + obj.fileNames[0] + '"  onerror="nofind();"/><a/></div>'
                         + '<a href="proDetail.html?proId=' + obj._id.$oid + '" class="title">' + obj.name + '</a>'
                         + '<p> <span class="pxui-color-yellow">数量：<span class="red">' + obj.num + '</span></span> </p>'
                         + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>';
@@ -238,9 +236,9 @@ function getPP(onClick) {
                 var list = rst.object;
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
-                    var htmlStr = '<a href="${INTER_PATH}/proDetail.html?proId=' + obj._id.$oid + '" data-transition="slide" style="width:33%;min-width: 0px;height:203px; ">'
+                    var htmlStr = '<a href="proDetail.html?proId=' + obj._id.$oid + '" data-transition="slide" style="width:33%;min-width: 0px;height:203px; ">'
                         + '<div class="img160" style="background-image: none;width:100%;height: 120px"><dfn></dfn>'
-                        + '<img style="max-height: 90px;" src="upload/img/' + obj.fileNames[0] + '"onerror="nofind();"/></div>'
+                        + '<img style="max-height: 90px;" src="../../upload/img/' + obj.fileNames[0] + '"onerror="nofind();"/></div>'
                         + '<span style="padding-top: 0px;" class="name">' + obj.name + '</span>'
                         + '<span class="price">￥' + obj.price + '</span>'
                         + '<del class="price">￥' + obj.oldPrice + '</del></a>';
@@ -328,9 +326,7 @@ function updateAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    alert("更新成功", function () {
-                        $.mobile.changePage('address.html', 'slide');
-                    });
+                    $.mobile.changePage('address.html', 'slide');
                 } else {
                     alert("更新失败，请重试");
                 }
@@ -359,9 +355,7 @@ function delAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    alert("删除成功", function () {
-                        $.mobile.changePage('address.html', 'slide');
-                    });
+                    $.mobile.changePage('address.html', 'slide');
                 } else {
                     alert("删除失败，请重试");
                 }
@@ -392,9 +386,8 @@ function goToPay(id){
                         //支付成功或失败前台判断
                         after();
                         if(res.err_msg=='get_brand_wcpay_request:ok'){
-                            alert('恭喜您，支付成功!',function(){
-                                $.mobile.changePage('main.html', 'slide');
-                            });
+                            alert('恭喜您，支付成功!');
+                            toAmount();
                         }else{
                             alert('支付失败');
                         }
@@ -495,13 +488,14 @@ function commitOrder() {
                                 if(res.err_msg=='get_brand_wcpay_request:ok'){
                                     after();
                                     alert('恭喜您，支付成功!');
-                                    $.mobile.changePage('main.html', 'slide');
                                 }else{
+                                    after();
                                     alert('支付失败');
-                                    $.mobile.changePage('acount.html', 'slide');
                                 }
+                                toAmount();
                             });
                     }else{
+                        after();
                         var commitOrder = orderStr.split(";");
                         var order = localStorage.getItem("order");
                         order = order.split(";");
@@ -638,7 +632,7 @@ function register() {
 
 function nofind() {
     var img = event.srcElement;
-    img.src = "../static/common/css/images/error.png";
+    img.src = "static/common/css/images/error.png";
     img.onerror = null;
 }
 
@@ -807,9 +801,8 @@ function getPassWord() {
         success: function (rst) {
             if (rst.result) {
                 localStorage.setItem("name", name);
-                alert("修改成功", function () {
-                    $.mobile.changePage('main.html', 'slide');
-                });
+                alert("修改成功");
+                $.mobile.changePage('main.html', 'slide');
             } else {
                 alert(rst.msg);
             }
@@ -916,13 +909,31 @@ function goToCart() {
             } else {
                 order = order.split(";");
             }
-            order.push(JSON.stringify(product));
-            order = order.join(";");
-            localStorage.setItem("order", order.toString());
-            var num = parseInt($("#header-cart-num").html()) + 1;
-            $("b[name='header-cart-num']").each(function (index) {
-                $(this).html(num);
-            });
+            var is=true;
+            for (var i = 0; i < order.length; i++) {
+                var jsonStr = order[i];
+                var obj = JSON.parse(jsonStr);
+                if (obj.proId == proId) {
+                    var tempNumbers=parseInt(obj.numbers);
+                    tempNumbers=tempNumbers+parseInt(numbers);
+                    obj.numbers=tempNumbers;
+                    order.remove(i);
+                    order.push(JSON.stringify(obj));
+                    order = order.join(";");
+                    localStorage.setItem("order", order.toString());
+                    is=false;
+                    break;
+                }
+            }
+            if(is){
+                order.push(JSON.stringify(product));
+                order = order.join(";");
+                localStorage.setItem("order", order.toString());
+                var num = parseInt($("#header-cart-num").html()) + 1;
+                $("b[name='header-cart-num']").each(function (index) {
+                    $(this).html(num);
+                });
+            }
             $.mobile.changePage('cart.html', 'slide');
         } else {
             alert("该商品暂缺，正在补货");
@@ -1005,4 +1016,45 @@ function chgUrl(url) {
         url = url + "?timestamp=" + timestamp;
     }
     return url;
+}
+
+/**
+ * JavaScript脚本实现回到页面顶部示例
+ * @param acceleration 速度
+ * @param stime 时间间隔 (毫秒)
+ **/
+function gotoTop(acceleration,stime) {
+    acceleration = acceleration || 0.1;
+    stime = stime || 10;
+    var x1 = 0;
+    var y1 = 0;
+    var x2 = 0;
+    var y2 = 0;
+    var x3 = 0;
+    var y3 = 0;
+    if (document.documentElement) {
+        x1 = document.documentElement.scrollLeft || 0;
+        y1 = document.documentElement.scrollTop || 0;
+    }
+    if (document.body) {
+        x2 = document.body.scrollLeft || 0;
+        y2 = document.body.scrollTop || 0;
+    }
+    var x3 = window.scrollX || 0;
+    var y3 = window.scrollY || 0;
+
+    // 滚动条到页面顶部的水平距离
+    var x = Math.max(x1, Math.max(x2, x3));
+    // 滚动条到页面顶部的垂直距离
+    var y = Math.max(y1, Math.max(y2, y3));
+
+    // 滚动距离 = 目前距离 / 速度, 因为距离原来越小, 速度是大于 1 的数, 所以滚动距离会越来越小
+    var speeding = 1 + acceleration;
+    window.scrollTo(Math.floor(x / speeding), Math.floor(y / speeding));
+
+    // 如果距离不为零, 继续调用函数
+    if(x > 0 || y > 0) {
+        var run = "gotoTop(" + acceleration + ", " + stime + ")";
+        window.setTimeout(run, stime);
+    }
 }

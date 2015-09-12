@@ -32,7 +32,7 @@
                     <a href="proDetail.html?proId=${e._id}"><dfn></dfn>
                         <#list e.fileNames as f>
                             <#if f_index==0>
-                                <img src="${UPLOAD_BASE_PATH}/img/${f}"  onerror="nofind();"/>>
+                                <img src="../../upload/img/${f}"  onerror="nofind();"/>>
                             </#if>
                         </#list>
                     </a>

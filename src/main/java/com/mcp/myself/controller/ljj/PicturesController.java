@@ -49,8 +49,7 @@ public class PicturesController extends BaseAction {
             return json;
         }
         //获取文件 存储位置
-        String realPath = request.getSession().getServletContext()
-                .getRealPath(SystemConstant.UPLOAD_FOLDER+"/img");
+        String realPath = SystemConstant.UPLOAD_FOLDER+"/img";
         File pathFile = new File(realPath);
         if (!pathFile.exists()) {
             //文件夹不存 创建文件
@@ -115,8 +114,7 @@ public class PicturesController extends BaseAction {
         String fileName=null;
         if (file!=null) {
             //获取文件 存储位置
-            String realPath = request.getSession().getServletContext()
-                    .getRealPath(SystemConstant.UPLOAD_FOLDER+"/img");
+            String realPath = SystemConstant.UPLOAD_FOLDER+"/img";
             File pathFile = new File(realPath);
             if (!pathFile.exists()) {
                 //文件夹不存 创建文件

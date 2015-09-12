@@ -4,7 +4,7 @@
 
         <div class="page-role container-fluid">
             <div class="head-img">
-                <span class="my-img" style="background-image:url('${BASE_PATH}/common/css/images/defaul.png')"></span>
+                <span class="my-img" style="background-image:url('static/common/css/images/defaul.png')"></span>
                 <p id="acountName"></p>
                 <p>铜牌用户</p>
             </div>
@@ -27,7 +27,7 @@
             <ul class="menu-list">
                 <li>
                     <a id="quanbudingdan" href="#">
-                        <img src="${BASE_PATH}/common/css/images/order.png" alt="">
+                        <img src="static/common/css/images/order.png" alt="">
                         <p>全部订单</p>
                     </a>
                 </li>
@@ -35,28 +35,28 @@
 
                 <li>
                     <a id="shouhuodizhi" href="address.html">
-                        <img src="${BASE_PATH}/common/css/images/history.png" alt="">
+                        <img src="static/common/css/images/history.png" alt="">
                         <p>收货地址</p>
                     </a>
                 </li>
 
                 <li>
                     <a id="zhanghuguanli" href="#">
-                        <img src="${BASE_PATH}/common/css/images/acount.png" alt="">
+                        <img src="static/common/css/images/acount.png" alt="">
                         <p>账户管理</p>
                     </a>
                 </li>
 
                 <li>
                     <a id="wodeyuyue" href="#">
-                        <img src="${BASE_PATH}/common/css/images/time.png" alt="">
+                        <img src="static/common/css/images/time.png" alt="">
                         <p>最新活动</p>
                     </a>
                 </li>
 
                 <li>
                     <a id="wodeqianbao" href="#">
-                        <img src="${BASE_PATH}/common/css/images/package.png" alt="">
+                        <img src="static/common/css/images/package.png" alt="">
                         <p>我的优惠</p>
                     </a>
                 </li>
@@ -64,21 +64,21 @@
 
                 <li>
                     <a id="wodeguanzhu" href="#">
-                        <img src="${BASE_PATH}/common/css/images/love.png" alt="">
+                        <img src="static/common/css/images/love.png" alt="">
                         <p>我的收藏</p>
                     </a>
                 </li>
 
                 <li>
                     <a id="fuwuguanjia" href="#">
-                        <img src="${BASE_PATH}/common/css/images/lingdai.png" alt="">
+                        <img src="static/common/css/images/lingdai.png" alt="">
                         <p>服务建议</p>
                     </a>
                 </li>
 
                 <li>
                     <a id="yingyongtuijian" href="#">
-                        <img src="${BASE_PATH}/common/css/images/app.png" alt="">
+                        <img src="static/common/css/images/app.png" alt="">
                         <p>咱滴应用</p>
                     </a>
                 </li>

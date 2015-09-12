@@ -18,7 +18,7 @@
     <section class="wrapper">
         <section class="panel">
             <div class="panel-body">
-                <form action="${INTER_PATH}/ljj/user/list.htm" method="get" enctype="multipart/form-data"
+                <form action="../../ljj/user/list.htm" method="get" enctype="multipart/form-data"
                       id="query_form">
                     <table class="query_table">
                         <input type="hidden" name="status" value="${(cond.status)!""}"/>
@@ -90,7 +90,7 @@
                                     </td>
                                     <td>
                                         <!-- Icons -->
-                                        <a href="${BASE_PATH}/business/user/update.htm?userId=${(e.name)!""}" title="编辑">
+                                        <a href="static/business/user/update.htm?userId=${(e.name)!""}" title="编辑">
                                             编辑
                                         </a>
                                     </td>
@@ -124,7 +124,7 @@
             </div>
             <div class="modal-body">
                 <!-- page start-->
-                <form id="add_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/user/add.json"
+                <form id="add_user_form" class="form-horizontal" action="../../ljj/user/add.json"
                       autocomplete="off" method="post">
                     <div class="row">
                         <div class="col-lg-12">
@@ -179,7 +179,7 @@
                                 $('#submit').button('reset');
                                 if (data.result) {
                                     bootbox.alert("添加成功，将刷新页面", function () {
-                                        location.href = "${INTER_PATH}/ljj/user/list.htm";
+                                        location.href = "../../ljj/user/list.htm";
                                     });
                                 } else {
                                     bootbox.alert(data.msg, function () {

@@ -1,12 +1,12 @@
 package com.mcp.myself.controller;
 
 import com.mcp.myself.bean.JsonVo;
-import com.mcp.myself.constant.WeiXinConstant;
 import com.mcp.myself.service.AdminService;
 import com.mcp.myself.util.*;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.WriteResult;
+import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
-import java.awt.geom.Arc2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
@@ -38,6 +37,9 @@ public class MangageLoginController {
 
     @Autowired
     private AdminService adminService;
+
+    private static Logger logger = Logger.getLogger(MangageLoginController.class);
+
 
     @ResponseBody
     @RequestMapping(value = "admin.json", method = RequestMethod.POST)
@@ -235,15 +237,18 @@ public class MangageLoginController {
     public JsonVo goToPay( @RequestParam(value = "id") String id) {
         JsonVo<String> json = new JsonVo<String>();
         DBObject query=new BasicDBObject();
+        System.out.println(id);
         query.put("orderId",id);
         List list=MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY).find(query).toArray();
+        System.out.println("list:"+list.size());
         if(list.size()==1){
             DBObject dbObject= (DBObject) list.get(0);
             String prepay_id= (String) dbObject.get("prepay_id");
+            System.out.println("prepay_id:"+prepay_id);
             long createTime= (long) dbObject.get("createTime");
             if(System.currentTimeMillis()-createTime>300000){
                 json.setResult(false);
-                json.setObject("该订单支付时间超时，请重新下单");
+                json.setMsg("该订单支付时间超时，请重新下单");
                 return json;
             }
             json.setResult(true);
@@ -255,6 +260,14 @@ public class MangageLoginController {
         return json;
     }
 
+    public static void main(String[] args) {
+        double ddd=3.8;
+        int k=12;
+        double dfdsf=0.9;
+        int n=3;
+        System.out.println(ddd * 100 *k /100);
+        System.out.println(((ddd * 100 *12 /100)*100+(dfdsf * 100 *n /100)*100)/100);
+    }
 
     @ResponseBody
     @RequestMapping(value = "commitOrder.json", method = RequestMethod.POST)
@@ -265,6 +278,8 @@ public class MangageLoginController {
                               @RequestParam(value = "orderStr") String orderStr,
                               @RequestParam(value = "orderPrice") String orderPrice,
                               @RequestParam(value = "payType") int payType, HttpServletRequest request) {
+        logger.info("#################有订单进入，用户:"+name+"  金额:"+orderPrice);
+        logger.info("#################支付类型payType:"+payType);
         JsonVo<String> json = new JsonVo<String>();
         DBObject dbObject = new BasicDBObject();
         dbObject.put("name", name);
@@ -272,6 +287,7 @@ public class MangageLoginController {
         dbObject.put("conMobile", conMobile);
         dbObject.put("conAddress", conAddress);
         dbObject.put("orderStr", orderStr);
+        dbObject.put("payType", payType);
         //处理订单
         String[] orders = orderStr.split(";");
         double yuanOrderPrice = 0;
@@ -320,7 +336,7 @@ public class MangageLoginController {
                     is = false;
                     break;
                 }
-                yuanOrderPrice = yuanOrderPrice + (num * yuanPrice);
+                yuanOrderPrice = (yuanOrderPrice*100 + (yuanPrice * 100 *num))/100;
             } catch (JSONException e) {
                 e.printStackTrace();
                 json.setResult(false);
@@ -339,6 +355,12 @@ public class MangageLoginController {
         //.....
 
         double tempOrderPrice = Double.parseDouble(orderPrice);
+
+        logger.info("============传的钱");
+        logger.info(tempOrderPrice);
+        logger.info("============算的钱");
+        logger.info(yuanOrderPrice);
+
         if (tempOrderPrice != yuanOrderPrice) {
             json.setResult(false);
             json.setMsg("对不起,订单金额数据有问题，请重试！");
@@ -389,9 +411,9 @@ public class MangageLoginController {
         int xx = 15;
         int fontHeight = 18;
         int codeY = 16;
-        char[] codeSequence = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J',
-                'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
-                'X', 'Y', 'Z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+        char[] codeSequence = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
+                'K',  'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+                'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9'};
         BufferedImage buffImg = new BufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB);
         Graphics gd = buffImg.getGraphics();

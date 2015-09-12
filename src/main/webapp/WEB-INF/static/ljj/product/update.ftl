@@ -4,7 +4,7 @@
 <section id="main-content">
     <section class="wrapper">
         <!-- page start-->
-        <form id="update_user_form" class="form-horizontal" action="${INTER_PATH}/ljj/product/update.json"
+        <form id="update_user_form" class="form-horizontal" action="../../ljj/product/update.json"
               autocomplete="off" method="post"
               enctype="multipart/form-data">
             <fieldset>
@@ -130,7 +130,7 @@
                                     </div>
                                 <#list p.fileNames as fileName>
                                   <#if fileName_index==0>
-                                      <img style="margin-left: 200px" width="100px" height="100px" src="${UPLOAD_BASE_PATH}/img/${fileName}" />
+                                      <img style="margin-left: 200px" width="100px" height="100px" src="../../upload/img/${fileName}" />
                                   </#if>
                                 </#list>
                                 </div>
@@ -142,7 +142,7 @@
                                     </div>
                                 <#list p.fileNames as fileName>
                                     <#if fileName_index==1>
-                                        <img style="margin-left: 200px"  width="100px" height="100px" src="${UPLOAD_BASE_PATH}/img/${fileName}" />
+                                        <img style="margin-left: 200px"  width="100px" height="100px" src="../../upload/img/${fileName}" />
                                     </#if>
                                 </#list>
                                 </div>
@@ -196,7 +196,7 @@
                 if (data.result) {
                     bootbox.alert("修改成功，将刷新页面", function () {
                         var inToWhat=$("#inToWhat").val();
-                        location.href = "${INTER_PATH}/ljj/product/list.htm?toWhat="+inToWhat;
+                        location.href = "../../ljj/product/list.htm?toWhat="+inToWhat;
                     });
                 } else {
                     bootbox.alert(data.msg, function () {
@@ -205,7 +205,7 @@
             }
         });
         $('#back').click(function(){
-            location.href = "${INTER_PATH}/ljj/product/list.htm";
+            location.href = "../../ljj/product/list.htm";
         })
     });
 </script>
