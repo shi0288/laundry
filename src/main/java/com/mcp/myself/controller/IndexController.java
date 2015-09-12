@@ -8,10 +8,7 @@ import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import org.bson.types.ObjectId;
-import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -256,6 +253,11 @@ public class IndexController {
     @RequestMapping("haohao/login.html")
     public String ljjAdmin(ModelMap modelMap) {
         return "ljj/login";
+    }
+
+    @RequestMapping("zhuanpan.html")
+    public String activiteZhuan(ModelMap modelMap) {
+        return "zhuanpan";
     }
 
     public static void main(String[] args) {

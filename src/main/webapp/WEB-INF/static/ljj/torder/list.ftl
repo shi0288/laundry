@@ -20,7 +20,10 @@
                         <a href="../../ljj/order/list.htm">订单列表</a>
                     </li>
                     <li>
-                        <a href="../../ljj/order/list.htm?status=1100">未派送(${waitCount})</a>
+                        <a href="../../ljj/order/list.htm?status=1100">派送中(${waitCount})</a>
+                    </li>
+                    <li>
+                        <a href="../../ljj/order/list.htm?status=1101">已打印(${printCount})</a>
                     </li>
                     <li>
                         <a href="../../ljj/order/list.htm?status=1000">未付款(${payCount})</a>
@@ -78,8 +81,11 @@
                                     ${e.createTime?number?number_to_datetime}
                                 </td>
                                 <td>
-                                    <a href="static/business/torder/update.htm?torderId=${e._id}" title="查看详情">
+                                    <a href="../../ljj/order/update.htm?torderId=${e._id}" title="查看详情">
                                         查看详情
+                                    </a>
+                                    <a href="javascript:void(0)" onclick="printOrder('${e._id}')" title="打印">
+                                        打印
                                     </a>
                                 </td>
                             </tr>
@@ -97,4 +103,49 @@
     </section>
 </section>
 <!--main content end-->
+<script type="text/javascript">
+    $(function () {
+        $('#update_user_form').ajaxForm({
+            beforeSubmit: function(){
+                $('#submit').button('loading');
+            },
+            success: function (data) {
+                $('#submit').button('reset');
+                if (data.result) {
+                    bootbox.alert("修改成功，将刷新页面", function () {
+                        location.href = "../../ljj/sortPro/list.htm";
+                    });
+                } else {
+                    bootbox.alert(data.msg, function () {
+                    });
+                }
+            }
+        });
+        $('#back').click(function(){
+            location.href = "../../ljj/torder/list.htm";
+        })
+    });
+    function printOrder(id){
+        $.ajax({
+            type: "POST",
+            url: "../../ljj/order/getDetail.json?timestamp=" + new Date().getTime(),
+            dataType: "json",
+            cache: false,
+            data: {
+                torderId: id
+            },
+            success: function (result) {
+                var res = result.result;
+                if (res) {
+                    printProduct(result.object);
+                } else {
+                    alert('查询请求出错');
+                }
+            },
+            error: function () {
+                alert('请求出错');
+            }
+        });
+    }
+</script>
 <#include "/ljj/foot.ftl">

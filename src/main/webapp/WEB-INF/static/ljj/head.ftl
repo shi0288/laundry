@@ -33,6 +33,8 @@
 	<script src="../../static/ljj/common/js/respond.min.js"></script>
     <![endif]-->
     <script src="../../static/ljj/common/js/jquery.js"></script>
+    <script type="text/javascript" src="../../static/ljj/common/js/LodopFuncs.js"></script>
+    <script type="text/javascript" src="../../static/ljj/common/js/print.js"></script>
 </head>
 <body class="boxed-page">
 <div class="container" style="width: 80%;" >

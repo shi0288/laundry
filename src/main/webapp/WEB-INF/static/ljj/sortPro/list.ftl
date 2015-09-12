@@ -216,7 +216,6 @@
                                 $('#submit').button('loading');
                             },
                             success: function (data) {
-                                console.log(data);
                                 $('#submit').button('reset');
                                 if (data.result) {
                                     bootbox.alert("添加成功，将刷新页面", function () {
