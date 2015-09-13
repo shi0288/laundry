@@ -1490,10 +1490,10 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
 }
 
 .ui-panel-inner {
-    height: 500px;
-    OVERFLOW-Y: auto;
-    OVERFLOW-X: hidden;
-    -webkit-overflow-scrolling: touch;
+    /*OVERFLOW-X: hidden;*/
+    /*OVERFLOW-X: hidden;*/
+    OVERFLOW: hidden;
+    /*-webkit-overflow-scrolling: touch;*/
 }
 
 /**

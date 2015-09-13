@@ -110,7 +110,7 @@
         <input type="hidden" id="oldPrice" value="${e.oldPrice}" />
         <input type="hidden" id="fileName" value="${e.fileNames[0]}" />
 
-        <div class="pro" id="pro"><img width="25px" height="25px" src="${INTER_PATH}/static/common/css/images/cart.gif"></div>
+        <div class="pro" id="pro"><img width="25px" height="25px" src="./static/common/css/images/cart.gif"></div>
 
     </div>
     <!-- /content -->

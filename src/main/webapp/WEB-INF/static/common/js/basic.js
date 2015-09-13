@@ -632,7 +632,7 @@ function register() {
 
 function nofind() {
     var img = event.srcElement;
-    img.src = "static/common/css/images/error.png";
+    img.src = "./static/common/css/images/error.png";
     img.onerror = null;
 }
 
@@ -943,7 +943,6 @@ function goToCart() {
 }
 
 function MoveBox(obj) {
-    before();
     var proId = $("#proId").val();
     var numbers = $(".Amount").val();
     testProduct(proId, numbers, function (is) {
@@ -997,7 +996,6 @@ function MoveBox(obj) {
         } else {
             alert("该商品暂缺，正在补货");
         }
-        after();
     });
 }
 

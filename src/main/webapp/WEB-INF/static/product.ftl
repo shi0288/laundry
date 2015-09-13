@@ -53,7 +53,7 @@
 <!-- /content -->
 
 <div data-role="panel" style="background-color: #f8f8f8;margin-top: 52px" data-position="left"
-     data-position-fixed="true" data-display="overlay" id="nav-panel"
+     data-display="overlay" id="nav-panel"
      data-theme="a">
     <ul data-role="none" data-theme="a" data-divider-theme="a" class="nav-search">
         <li data-icon="delete" style="background-color:#111;text-align: center">

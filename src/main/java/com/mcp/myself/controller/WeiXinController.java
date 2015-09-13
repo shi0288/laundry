@@ -89,7 +89,9 @@ public class WeiXinController {
         JSONObject jsonObject = new JSONObject(result);
         String openId = jsonObject.getString("openid");
         logger.info("openId:" + openId);
+
         request.getSession().setAttribute("openId", openId);
+
         //根据参数 state 可以跳转到不同菜单的页面
         return "redirect:/index.html";
     }

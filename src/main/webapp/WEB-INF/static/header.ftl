@@ -10,11 +10,11 @@
     <META HTTP-EQUIV="Expires" CONTENT="0">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="static/common/css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="static/common/css/base.css"/>
+    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.1"/>
     <script src="static/common/js/jquery-1.8.2.min.js"></script>
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
-    <script src="static/common/js/basic.js?v=0.3.7"></script>
+    <script src="static/common/js/basic.js?v=0.3.8"></script>
     <link rel="stylesheet" href="static/common/css/index.css"/>
     <script>
 
@@ -62,7 +62,6 @@
                     }
                 } else if (str == '/product.html') {
                     var height = document.body.clientHeight;
-                    $(".ui-panel-inner").height(height);
                     var is = true;
                     $("#js-goodlist").on("scrollstart", function () {
                         var dheight = $(document).height();
@@ -105,7 +104,7 @@
                             break;
                         }
                     }
-                } else if (str == '/' || str == '/index.html' || str.indexOf("index.html")!=-1||str.indexOf("jsessionid")!=-1) {
+                } else if (str == '/' || str == '/index.html' || str.indexOf("index.html")!=-1||str=="") {
                     $.mobile.changePage("main.html", {
                         transition: "pop"
                     });
@@ -264,7 +263,7 @@
                             $(".tp-btn").removeClass("btn-on");
                             $(".txt-password")[0].type = 'password';
                         }
-                    })
+                    });
                     changeImg($("#captcha-img"));
                 } else if (str == '/address.html') {
                     var name = localStorage.getItem("name");
@@ -343,6 +342,12 @@
                     });
                     changeImg($("#captcha-img"));
 
+                }else if (str == '/sort.html') {
+
+                }else if (str == '/brand.html') {
+
+                }else if (str == '/sort.html') {
+
                 }else if (str == '/getPassWord.html') {
                     $(".tp-btn").click(function () {
                         var classStr = $(this).attr("class");
@@ -365,7 +370,10 @@
                 } else {
                     if ($(".touchsliderPro").data("touchslider") != null) {
                         $(".touchsliderPro").data("touchslider").stop(); // stop the slider
-                    }
+                    };
+                    $.mobile.changePage("main.html", {
+                        transition: "pop"
+                    });
                 }
             });
         });

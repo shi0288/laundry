@@ -1,4 +1,3 @@
-<#include "header.ftl">
 <#include "title.ftl">
 
 <div data-role="content"  >
