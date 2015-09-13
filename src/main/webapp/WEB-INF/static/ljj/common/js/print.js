@@ -26,31 +26,21 @@ function  printProduct(order){
     LODOP.ADD_PRINT_TEXT(200,99,43,20,"单价");
     LODOP.ADD_PRINT_TEXT(200,156,35,20,"数量");
     LODOP.ADD_PRINT_TEXT(200,212,60,20,"单品合计");
-
     printDetail(order);
     return  LODOP;
 }
 
-
 function printDetail(order){
-    //order = JSON.parse(order);
     var oArr = order.orderStr.split(';');
-    console.log(oArr[0]);
     var orderPrice = order.orderPrice;
     var orderId = order._id.$oid;
-    //orderId = JSON.parse(orderId);
-    //orderId = JSON.stringify(orderId);
     var length = oArr.length;
-    console.log(orderPrice);
-    console.log(orderId);
-    console.log(length);
     for(var i=0;i<length;i++){
         var oAr=JSON.parse(oArr[i]);
-        console.log("gggg:"+oAr.numbers);
         LODOP.ADD_PRINT_TEXT(230+i*30,6,84,20,oAr.name);
         LODOP.ADD_PRINT_TEXT(230+i*30,92,53,20,oAr.price);
         LODOP.ADD_PRINT_TEXT(230+i*30,161,38,20,oAr.numbers);
-        LODOP.ADD_PRINT_TEXT(230+i*30,226,48,20,(oAr.price*1)*(oAr.numbers*1));
+        LODOP.ADD_PRINT_TEXT(230+i*30,226,48,20,(oAr.price*1)*100*(oAr.numbers*1)/100);
     }
     LODOP.ADD_PRINT_TEXT(230+length*30,20,46,20,"合计：");
     LODOP.ADD_PRINT_TEXT(230+length*30,126,100,20,'人民币：'+orderPrice+'元');
@@ -58,8 +48,7 @@ function printDetail(order){
     LODOP.ADD_PRINT_TEXT(230+(length+2)*30,126,100,20,'');
     var is = LODOP.PRINT();
     if(is){
-        bootbox.alert("打印成功，将刷新页面并更新订单状态", function () {
-            //location.href = "afterupdate.htm?torderId="+orderId+"";
+        bootbox.alert("打印成功，将刷新页面", function () {
             location.href = "list.htm?status=1100";
         });
     }

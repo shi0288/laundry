@@ -28,6 +28,9 @@
                     <li>
                         <a href="../../ljj/order/list.htm?status=1000">未付款(${payCount})</a>
                     </li>
+                    <li>
+                        <a href="../../ljj/order/list.htm?status=1200">派送成功(${sendCount})</a>
+                    </li>
                 </ul>
                 <#--<!--breadcrumbs end &ndash;&gt;-->
             </div>
@@ -56,6 +59,7 @@
                                 <th>联系</th>
                                 <th>地址</th>
                                 <th>时间</th>
+                                <th>付款方式</th>
                                 <th>操作</th>
                             </tr>
                             </thead>
@@ -81,12 +85,17 @@
                                     ${e.createTime?number?number_to_datetime}
                                 </td>
                                 <td>
+                                <#if  '${e.payType}'=="0">货到付款<#elseif  '${e.payType}'=="1">微信支付</#if>
+                                </td>
+                                <td>
                                     <a href="../../ljj/order/update.htm?torderId=${e._id}" title="查看详情">
                                         查看详情
                                     </a>
-                                    <a href="javascript:void(0)" onclick="printOrder('${e._id}')" title="打印">
-                                        打印
-                                    </a>
+                                    <#if  '${e.status}'=='1100'><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101)" title="打印">打印</a>
+                                    <#elseif  '${e.status}'=='1101'> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200)" title="派送成功">派送成功</a>
+                                    </#if>
+
+
                                 </td>
                             </tr>
                             </#list>
@@ -125,19 +134,26 @@
             location.href = "../../ljj/torder/list.htm";
         })
     });
-    function printOrder(id){
+    function printOrder(id,orderType){
         $.ajax({
             type: "POST",
             url: "../../ljj/order/getDetail.json?timestamp=" + new Date().getTime(),
             dataType: "json",
             cache: false,
             data: {
-                torderId: id
+                torderId: id,
+                status:orderType
             },
             success: function (result) {
                 var res = result.result;
                 if (res) {
-                    printProduct(result.object);
+                    if(orderType==1101){
+                        printProduct(result.object);
+                    }else if(orderType==1200){
+                        bootbox.alert("修改成功，将刷新页面", function () {
+                            location.href = "list.htm?status=1101";
+                        });
+                    }
                 } else {
                     alert('查询请求出错');
                 }

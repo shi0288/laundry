@@ -42,14 +42,17 @@ public class OrderController extends BaseAction {
         int payCount = MongoUtil.queryCount(MongoConst.MONGO_ORDERS, dbObject);
         dbObject.put("status", 1101);
         int printCount = MongoUtil.queryCount(MongoConst.MONGO_ORDERS,dbObject);
+        dbObject.put("status", 1200);
+        int sendCount = MongoUtil.queryCount(MongoConst.MONGO_ORDERS,dbObject);
         modelMap.put("waitCount", waitCount);
         modelMap.put("payCount",payCount);
         modelMap.put("printCount",printCount);
+        modelMap.put("sendCount",sendCount);
         return "ljj/torder/list";
     }
 
     /**
-     * 进入更新
+     * 进入详情
      */
     @RequestMapping(value = "update.htm", method = RequestMethod.GET)
     public String update(@RequestParam(value = "torderId") String torderId,
@@ -60,8 +63,6 @@ public class OrderController extends BaseAction {
         String s[] = orderStr.split(";");
        // JSONObject order = JSONObject.fromObject(s);
         JSONArray order = JSONArray.fromObject(s);
-        System.out.println("e:"+dbObject.toString());
-        System.out.println("order:" + order.toString());
         modelMap.put("e", dbObject);
         modelMap.put("order", order);
         return "ljj/torder/update";
@@ -70,20 +71,17 @@ public class OrderController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("getDetail.json")
-    public JsonVo<DBObject> getDetail(String torderId) throws
+    public JsonVo<DBObject> getDetail(String torderId,long status) throws
             IOException {
         JsonVo<DBObject> json = new JsonVo<DBObject>();
         DBObject dbObject = orderService.getById(torderId);
-//        JSONObject jsonObject = JSONObject.fromObject(dbObject);
-//        String id = jsonObject.getString("_id");
-//        System.out.println("idididid:" + id);
         String str = dbObject.toString();
-        json.setObject(str);
-        json.setResult(true);
-        DBObject upObject=new BasicDBObject();
+        DBObject upObject = new BasicDBObject();
         upObject.put("_id", new ObjectId(torderId));
-        upObject.put("status", 1101);
-        orderService.update(upObject);
+        upObject.put("status", status);
+        boolean update = orderService.update(upObject);
+        json.setObject(str);
+        json.setResult(update);
         return json;
     }
 }
