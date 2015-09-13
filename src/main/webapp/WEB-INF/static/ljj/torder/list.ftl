@@ -59,6 +59,15 @@
                                     <option <#if (cond.payType)??> <#if  cond.payType==1>selected</#if> </#if>  value="1">微信支付</option>
                                 </select>
                             </td>
+                            <td>订单状态</td>
+                            <td>
+                                <select name="status" class="form-control">
+                                    <option value="">所有</option>
+                                    <option <#if (cond.status)??> <#if  cond.status==1100>selected</#if> </#if> value="1100">派送中</option>
+                                    <option <#if (cond.status)??> <#if  cond.status==1101>selected</#if> </#if>  value="1101">已经打印</option>
+                                    <option <#if (cond.status)??> <#if  cond.status==1200>selected</#if> </#if>  value="1200">确认收货</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                         </tr>
