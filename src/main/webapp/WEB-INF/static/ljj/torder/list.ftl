@@ -35,6 +35,41 @@
                 <#--<!--breadcrumbs end &ndash;&gt;-->
             </div>
         </div>
+        <section class="panel">
+            <div class="panel-body">
+                <form action="../../ljj/order/list.htm" method="get" id="query_form">
+                    <table class="query_table">
+                        <input type="hidden" name="p" id="p" value="${(p)!""}"/>
+                        <input type="hidden" name="toWhat" id="toWhat" value="${(cond.toWhat)!""}"/>
+                        <tr>
+                            <td>用户名</td>
+                            <td><input type="text" name="name" class="form-control" value="${(cond.name)!""}"/>
+                            </td>
+                            <td>收货人姓名</td>
+                            <td><input type="text" name="conName" class="form-control" value="${(cond.conName)!""}"/>
+                            </td>
+                            <td>联系电话</td>
+                            <td><input type="text" name="conMobile" class="form-control" value="${(cond.conMobile)!""}"/>
+                            </td>
+                            <td>支付方式</td>
+                            <td>
+                                <select name="payType" class="form-control">
+                                    <option value="">所有</option>
+                                    <option <#if (cond.payType)??> <#if  cond.payType==0>selected</#if> </#if> value="0">货到付款</option>
+                                    <option <#if (cond.payType)??> <#if  cond.payType==1>selected</#if> </#if>  value="1">微信支付</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a class="btn btn-primary" id="query_button">查询</a>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+        </section>
         <!-- page start-->
         <section class="panel">
             <header class="panel-heading">
@@ -133,6 +168,10 @@
         $('#back').click(function(){
             location.href = "../../ljj/torder/list.htm";
         })
+        $('#query_button').click(function () {
+            $('#p').val(1);
+            $('#query_form').submit();
+        });
     });
     function printOrder(id,orderType){
         $.ajax({
