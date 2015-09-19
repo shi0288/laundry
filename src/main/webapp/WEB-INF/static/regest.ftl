@@ -28,7 +28,7 @@
                     <input data-role="none" class="txt-input txt-password" type="password" autocomplete="off"
                            id="r_password"    placeholder="     请输入密码" required="">
                     <b class="tp-btn btn-off"></b>
-                    <div class="login-free login-free-selected"><b></b>注册即视为同意《XXXXX》</div>
+                    <div class="login-free login-free-selected"> 注册即视为同意<a id="" href="xieyi.html" style="color: red">《乐小购注册协议》</a></a></div>
                 </div>
 
                 <div class="item item-btns">

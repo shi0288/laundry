@@ -260,6 +260,11 @@ public class IndexController {
         return "zhuanpan";
     }
 
+    @RequestMapping("xieyi.html")
+    public String xieyi(ModelMap modelMap) {
+        return "xieyi";
+    }
+
     public static void main(String[] args) {
 
     }

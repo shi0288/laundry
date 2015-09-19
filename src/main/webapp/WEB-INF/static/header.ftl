@@ -348,6 +348,8 @@
 
                 }else if (str == '/sort.html') {
 
+                }else if (str == '/xieyi.html') {
+
                 }else if (str == '/getPassWord.html') {
                     $(".tp-btn").click(function () {
                         var classStr = $(this).attr("class");
