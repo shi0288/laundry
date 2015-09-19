@@ -105,7 +105,7 @@ public class ActivityService {
         DBObject param = new BasicDBObject();
         param.put("activeId",activeId);
         param.put("userName",userName);
-        param.put("currentDate", getDate());
+        //param.put("currentDate", getDate());
         int count = MongoUtil.queryCount(MongoConst.MONGO_ACTIVITY, param);
         if(count<num){
             chou = false;
@@ -164,61 +164,85 @@ public class ActivityService {
     public Activity zhuanP(String userName, String activeId) {
         Activity activity = new Activity();
         //1.验证是否抽过奖
-        boolean chou = getCheck(userName, activeId,3);
+        boolean chou = getCheck(userName, activeId,1);
+        //chou = false;
         if(chou){
             activity.setCheck(false);
         }else{
             DBObject dbObject = new BasicDBObject();
             int n = randomNo();
-            if(n>=0&&n<=9){
-                //var result_arr = ['你的前世是和尚','你的前世是财主','你的前世是嫔妃','你的前世是将军','你的前世是书生','你的前世是皇帝','你的前世是名妓','你的前世是老鸨','你的前世是丞相','你的前世是诗人','你的前世是佳人','你的前世是土匪'];
+            if(n>=0&&n<=11){
                 activity.setActiveId(activeId);
                 activity.setNum(0);
                 activity.setActiveType("A");
-                activity.setActiveName("辣条");
-                activity.setActiveDes("获得一袋辣条");
-            }else if(n>=10&&n<=19){
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("这个“牛肉”可以撕着吃");
+            }else if(n>=12&&n<=19){
                 activity.setActiveId(activeId);
                 activity.setActiveType("B");
                 activity.setNum(1);
-                activity.setActiveName("辣条");
-                activity.setActiveDes("当然有钱，任性，两袋辣条");
-            }else if(n>=20&&n<=29){
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("喵星人送我今喜客猫耳仔芝麻味一袋");
+            }else if(n>=20&&n<=27){
                 activity.setActiveId(activeId);
                 activity.setActiveType("C");
                 activity.setNum(2);
-                activity.setActiveName("太阳伞");
-                activity.setActiveDes("大夏天出门那么热，当然得有太阳伞");
-            }else if(n>=30&&n<=44){
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("黑加白不等于灰，而是春夏潮流趋势的绝配，黑白配到手啦");
+            }else if(n>=28&&n<=35){
                 activity.setActiveId(activeId);
                 activity.setActiveType("D");
                 activity.setNum(3);
-                activity.setActiveName("鸡腿");
-                activity.setActiveDes("霸气外露，来根大鸡腿");
-            }else if(n>=45&&n<=69){
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("大大，还是小时候的味道，泡泡糖两块");
+            }else if(n>=36&&n<=43){
                 activity.setActiveId(activeId);
                 activity.setActiveType("E");
                 activity.setNum(4);
-                activity.setActiveName("碳素笔");
-                activity.setActiveDes("文质彬彬，当然多写字");
-            }else if(n>=90&&n<=99){
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("吃在嘴里甜在心里，真知棒真的很棒");
+            }else if(n>=44&&n<=48){
                 activity.setActiveId(activeId);
                 activity.setActiveType("G");
-                activity.setNum(5);
-                activity.setActiveName("帝王套餐");
-                activity.setActiveDes("众卿家平身，一起用膳");
-            }else if(n>=80&&n<=89){//丞相
+                activity.setNum(6);
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("对，我就是央视总是洗脑的那个舒肤佳香皂");
+            }else if(n>=49&&n<=53){//丞相
                 activity.setActiveId(activeId);
                 activity.setActiveType("H");
-                activity.setNum(9);
-                activity.setActiveName("无敌大汉堡");
-                activity.setActiveDes("俗话说宰相肚里能撑船，我能撑汉堡");
-            }else if(n>=70&&n<=79){//土匪
+                activity.setNum(7);
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("爱，就是心心相印，一包纸巾，一份大爱");
+            }else if(n>=54&&n<=61){//土匪
                 activity.setActiveId(activeId);
                 activity.setActiveType("J");
+                activity.setNum(8);
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("你嘴巴怎么那么大，哦，原来被堵嘴薯片堵住了");
+            }else if(n>=62&&n<=66){//土匪
+                activity.setActiveId(activeId);
+                activity.setActiveType("K");
+                activity.setNum(9);
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("亲，这个肥皂是用来洗衣服的哦");
+            }else if(n>=67&&n<=76){//土匪
+                activity.setActiveId(activeId);
+                activity.setActiveType("L");
+                activity.setNum(10);
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("这个卫龙面筋有点辣的");
+            }else if(n>=77&&n<=91){//土匪
+                activity.setActiveId(activeId);
+                activity.setActiveType("M");
                 activity.setNum(11);
-                activity.setActiveName("饮料");
-                activity.setActiveDes("出来就是混的，讲究的就是大口吃肉大口喝饮料");
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("我不是嘴馋，只是有点饿，馋大嘴巴来一袋");
+            }else if(n>=92&&n<=99){//土匪
+                activity.setActiveId(activeId);
+                activity.setActiveType("N");
+                activity.setNum(5);
+                activity.setActiveName("注册送礼");
+                activity.setActiveDes("阿尔卑斯棒棒糖，爱你一辈子");
             }
             dbObject.put("activeId",activeId);
             dbObject.put("userName",userName);
@@ -226,7 +250,7 @@ public class ActivityService {
             dbObject.put("createTime",System.currentTimeMillis());
             dbObject.put("activeType",activity.getActiveType());
             dbObject.put("activeName",activity.getActiveName());
-            dbObject.put("activeDes","算命抽奖活动");
+            dbObject.put("activeDes","每人参加一次");
             dbObject.put("activeState","0");
             int res = MongoUtil.save(MongoConst.MONGO_ACTIVITY, dbObject);
             System.out.println("res:" + res);

@@ -100,29 +100,28 @@ public class ActivityController extends BaseAction {
     public JsonVo<DBObject> zhuanPan(String body) throws IOException {
         Activity activity = new Activity();
         JsonVo json = new JsonVo();
-        System.out.println("body:"+body);
         JSONObject jsonObject = JSONObject.fromObject(body);
         String userName = jsonObject.getString("userName");
         String activeId = jsonObject.getString("activeId");
-        String passWord = jsonObject.getString("passWord");
+//        String passWord = jsonObject.getString("passWord");
         String actitityType = jsonObject.getString("actitityType");
         //1.判断是否登录
-        if("".equals(userName)||"".equals(passWord)){
+        if(userName==null||"".equals(userName)){
             json.setResult(false);
-            json.setMsg("还未登录");
+            json.setMsg("您尚未登陆");
             return json;
         }
-        boolean userInfo = activityService.getUser(userName, passWord);
-        if(!userInfo){
-            json.setResult(false);
-            json.setMsg("查无此用户");
-            return json;
-        }
+//        boolean userInfo = activityService.getUser(userName, passWord);
+//        if(!userInfo){
+//            json.setResult(false);
+//            json.setMsg("查无此用户");
+//            return json;
+//        }
         //2.判断今天是否领取，领取返回提示已经领取
         activity = activityService.zhuanP(userName, activeId);
         if(!activity.isCheck()){
             json.setResult(true);
-            json.setMsg("亲，今日已经算命达到三次，明日再来！");
+            json.setMsg("亲，你已经才加过此次活动，下次再来哦！");
             json.setObject(activity);
             return json;
         }

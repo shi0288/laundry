@@ -138,8 +138,6 @@
                                     <#if  '${e.status}'=='1100'><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101)" title="打印">打印</a>
                                     <#elseif  '${e.status}'=='1101'> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200)" title="派送成功">派送成功</a>
                                     </#if>
-
-
                                 </td>
                             </tr>
                             </#list>

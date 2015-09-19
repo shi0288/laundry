@@ -1,20 +1,20 @@
  $(function(){
-          var r_h = $("#round").width();
+          var r_h = $("#round").width()*2;
           $("#round").css("height", r_h + "px");
-          var a_p = r_h*3/8;
+          var a_p = $("#round").width()*3/8;
           $("#arrow").css("width", a_p + "px");
-          var p_t = (r_h/2) - (a_p/2);
+          var p_t = ($("#round").width()/2) - (a_p/2);
           $("#arrow").css("padding-top", p_t + "px");
-
+          $(".tool-button").css("padding-top", p_t + "px");
           $("#begin").click(function(){
               var d=0;
-              //sessionStorage.setItem("name","haha");
+              sessionStorage.setItem("name","123");
               //sessionStorage.setItem("passWord","123456");
               var body={
                   activeId:"1003",
                   actitityType:"zhuanpan",
-                  userName: sessionStorage.getItem("name"),
-                  passWord: sessionStorage.getItem("passWord")
+                  userName: sessionStorage.getItem("name")
+                  //passWord: sessionStorage.getItem("passWord")
               }
               $.ajax({
                   type: "POST",
@@ -27,18 +27,18 @@
                   },
                   success: function (result) {
                       var repCode = result.result;
-                      console.log(result.object);
+                      //console.log(result.object);
                       if (repCode) {
                           if(result.object.check){
                               d=result.object.num;
                               info=result.object.activeDes;
                           }else{
                               d=12;
-                              info="易经说每天算命不能超过三次哦，明天再来";
+                              info="话说这次活动只能参加一次哦，亲下次活动再来";
                           }
                       }else{
                           d=13;
-                          info="亲，先登录，结果才会更准";
+                          info="亲，先登录，才能参加活动的";
                       }
                       getResult(d,info);
                   }
@@ -57,9 +57,9 @@
       })
 
  function getResult(d,info){
-     var result_arr = ['你的前世是和尚','你的前世是财主','你的前世是嫔妃','你的前世是将军','你的前世是书生',
-         '你的前世是皇帝','你的前世是名妓','你的前世是老鸨','你的前世是丞相','你的前世是诗人','你的前世是佳人',
-         '你的前世是土匪','',''];
+     var result_arr = ['手撕牛肉一袋','猫耳仔一袋','黑白配一袋','大大泡泡糖两块','真知棒一个',
+         '阿尔卑斯棒棒糖','舒肤佳香皂一块','心心相印纸巾一包','堵嘴薯片一袋','洗衣皂一块','卫龙面筋两个',
+         '馋大嘴巴一袋','',''];
 
      var msg  = result_arr[d];
      if(d<=11){
@@ -82,7 +82,7 @@
              }
          });
      }else if(d==12){
-         msg = "你的前世明日来测";
+         msg = "您已参加过此次活动";
          var w = $(document).width();
          var l;
          var r_w = $("#result").width();
