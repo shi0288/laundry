@@ -69,6 +69,15 @@ public class IndexService extends BaseService {
         return modelMap;
     }
 
+    public ModelMap getIndexAction(ModelMap modelMap){
+        DBObject dbObject=new BasicDBObject();
+        dbObject.put("status", 0);
+        List list=MongoUtil.getDb().getCollection(MongoConst.MONGO_ACTIONS).find().toArray();
+        modelMap.put("list",list);
+        return modelMap;
+    }
+
+
     public ModelMap getIndexProduct(ModelMap modelMap,HttpServletRequest request){
         modelMap=this.getAllListPage(MongoConst.MONGO_PRODUCT,modelMap,request);
         return modelMap;

@@ -267,6 +267,7 @@ public class IndexController {
     }
     @RequestMapping("action.html")
     public String action(ModelMap modelMap, HttpServletRequest request) {
+        modelMap = indexService.getIndexAction(modelMap);
         return "action";
     }
     @RequestMapping("regest.html")

@@ -104,6 +104,9 @@
                     <li class="">
                         <a <#if menu="initPrice">class="active"</#if> href="../../ljj/initPrice/update.htm"> <i class="icon-cogs"></i> <span>起送额度</span></a>
                     </li>
+                    <li class="">
+                        <a <#if menu="initPrice">class="active"</#if> href="../../ljj/action/list.htm"> <i class="icon-cogs"></i> <span>活动列表</span></a>
+                    </li>
                 </ul>
             </div>
         </aside>
