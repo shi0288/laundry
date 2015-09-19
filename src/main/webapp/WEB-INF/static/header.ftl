@@ -339,7 +339,6 @@
                     } else {
                         $.mobile.changePage('login.html', 'slide');
                     }
-
                 } else if (str == '/editAddress.html') {
                     $("#adrBtn").click(function () {
                         var classStr = $(this).attr("class");
@@ -374,6 +373,7 @@
                 }else if (str == '/brand.html') {
                 }else if (str == '/sort.html') {
                 }else if (str == '/orders.html') {
+                }else if (str == '/xieyi.html') {
                 }else if (str == '/getPassWord.html') {
                     $(".tp-btn").click(function () {
                         var classStr = $(this).attr("class");

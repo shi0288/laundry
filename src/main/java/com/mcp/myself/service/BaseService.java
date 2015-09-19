@@ -54,6 +54,8 @@ public class BaseService {
                             value = Integer.parseInt(value.toString());
                         }else if("num".equals(name)){
                             value = Integer.parseInt(value.toString());
+                        } else if("payType".equals(name)){
+                            value = Integer.parseInt(value.toString());
                         }else if("timestamp".equals(name)){
                             continue;
                         }
