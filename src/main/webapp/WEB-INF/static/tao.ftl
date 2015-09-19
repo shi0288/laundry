@@ -10,9 +10,9 @@
         <div class="pxui-tab product-tab" style="margin-bottom:10px;">
             <input  type="hidden"  id="taoP"  value="${(p)!"1"}" />
             <input  type="hidden"  id="taoStr"  value="${(cond.sortStr)!""};${(cond.orderBy)!""}" />
-            <a href="tuan.html?sortStr=jump&orderBy=-1" <#if cond.sortStr=='jump'>
+            <a href="tao.html?sortStr=jump&orderBy=-1" <#if cond.sortStr=='jump'>
                class="selected" </#if> style="width: 24.4%;">推 荐</a>
-            <a href="tuan.html?sortStr=price&orderBy=<#if cond.sortStr=='price' && cond.orderBy==1>-1<#elseif cond.sortStr=='price' && cond.orderBy==-1>1<#else>-1</#if>" <#if cond.sortStr=='price'>
+            <a href="tao.html?sortStr=price&orderBy=<#if cond.sortStr=='price' && cond.orderBy==1>-1<#elseif cond.sortStr=='price' && cond.orderBy==-1>1<#else>-1</#if>" <#if cond.sortStr=='price'>
                class="selected" </#if> style="width: 24.4%;">
                 价 格
                 <i class="arrow2-top <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==-1>gray</#if></#if> "></i>

@@ -65,7 +65,7 @@
                             <ul class="dropdown-menu extended logout">
                                 <div class="log-arrow-up"></div>
                                 <li><a href="#"><i class="icon-cog"></i> 修改密码</a></li>
-                                <li><a href="../ljj/user/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
+                                <li><a href="../../ljj/user/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
                             </ul>
                         </li>
                         <!-- user login dropdown end -->

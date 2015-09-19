@@ -13,6 +13,27 @@ Array.prototype.remove = function (obj) {
     }
 };
 
+
+var browser = {
+    versions: function () {
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+            ios: !!u.match(/(i[^;]+\;(U;)? CPU.+Mac OS X)/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+        }
+    }(),
+    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+};
+
+
 function before() {
     $("body").append('<div class="cover3" id="before-cover" style="display:block"></div><img id="login-img" src="./static/common/css/images/009.gif">');
     var height = $(window).height();
@@ -110,9 +131,9 @@ function dealPrice() {
 function toAmount() {
     var name = localStorage.getItem("name");
     if (name) {
-        $.mobile.changePage('acount.html?name=' + name, 'pop');
+        $.mobile.changePage('acount.html?name=' + name);
     } else {
-        $.mobile.changePage('login.html', 'pop');
+        $.mobile.changePage('login.html');
     }
 
 }
@@ -130,7 +151,7 @@ function selectAddress(id) {
         },
         success: function (rst) {
             if (rst.result) {
-                $.mobile.changePage('conform.html', 'slide');
+                $.mobile.changePage('conform.html');
             } else {
                 alert("操作失败，请重试");
             }
@@ -212,7 +233,7 @@ function saveAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    $.mobile.changePage('address.html', 'slide');
+                    $.mobile.changePage('address.html');
                 } else {
                     alert("添加失败，请重试");
                 }
@@ -223,7 +244,7 @@ function saveAddress() {
         });
 
     } else {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 
 }
@@ -357,7 +378,7 @@ function getPP(onClick) {
                 console.log(list);
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
-                    var htmlStr = '<a href="proDetail.html?proId=' + obj._id.$oid + '" data-transition="slide" style="width:33%;min-width: 0px;height:203px; ">'
+                    var htmlStr = '<a href="proDetail.html?proId=' + obj._id.$oid + '" style="width:33%;min-width: 0px;height:203px; ">'
                         + '<div class="img160" style="background-image: none;width:100%;height: 120px"><dfn></dfn>'
                         + '<img style="max-height: 90px;" src="../../upload/img/' + obj.fileNames[0] + '"onerror="nofind();"/></div>'
                         + '<span style="padding-top: 0px;" class="name">' + obj.name + '</span>'
@@ -445,7 +466,7 @@ function updateAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    $.mobile.changePage('address.html', 'slide');
+                    $.mobile.changePage('address.html');
                 } else {
                     alert("更新失败，请重试");
                 }
@@ -456,7 +477,7 @@ function updateAddress() {
         });
 
     } else {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 }
 
@@ -474,7 +495,7 @@ function delAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    $.mobile.changePage('address.html', 'slide');
+                    $.mobile.changePage('address.html');
                 } else {
                     alert("删除失败，请重试");
                 }
@@ -485,7 +506,7 @@ function delAddress() {
         });
 
     } else {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 }
 
@@ -642,7 +663,7 @@ function commitOrder() {
                             localStorage.setItem("order", order.toString());
                         }
                         alert('恭喜您，下单成功!');
-                        $.mobile.changePage('main.html', 'slide');
+                        $.mobile.changePage('main.html');
 
                     }
                 } else {
@@ -658,7 +679,7 @@ function commitOrder() {
 
     } else {
         after();
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 }
 
@@ -692,7 +713,7 @@ function login() {
         success: function (rst) {
             if (rst.result) {
                 localStorage.setItem("name", name);
-                $.mobile.changePage('main.html', 'slide');
+                $.mobile.changePage('main.html');
             } else {
                 alert(rst.msg);
             }
@@ -738,7 +759,7 @@ function register() {
         success: function (rst) {
             if (rst.result) {
                 localStorage.setItem("name", name);
-                $.mobile.changePage('main.html', 'slide');
+                $.mobile.changePage('main.html');
             } else {
                 alert(rst.msg);
             }
@@ -963,7 +984,7 @@ function getPassWord() {
             if (rst.result) {
                 localStorage.setItem("name", name);
                 alert("修改成功");
-                $.mobile.changePage('main.html', 'slide');
+                $.mobile.changePage('main.html');
             } else {
                 alert(rst.msg);
             }
@@ -981,7 +1002,7 @@ function toConform() {
 
     var name = localStorage.getItem("name");
     if (!name) {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
         return;
     }
     var order = localStorage.getItem("order");
@@ -1017,7 +1038,7 @@ function toConform() {
     localStorage.setItem("orderPrice", orderPrice);
     order = order.join(";");
     localStorage.setItem("order", order.toString());
-    $.mobile.changePage('conform.html?showwxpaytitle=1', 'slide');
+    $.mobile.changePage('conform.html?showwxpaytitle=1');
 }
 
 
@@ -1095,7 +1116,7 @@ function goToCart() {
                     $(this).html(num);
                 });
             }
-            $.mobile.changePage('cart.html', 'slide');
+            $.mobile.changePage('cart.html');
         } else {
             alert("该商品暂缺，正在补货");
         }

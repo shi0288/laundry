@@ -21,7 +21,7 @@
     <!-- **********************   导航  ********************** -->
     <div class="page-role container-fluid"  style="margin-top:15px;overflow:scroll;">
         <div class="page-title">
-            <a href="javascript:$.mobile.changePage('sort.html', 'slide');" class="return">分 类</a>
+            <a href="javascript:$.mobile.changePage('sort.html');" class="return">分 类</a>
             商品浏览
             <a href="#nav-panel">高级筛选<i></i></a>
         </div>
@@ -47,7 +47,7 @@
             <div class="pxui-shoes product-list">
                 <div id="js-goodlist" style="position: relative;">
                 <#list pageVo.list as e >
-                    <a href="proDetail.html?proId=${e._id}" data-transition="slide"
+                    <a href="proDetail.html?proId=${e._id}" 
                        style="width:33%;min-width: 0px; ">
                         <#list e.fileNames as f>
                             <#if f_index==0>
