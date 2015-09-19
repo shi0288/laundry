@@ -85,7 +85,7 @@
                                     ${e.createTime?number?number_to_datetime}
                                 </td>
                                 <td>
-                                <#if  '${e.payType}'=="0">货到付款<#elseif  '${e.payType}'=="1">微信支付</#if>
+                                   <#if e.payType?? > <#if  '${e.payType}'=="0">货到付款<#elseif  '${e.payType}'=="1">微信支付</#if>  </#if>
                                 </td>
                                 <td>
                                     <a href="../../ljj/order/update.htm?torderId=${e._id}" title="查看详情">
@@ -94,8 +94,6 @@
                                     <#if  '${e.status}'=='1100'><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101)" title="打印">打印</a>
                                     <#elseif  '${e.status}'=='1101'> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200)" title="派送成功">派送成功</a>
                                     </#if>
-
-
                                 </td>
                             </tr>
                             </#list>

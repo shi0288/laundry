@@ -14,7 +14,7 @@ public class MenuTest {
 
     public static void main(String[] args) throws Exception{
 
-        String token = "iCDgHZpE5T9ahtcfl6rEC2glPAVNm6MFAmMmRilKYJBrmJnlJvH4UYNJv937VvhG3pB6lGzucat2lhaCZ8jncvOEh8je2BGX7Q06WfxGGmk";
+        String token = "LKbIAtAAF-OS7yOop_ab7cT79qY4iJLSBsk_hMOJ4ElCNTjPXlH7CGL_DZNgZ1mduLN8UWb2uM3FN88M7EaZ-bkJXfzKIBC6CByypslG3Go";
 
 
         String url = URL+token;
@@ -31,8 +31,8 @@ public class MenuTest {
 
         JSONObject subObj7 = new JSONObject();
         subObj7.put("name", "订单查询");
-        subObj7.put("type", "view");
-        subObj7.put("url", pageUrl+ "orders#wechat_redirect");
+        subObj7.put("type", "click");
+        subObj7.put("key", "orders");
         button.put(subObj7);
 
         JSONObject buttonObj2 = new JSONObject();

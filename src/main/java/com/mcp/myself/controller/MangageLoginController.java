@@ -3,9 +3,7 @@ package com.mcp.myself.controller;
 import com.mcp.myself.bean.JsonVo;
 import com.mcp.myself.service.AdminService;
 import com.mcp.myself.util.*;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.WriteResult;
+import com.mongodb.*;
 import org.apache.log4j.Logger;
 import org.bson.types.ObjectId;
 import org.codehaus.jettison.json.JSONArray;
@@ -27,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
 
@@ -72,10 +71,43 @@ public class MangageLoginController {
             json.setMsg("短信验证码不对呀亲");
             return json;
         }
-
-        json.setResult(adminService.register(name, password));
+        String openId = (String) session.getAttribute("openId");
+        json.setResult(adminService.register(name, password, openId));
         if (!json.isResult()) {
             json.setMsg("注册失败请重试");
+        }
+        return json;
+    }
+
+
+    @ResponseBody
+    @RequestMapping(value = "bangding.json", method = RequestMethod.POST)
+    public JsonVo bangding(@RequestParam(value = "name") String name,
+                           @RequestParam(value = "captcha") String captcha,
+                           @RequestParam(value = "msgCode") String msgCode, HttpServletRequest request) {
+        JsonVo<String> json = new JsonVo<String>();
+        HttpSession session = request.getSession();
+        String code = (String) session.getAttribute("CODE");
+        if (!code.equals(captcha.toUpperCase())) {
+            json.setResult(false);
+            json.setMsg("对不起亲，验证码不对");
+            return json;
+        }
+        String _msgCodeSession = (String) session.getAttribute("MSGCODE");
+        if (!_msgCodeSession.equals(msgCode)) {
+            json.setResult(false);
+            json.setMsg("对不起亲，短信验证码不对");
+            return json;
+        }
+        String openId = (String) session.getAttribute("openId");
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_MEMBER);
+        BasicDBObject query = new BasicDBObject();
+        query.put("name", openId);
+        BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("mobile", name));
+        collection.update(query, set, false, false);
+        json.setResult(true);
+        if (!json.isResult()) {
+            json.setMsg("绑定失败，请重试");
         }
         return json;
     }
@@ -234,19 +266,19 @@ public class MangageLoginController {
 
     @ResponseBody
     @RequestMapping(value = "goToPay.json", method = RequestMethod.POST)
-    public JsonVo goToPay( @RequestParam(value = "id") String id) {
+    public JsonVo goToPay(@RequestParam(value = "id") String id) {
         JsonVo<String> json = new JsonVo<String>();
-        DBObject query=new BasicDBObject();
+        DBObject query = new BasicDBObject();
         System.out.println(id);
-        query.put("orderId",id);
-        List list=MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY).find(query).toArray();
-        System.out.println("list:"+list.size());
-        if(list.size()==1){
-            DBObject dbObject= (DBObject) list.get(0);
-            String prepay_id= (String) dbObject.get("prepay_id");
-            System.out.println("prepay_id:"+prepay_id);
-            long createTime= (long) dbObject.get("createTime");
-            if(System.currentTimeMillis()-createTime>300000){
+        query.put("orderId", id);
+        List list = MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY).find(query).toArray();
+        System.out.println("list:" + list.size());
+        if (list.size() == 1) {
+            DBObject dbObject = (DBObject) list.get(0);
+            String prepay_id = (String) dbObject.get("prepay_id");
+            System.out.println("prepay_id:" + prepay_id);
+            long createTime = (long) dbObject.get("createTime");
+            if (System.currentTimeMillis() - createTime > 300000) {
                 json.setResult(false);
                 json.setMsg("该订单支付时间超时，请重新下单");
                 return json;
@@ -260,14 +292,6 @@ public class MangageLoginController {
         return json;
     }
 
-    public static void main(String[] args) {
-        double ddd=3.8;
-        int k=12;
-        double dfdsf=0.9;
-        int n=3;
-        System.out.println(ddd * 100 *k /100);
-        System.out.println(((ddd * 100 *12 /100)*100+(dfdsf * 100 *n /100)*100)/100);
-    }
 
     @ResponseBody
     @RequestMapping(value = "commitOrder.json", method = RequestMethod.POST)
@@ -278,8 +302,8 @@ public class MangageLoginController {
                               @RequestParam(value = "orderStr") String orderStr,
                               @RequestParam(value = "orderPrice") String orderPrice,
                               @RequestParam(value = "payType") int payType, HttpServletRequest request) {
-        logger.info("#################有订单进入，用户:"+name+"  金额:"+orderPrice);
-        logger.info("#################支付类型payType:"+payType);
+        logger.info("#################有订单进入，用户:" + name + "  金额:" + orderPrice);
+        logger.info("#################支付类型payType:" + payType);
         JsonVo<String> json = new JsonVo<String>();
         DBObject dbObject = new BasicDBObject();
         dbObject.put("name", name);
@@ -294,19 +318,21 @@ public class MangageLoginController {
         boolean is = true;
         String tempStr = "";
         Map<String, Integer> map = new HashMap<String, Integer>();
+
+        String ordersNumber = String.valueOf(orders.length);
         for (int i = 0; i < orders.length; i++) {
             JSONObject jsonObject = null;
             try {
                 jsonObject = new JSONObject(orders[i]);
                 String proId = (String) jsonObject.get("proId");
-                int num = Integer.parseInt((String)jsonObject.get("numbers"));
+                int num = Integer.parseInt((String) jsonObject.get("numbers"));
                 //缓存商品和数量
                 map.put(proId, num);
                 double price = Double.parseDouble((String) jsonObject.get("price"));
                 DBObject productObj = MongoUtil.findOne(MongoConst.MONGO_PRODUCT, proId);
                 int yuanNum = (int) productObj.get("num");
                 int status = (int) productObj.get("status");
-                double yuanPrice = Double.parseDouble((String)productObj.get("price"));
+                double yuanPrice = Double.parseDouble((String) productObj.get("price"));
                 tempStr = (String) productObj.get("name");
                 //商品状态不出售
                 if (status != 0) {
@@ -336,7 +362,7 @@ public class MangageLoginController {
                     is = false;
                     break;
                 }
-                yuanOrderPrice = (yuanOrderPrice*100 + (yuanPrice * 100 *num))/100;
+                yuanOrderPrice = (yuanOrderPrice * 100 + (yuanPrice * 100 * num)) / 100;
             } catch (JSONException e) {
                 e.printStackTrace();
                 json.setResult(false);
@@ -350,7 +376,19 @@ public class MangageLoginController {
             return json;
         }
 
-        //活动减费逻辑
+        //-------------------活动减费逻辑
+
+        //外送费校验
+        DBCursor dbCursor = MongoUtil.getDb().getCollection(MongoConst.MONGO_INITPRICE).find();
+        List list = dbCursor.toArray();
+        if (list.size() == 1) {
+            DBObject initPriceObj = (DBObject) list.get(0);
+            double initPrice = Double.parseDouble(initPriceObj.get("price").toString());
+            if (yuanOrderPrice < initPrice) {
+                double sendPrice = Double.parseDouble(initPriceObj.get("sendPrice").toString());
+                yuanOrderPrice = (yuanOrderPrice * 100 + (sendPrice * 100)) / 100;
+            }
+        }
 
         //.....
 
@@ -368,12 +406,12 @@ public class MangageLoginController {
         }
 
         //0 货到付款  1微信  2支付宝
-        if(payType==1){
-            String result =PayCoreUtil.jsApi(request, orderPrice,dbObject);
-            if("".equals(result)){
+        if (payType == 1) {
+            String result = PayCoreUtil.jsApi(request, orderPrice, dbObject);
+            if ("".equals(result)) {
                 json.setMsg("订单处理失败,请重试");
                 json.setResult(false);
-            }else{
+            } else {
                 json.setResult(true);
                 json.setObject(result);
             }
@@ -385,13 +423,14 @@ public class MangageLoginController {
             adminService.updateNum(id, num, false);
         }
 
-
         dbObject.put("orderPrice", orderPrice);
         dbObject.put("status", 1100);
         dbObject.put("createTime", System.currentTimeMillis());
         try {
             MongoUtil.insert(MongoConst.MONGO_ORDERS, dbObject);
             json.setResult(true);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+            WeixinMessage.sendOrderPaySuccess(name, sdf.format(new Date()));
         } catch (Exception e) {
             e.printStackTrace();
             json.setMsg("订单提交失败,请重试");
@@ -400,6 +439,22 @@ public class MangageLoginController {
         return json;
     }
 
+    /**
+     * 获取包邮额
+     */
+    @ResponseBody
+    @RequestMapping("initPrice.json")
+    public JsonVo initPrice() {
+        JsonVo<String> json = new JsonVo<String>();
+        DBCursor dbCursor = MongoUtil.getDb().getCollection(MongoConst.MONGO_INITPRICE).find();
+        List list = dbCursor.toArray();
+        if (list.size() == 1) {
+            DBObject dbObject = (DBObject) list.get(0);
+            json.setObject(dbObject.toString());
+        }
+        json.setResult(true);
+        return json;
+    }
 
 
     @RequestMapping("code.img")
@@ -412,7 +467,7 @@ public class MangageLoginController {
         int fontHeight = 18;
         int codeY = 16;
         char[] codeSequence = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J',
-                'K',  'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
+                'K', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W',
                 'X', 'Y', 'Z', '2', '3', '4', '5', '6', '7', '8', '9'};
         BufferedImage buffImg = new BufferedImage(width, height,
                 BufferedImage.TYPE_INT_RGB);
@@ -435,7 +490,7 @@ public class MangageLoginController {
         StringBuffer randomCode = new StringBuffer();
         int red = 0, green = 0, blue = 0;
         for (int i = 0; i < codeCount; i++) {
-            String code = String.valueOf(codeSequence[random.nextInt(36)]);
+            String code = String.valueOf(codeSequence[random.nextInt(codeSequence.length - 1)]);
             red = random.nextInt(255);
             green = random.nextInt(255);
             blue = random.nextInt(255);
@@ -452,6 +507,11 @@ public class MangageLoginController {
         ServletOutputStream sos = resp.getOutputStream();
         ImageIO.write(buffImg, "jpeg", sos);
         sos.close();
+    }
+
+    public static void main(String[] args) {
+        int tempRecharge = (int) (Double.parseDouble("2.9") * 100);
+        System.out.println(tempRecharge);
     }
 
 }

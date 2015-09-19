@@ -1,13 +1,18 @@
-<#include "header.ftl">
 <#include "title.ftl">
 
     <div data-role="content">
 
         <div class="page-role container-fluid good-page" style="margin-top:15px">
+            <div class="page-title">
+                <a data-rel="back" class="return">返 回</a>
+                绑定手机号
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 col-sm-2 control-label">当前绑定：${(e.mobile)!"无绑定"}"</label>
+            </div>
             <div class="main">
-
                 <div class="item item-captcha">
-                    <div class="input-info" style="display:;">
+                    <div class="input-info" >
                         <input data-role="none" class="txt-input txt-captcha"  id="r_captcha" type="text" size="11" maxlength="6"
                                autocomplete="off" placeholder="    请输入验证码">
                         <span id="captcha-img" onclick="changeImg(this)" ><img src="manage/code.img" width="65" height="30"
@@ -25,15 +30,9 @@
                            required="" id="r_msgCode">
 
                 </div>
-                <div class="item item-password">
-                    <input data-role="none" class="txt-input txt-password" type="password" autocomplete="off"
-                           id="r_password"    placeholder="     请输入密码" required="">
-                    <b class="tp-btn btn-off"></b>
-                    <div class="login-free login-free-selected"><b></b>注册即视为同意《XXXXX》</div>
-                </div>
 
                 <div class="item item-btns">
-                    <a class="btn-login" href="javascript:register();">注册</a>
+                    <a class="btn-login" href="javascript:bangding();">绑定</a>
                 </div>
             </div>
 

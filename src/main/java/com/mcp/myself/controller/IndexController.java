@@ -7,6 +7,7 @@ import com.mcp.myself.util.DigestPassDeom;
 import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import org.codehaus.jettison.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,6 +86,13 @@ public class IndexController {
         return "tuan";
     }
 
+    @RequestMapping("tao.html")
+    public String tao(ModelMap modelMap, HttpServletRequest request) {
+        request.setAttribute("toWhat", 2);
+        modelMap = indexService.getIndexProduct(modelMap, request);
+        return "tao";
+    }
+
     @ResponseBody
     @RequestMapping(value = "tuanP.json", method = RequestMethod.POST)
     public JsonVo tuanP(ModelMap modelMap, HttpServletRequest request) {
@@ -106,6 +114,22 @@ public class IndexController {
     public JsonVo pP(ModelMap modelMap, HttpServletRequest request) {
         JsonVo<String> json = new JsonVo<String>();
         request.setAttribute("toWhat", 0);
+        modelMap = indexService.getIndexProduct(modelMap, request);
+        List list = ((PageVo) modelMap.get("pageVo")).getList();
+        for (int oo = 0; oo < list.size(); oo++) {
+            DBObject dbObject = (DBObject) list.get(oo);
+            list.set(oo, dbObject.toString());
+        }
+        json.setObject(list);
+        json.setResult(true);
+        return json;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "taoP.json", method = RequestMethod.POST)
+    public JsonVo taoP(ModelMap modelMap, HttpServletRequest request) {
+        JsonVo<String> json = new JsonVo<String>();
+        request.setAttribute("toWhat", 2);
         modelMap = indexService.getIndexProduct(modelMap, request);
         List list = ((PageVo) modelMap.get("pageVo")).getList();
         for (int oo = 0; oo < list.size(); oo++) {
@@ -190,7 +214,7 @@ public class IndexController {
         dbObject.put("name", name);
         dbObject.put("status", 1000);
         int payNum = MongoUtil.queryCount(MongoConst.MONGO_ORDERS, dbObject);
-        dbObject.put("status", 1100);
+        dbObject.put("status", 1101);
         int waitNum = MongoUtil.queryCount(MongoConst.MONGO_ORDERS, dbObject);
         modelMap.put("payNum", payNum);
         modelMap.put("waitNum", waitNum);
@@ -200,6 +224,29 @@ public class IndexController {
     @RequestMapping("address.html")
     public String address(ModelMap modelMap, HttpServletRequest request) {
         return "address";
+    }
+
+
+
+    @RequestMapping("mobile.html")
+    public String mobile(ModelMap modelMap, HttpServletRequest request) {
+        HttpSession session=request.getSession();
+        String openId=(String) session.getAttribute("openId");
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_MEMBER);
+        BasicDBObject query = new BasicDBObject();
+        query.put("name", openId);
+        List list=collection.find(query).toArray();
+        DBObject userDB= (DBObject) list.get(0);
+        modelMap.put("e", userDB);
+        return "mobile";
+    }
+
+
+
+
+    @RequestMapping("toAccount.html")
+    public String toAccount(ModelMap modelMap, HttpServletRequest request) {
+        return "jump";
     }
 
     @RequestMapping("editAddress.html")
@@ -218,7 +265,10 @@ public class IndexController {
     public String login(ModelMap modelMap, HttpServletRequest request) {
         return "login";
     }
-
+    @RequestMapping("action.html")
+    public String action(ModelMap modelMap, HttpServletRequest request) {
+        return "action";
+    }
     @RequestMapping("regest.html")
     public String regest(ModelMap modelMap, HttpServletRequest request) {
         return "regest";

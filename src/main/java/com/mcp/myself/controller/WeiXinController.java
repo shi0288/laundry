@@ -1,14 +1,18 @@
 package com.mcp.myself.controller;
 
 import com.mcp.myself.constant.WeiXinConstant;
+import com.mcp.myself.service.AdminService;
 import com.mcp.myself.service.CoreService;
 import com.mcp.myself.service.WeiXinService;
 import com.mcp.myself.util.HttpClientWrapper;
 import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
+import com.mcp.myself.util.WeixinMessage;
 import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
 import org.apache.log4j.Logger;
+import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 import org.jdom.Document;
 import org.jdom.Element;
@@ -24,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedOutputStream;
 import java.io.StringReader;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -89,11 +94,89 @@ public class WeiXinController {
         JSONObject jsonObject = new JSONObject(result);
         String openId = jsonObject.getString("openid");
         logger.info("openId:" + openId);
-
         request.getSession().setAttribute("openId", openId);
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_MEMBER);
+        BasicDBObject query = new BasicDBObject();
+        query.put("name", openId);
+        List list = collection.find(query).toArray();
+        String nickName = "";
+        String headImgUrl = "";
+        if (list.size() == 1) {
+            DBObject userJson = (DBObject) list.get(0);
+            nickName = (String) userJson.get("nickName");
+            logger.info("nickName: " + nickName +"--用户登陆");
+            headImgUrl = (String) userJson.get("headImgUrl");
+            if (nickName == null || headImgUrl == null) {
+                logger.info("用户无nickName，本次获取并保存" + openId);
+                String nickNameStr = "";
+                nickNameStr = this.getUserNickName(openId);
+                nickName = nickNameStr.split("@")[0];
+                headImgUrl = nickNameStr.split("@")[1];
+                logger.info("nickName: " + nickNameStr);
+                BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("nickName", nickName).append("headImgUrl", headImgUrl));
+                collection.update(query, set, false, false);
+            }
+        } else {
+            AdminService adminService = new AdminService();
+            adminService.register(openId, "12345609", openId);
+            String nickNameStr = this.getUserNickName(openId);
+            nickName = nickNameStr.split("@")[0];
+            headImgUrl = nickNameStr.split("@")[1];
+            logger.info("nickName: " + nickNameStr +"--用户登陆");
+            BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("nickName", nickName).append("headImgUrl", headImgUrl));
+            collection.update(query, set, false, false);
+        }
+        request.getSession().setAttribute("nickName", nickName);
+        request.getSession().setAttribute("headImgUrl", headImgUrl);
 
         //根据参数 state 可以跳转到不同菜单的页面
-        return "redirect:/index.html";
+        return "redirect:/" + state + ".html";
+    }
+
+    public String getUserNickName(String openId) {
+        Map token = weiXinService.findToken();
+        String tempToken = "";
+        try {
+            if (token.containsKey("updateTime")) {
+                long updateTime = (Long) token.get("updateTime");
+                if (new Date().getTime() - updateTime > 1000 * 60 * 100) {//大于1小时40分钟 更新token
+                    String result = HttpClientWrapper.getUrl(WeiXinConstant.QUERY_TOKEN_URL);
+                    logger.info("查询到的token，并更新" + result);
+                    JSONObject jsonObject = new JSONObject(result);
+                    tempToken = jsonObject.get("access_token").toString();
+                    weiXinService.updateToken(tempToken);
+                }
+            } else {
+                String result = HttpClientWrapper.getUrl(WeiXinConstant.QUERY_TOKEN_URL);
+                logger.info("查询到的token，并更新" + result);
+                JSONObject jsonObject = new JSONObject(result);
+                tempToken = jsonObject.get("access_token").toString();
+                weiXinService.saveToken(tempToken);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if ("".equals(tempToken)) {
+            tempToken = (String) token.get("value");
+        }
+        String webForUserUrl = WeiXinConstant.QUERY_USEINFO_URL.replace("%ACCESS_TOKEN%", tempToken).replace("%OPENID%", openId);
+        String result = HttpClientWrapper.getUrl(webForUserUrl);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String nickname = null;
+        String headimgurl = null;
+        try {
+            nickname = jsonObject.get("nickname").toString();
+            headimgurl = jsonObject.get("headimgurl").toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return nickname + '@' + headimgurl;
     }
 
     @RequestMapping(value = "dealWeiPay", method = {RequestMethod.POST, RequestMethod.GET})
@@ -132,20 +215,23 @@ public class WeiXinController {
 //        wpr.setTradeType(m.get("trade_type").toString());
 //        wpr.setTransactionId(m.get("transaction_id").toString());
 
-        if("SUCCESS".equals(m.get("result_code").toString())){
+        if ("SUCCESS".equals(m.get("result_code").toString())) {
             //支付成功
-            String outerId=m.get("out_trade_no").toString();
-            DBObject queryForPrePay=new BasicDBObject();
-            queryForPrePay.put("orderId",outerId);
+            String outerId = m.get("out_trade_no").toString();
+            DBObject queryForPrePay = new BasicDBObject();
+            queryForPrePay.put("orderId", outerId);
             MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY).remove(queryForPrePay);
-            DBObject dbObject= MongoUtil.findOne(MongoConst.MONGO_ORDERS, outerId);
+            DBObject dbObject = MongoUtil.findOne(MongoConst.MONGO_ORDERS, outerId);
             if (dbObject != null) {
+                SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+                String openId=m.get("openid").toString();
+                WeixinMessage.sendOrderPaySuccess(openId, sdf.format(new Date()));
                 BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1100));
                 MongoUtil.getDb().getCollection(MongoConst.MONGO_ORDERS).update(dbObject, set, false, false);
             }
             resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>"
                     + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
-        }else{
+        } else {
             resXml = "<xml>" + "<return_code><![CDATA[FAIL]]></return_code>"
                     + "<return_msg><![CDATA[报文为空]]></return_msg>" + "</xml> ";
         }
@@ -167,7 +253,7 @@ public class WeiXinController {
      * @author ex_yangxiaoyi
      * @see
      */
-    @SuppressWarnings({ "unused", "rawtypes", "unchecked" })
+    @SuppressWarnings({"unused", "rawtypes", "unchecked"})
     private static Map parseXmlToList2(String xml) {
         Map retMap = new HashMap();
         try {
@@ -191,7 +277,49 @@ public class WeiXinController {
         return retMap;
     }
 
+    public static void main(String[] args) {
+        JSONObject jsonObject=new JSONObject();
+        try {
+            jsonObject.put("touser","o2KYuwf97lKTOg3Dg5gBPh0ZTAig");
+            jsonObject.put("template_id","p1Gd4ypZ1ajFrEl6NTAsb94hBoPAH-ihirUS7J719pI");
+            jsonObject.put("url","https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + WeiXinConstant.APPID + "&redirect_uri=http://www.mcp8.net/laundry/weixin/callback&response_type=code&scope=snsapi_base&state=toAccount#wechat_redirect");
+            jsonObject.put( "topcolor","#ea2727");
+            JSONObject data=new JSONObject();
 
+            JSONObject productType=new JSONObject();
+            productType.put("value","下单时间");
+            productType.put("color","#000000");
+            data.put("productType",productType);
+
+            JSONObject name=new JSONObject();
+            name.put("value","2015-09-09 23:33:33");
+            name.put("color","#173177");
+            data.put("name",name);
+
+
+            JSONObject number=new JSONObject();
+            number.put("value","1份");
+            number.put("color","#173177");
+            data.put("number", number);
+
+            JSONObject expDate=new JSONObject();
+            expDate.put("value","forever");
+            expDate.put("color","#173177");
+            data.put("expDate", expDate);
+
+
+            JSONObject remark=new JSONObject();
+            remark.put("value","\n感谢您对乐小购的惠顾");
+            remark.put("color","#000000");
+            data.put("remark", remark);
+            jsonObject.put("data",data);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        HttpClientWrapper.postJson("https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=LzO7dOiD0p6CFG3qRIMod3ojbl2pBXjgASqEMtXiB4I25WtKLmTXN0tcRPzWKAp_ODoair_2W_oUOTSGTZJEeRWkNtx8RB2TPUjANYPMwGk",jsonObject.toString());
+
+    }
 
 
 }

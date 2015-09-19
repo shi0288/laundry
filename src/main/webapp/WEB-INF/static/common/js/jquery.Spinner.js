@@ -6,6 +6,7 @@
     $.fn.Spinner = function (opts) {
         var defaults = {value:1, min:1, len:3, max:99};
         var options = $.extend(defaults, opts);
+        var ist=false;
         var keyCodes = {up:38, down:40};
         return this.each(function() {
             var a = $('<a></a>'); f(a,0,"Decrease","-");	//¼Ó
@@ -25,7 +26,12 @@
                 bv>=options.min&&bv<=options.max&&b.val(bv);
                 if(bv<=options.min){b.val(options.min);f(a,2,"DisDe","Decrease");}else{f(a,2,"Decrease","DisDe");}
                 if(bv>=options.max){b.val(options.max);f(c,2,"DisIn","Increase");}else{f(c,2,"Increase","DisIn");}
-                dealPrice();
+                if(ist){
+                    dealPrice();
+                }else{
+                    ist=true;
+                }
+
             }
         });
         function f(o,t,c,s){

@@ -1,11 +1,12 @@
+<#include "header.ftl">
 <#include "title.ftl">
 
     <div data-role="content">
 
         <div class="page-role container-fluid">
             <div class="head-img">
-                <span class="my-img" style="background-image:url('static/common/css/images/defaul.png')"></span>
-                <p id="acountName"></p>
+                <span class="my-img" style="background-image:url(${headImgUrl})"></span>
+                <p id="acountName">${nickName}</p>
                 <p>铜牌用户</p>
             </div>
 
@@ -41,9 +42,9 @@
                 </li>
 
                 <li>
-                    <a id="zhanghuguanli" href="#">
+                    <a id="zhanghuguanli" href="mobile.html">
                         <img src="static/common/css/images/acount.png" alt="">
-                        <p>账户管理</p>
+                        <p>手机绑定</p>
                     </a>
                 </li>
 
@@ -62,12 +63,12 @@
                 </li>
 
 
-                <li>
-                    <a id="wodeguanzhu" href="#">
-                        <img src="static/common/css/images/love.png" alt="">
-                        <p>我的收藏</p>
-                    </a>
-                </li>
+                <#--<li>-->
+                    <#--<a id="wodeguanzhu" href="#">-->
+                        <#--<img src="static/common/css/images/love.png" alt="">-->
+                        <#--<p>我的收藏</p>-->
+                    <#--</a>-->
+                <#--</li>-->
 
                 <li>
                     <a id="fuwuguanjia" href="#">
@@ -76,12 +77,12 @@
                     </a>
                 </li>
 
-                <li>
-                    <a id="yingyongtuijian" href="#">
-                        <img src="static/common/css/images/app.png" alt="">
-                        <p>咱滴应用</p>
-                    </a>
-                </li>
+                <#--<li>-->
+                    <#--<a id="yingyongtuijian" href="#">-->
+                        <#--<img src="static/common/css/images/app.png" alt="">-->
+                        <#--<p>咱滴应用</p>-->
+                    <#--</a>-->
+                <#--</li>-->
 
             </ul>
 
@@ -94,7 +95,7 @@
                     <a class="pxui-color-white" href="javascript:void(0)">
                         <i></i>
 							<span>自营商品<br>
-							满9.9包邮</span>
+							满15.8包邮</span>
                     </a>&nbsp;&nbsp;&nbsp;&nbsp;
                     <a class="pxui-color-white" href="javascript:void(0)">
                         <i style="background-position:-40px -108px;"></i>
@@ -107,9 +108,9 @@
             <br>
             <p>
                 <strong>
-                    <a href="../wap.paixie.net/default.htm">极速版</a>&nbsp;&nbsp;
-                    <a href="default.htm">触屏版</a>&nbsp;&nbsp;
-                    <a href="help/app.html">客户端</a>
+                    <a href="#">极速版</a>&nbsp;&nbsp;
+                    <a href="#">触屏版</a>&nbsp;&nbsp;
+                    <a href="#">客户端</a>
                 </strong>
             </p>
             <br>

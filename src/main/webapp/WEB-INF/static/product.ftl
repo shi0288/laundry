@@ -1,9 +1,25 @@
-<#include "title.ftl">
-
+<body>
+<div data-role="page" data-dom-cache="false" data-fullscreen="false">
+    <div data-role="header" data-position="fixed">
+        <div class="com-header-area">
+            <a href="main.html" class="com-header-logo"></a>
+            <dfn></dfn>
+            <p>
+                <a href="javascript:toAmount()" class="com-header-user ">
+                    <del></del>
+                </a>
+                <i></i>
+                <a  href="cart.html" class="com-header-cart"><b name="header-cart-num" id="header-cart-num">0</b>
+                    <del></del>
+                </a>
+            </p>
+            <div class="clear"></div>
+        </div>
+    </div>
 <div data-role="content">
 
     <!-- **********************   导航  ********************** -->
-    <div class="page-role container-fluid" style="margin-top:15px">
+    <div class="page-role container-fluid"  style="margin-top:15px;overflow:scroll;">
         <div class="page-title">
             <a href="javascript:$.mobile.changePage('sort.html', 'slide');" class="return">分 类</a>
             商品浏览
@@ -32,7 +48,7 @@
                 <div id="js-goodlist" style="position: relative;">
                 <#list pageVo.list as e >
                     <a href="proDetail.html?proId=${e._id}" data-transition="slide"
-                       style="width:33%;min-width: 0px;height:203px; ">
+                       style="width:33%;min-width: 0px; ">
                         <#list e.fileNames as f>
                             <#if f_index==0>
                                 <div class="img160" style="background-image: none;width:100%;height: 120px">

@@ -39,7 +39,7 @@ public class PicturesController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("add.json")
-    public JsonVo<DBObject> add(String name,int status,int sort,MultipartFile file,HttpServletRequest request) throws
+    public JsonVo<DBObject> add(String name,String urlName,int status,int sort,MultipartFile file,HttpServletRequest request) throws
             IOException{
         JsonVo<DBObject> json = new JsonVo<DBObject>();
 
@@ -77,8 +77,15 @@ public class PicturesController extends BaseAction {
             json.setResult(false);
             return json;
         }
+        //校验
+        if (StringUtils.isBlank(urlName)) {
+            json.setMsg("链接不能为空");
+            json.setResult(false);
+            return json;
+        }
         DBObject dbObject = new BasicDBObject();
         dbObject.put("name", name);
+        dbObject.put("urlName", urlName);
         dbObject.put("status", status);
         dbObject.put("sort", sort);
         dbObject.put("fileName", fileName);
@@ -107,7 +114,7 @@ public class PicturesController extends BaseAction {
      */
     @ResponseBody
     @RequestMapping("update.json")
-    public JsonVo<DBObject> updateEntity(String id,String name,int sort,int status,MultipartFile file,HttpServletRequest request) throws
+    public JsonVo<DBObject> updateEntity(String id,String name,String urlName,int sort,int status,MultipartFile file,HttpServletRequest request) throws
             IOException {
         //获取文件 存储位置
         JsonVo<DBObject> json = new JsonVo<DBObject>();
@@ -148,15 +155,20 @@ public class PicturesController extends BaseAction {
             json.setResult(false);
             return json;
         }
+        if (StringUtils.isBlank(urlName)) {
+            json.setMsg("链接不能为空");
+            json.setResult(false);
+            return json;
+        }
         DBObject dbObject = new BasicDBObject();
         dbObject.put("_id",new ObjectId(id));
         dbObject.put("name", name);
+        dbObject.put("urlName", urlName);
         dbObject.put("status", status);
         dbObject.put("sort", sort);
         if(fileName!=null){
             dbObject.put("fileName", fileName);
         }
-        dbObject.put("createTime",System.currentTimeMillis());
         json.setResult(picturesService.update(dbObject));
         return json;
     }

@@ -16,7 +16,7 @@
                     <div class="touchslider-viewport" style="width:100%;overflow:hidden">
                         <div>
                         <#list e.fileNames as fileName>
-                            <div class="touchslider-item"><a href="topic/739.html"><span class="img320"><img
+                            <div class="touchslider-item"><a href="#"><span class="img320"><img
                                     src="../../upload/img/${fileName}"
                                     style="vertical-align:top;width:100%"  onerror="nofind();"/></span></a></div>
                         </#list>

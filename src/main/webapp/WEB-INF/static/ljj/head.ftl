@@ -101,6 +101,9 @@
                     <li class="">
                         <a <#if menu="product">class="active"</#if> href="../../ljj/product/list.htm?toWhat=0"> <i class="icon-cogs"></i> <span>商品管理</span></a>
                     </li>
+                    <li class="">
+                        <a <#if menu="initPrice">class="active"</#if> href="../../ljj/initPrice/update.htm"> <i class="icon-cogs"></i> <span>起送额度</span></a>
+                    </li>
                 </ul>
             </div>
         </aside>

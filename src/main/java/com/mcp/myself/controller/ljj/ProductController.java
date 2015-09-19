@@ -244,7 +244,6 @@ public class ProductController extends BaseAction {
             dbObject.put("fileNames", fileNames);
         }
 
-        dbObject.put("createTime", System.currentTimeMillis());
         DBObject query = new BasicDBObject();
         query.put("_id", new ObjectId(id));
         BasicDBObject tempSet = new BasicDBObject("$set", dbObject);

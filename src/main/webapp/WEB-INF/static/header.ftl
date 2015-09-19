@@ -10,18 +10,17 @@
     <META HTTP-EQUIV="Expires" CONTENT="0">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="static/common/css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.1"/>
+    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.4"/>
     <script src="static/common/js/jquery-1.8.2.min.js"></script>
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
-    <script src="static/common/js/basic.js?v=0.3.8"></script>
+    <script src="static/common/js/basic.js?v=0.4.2"></script>
     <link rel="stylesheet" href="static/common/css/index.css"/>
     <script>
-
         $(document).bind("mobileinit", function () {
             //$.mobile.ajaxEnabled=false;
             //$.mobile.page.prototype.option.addBackBtn=true;
-            $.mobile.page.prototype.options.domCache = true;
+            $.mobile.page.prototype.options.domCache = false;
             $.mobile.pageLoadErrorMessage = '功能正在完善，敬请期待';
             $.mobile.transitionFallbacks.slideout = "none";
             $.mobile.defaultPageTransition = "pop";
@@ -32,6 +31,12 @@
     <script src="static/common/js/jquery.mobile-1.4.5.min.js"></script>
 
     <script>
+        var openId="${openId!''}";
+        if(openId==''){
+        }else{
+            localStorage.setItem("openId",openId);
+            localStorage.setItem("name",openId);
+        }
         $(document).on("pagebeforeshow", function (event) {
             $('.com-header-area').css('width', $(window).width());
             var order = localStorage.getItem("order");
@@ -63,7 +68,8 @@
                 } else if (str == '/product.html') {
                     var height = document.body.clientHeight;
                     var is = true;
-                    $("#js-goodlist").on("scrollstart", function () {
+                    $(document).unbind("scroll");
+                    $(document).on("scroll",function(){
                         var dheight = $(document).height();
                         var wheight = $(window).height();
                         var sctop = $(window).scrollTop();
@@ -108,7 +114,11 @@
                     $.mobile.changePage("main.html", {
                         transition: "pop"
                     });
-                } else if (str == '/cart.html') {
+                } else if (str == '/toAccount.html') {
+                    toAmount();
+                }else if (str == '/mobile.html') {
+                }else if (str == '/action.html') {
+                }else if (str == '/cart.html') {
                     var order = localStorage.getItem("order");
                     if (!order) {
                         var str = '<p style="text-align: center">购物车里是空的，请去挑选<a style="color: #003399;text-decoration: underline" href="main.html">需要的商品</a>吧！</p>';
@@ -240,15 +250,33 @@
                     }
                 } else if (str == '/tuan.html') {
                     var is = true;
-                    $("#tuan-goodlist").on("scrollstart", function () {
+                    $(document).unbind("scroll");
+                    $(document).on("scroll", function (e) {
+                        var dheight = $(document).height();
+                        var wheight = $(window).height();
+                        var sctop = $(window).scrollTop();
+                        if (sctop >= dheight - wheight) {
+                            is = false;
+                            getTuanP(function (much) {
+                                is = true;
+                            });
+                        }
+                    });
+                }else if (str == '/tao.html') {
+                    var is = true;
+                    $(document).unbind("scroll");
+                    $(document).on("scroll", function (e) {
                         var dheight = $(document).height();
                         var wheight = $(window).height();
                         var sctop = $(window).scrollTop();
                         if (is) {
                             if (sctop >= dheight - wheight) {
                                 is = false;
-                                getTuanP(function () {
+                                getTaoP(function (much) {
                                     is = true;
+                                    if(!much){
+                                        $(document).unbind(e);
+                                    }
                                 });
                             }
                         }
@@ -285,13 +313,14 @@
                                             checkStr = '<div class="ia-l"></div>';
                                         }
                                         var subFun = "selectAddress('" + obj._id.$oid + "')";
+                                        var subAccountFun = "selectAccountAddress('" + obj._id.$oid + "',this)";
                                         var stackObj = $.mobile.navigate.history.getPrev();
                                         var isAcount= localStorage.getItem("acount");
                                         if (stackObj.pageUrl.indexOf("acount.html")!=-1) {
                                             localStorage.setItem("acount","000");
-                                            subFun = "void(0);";
+                                            subFun = subAccountFun;
                                         }else if(isAcount!=null||isAcount!=undefined){
-                                            subFun = "void(0);";
+                                            subFun = subAccountFun;
                                         }
                                         var str = '<div class="item-addr bdb-1px">' + checkStr +
                                                 '<div class="ia-m m ia-m78" onclick=' + subFun + '>' +
@@ -341,13 +370,10 @@
                         }
                     });
                     changeImg($("#captcha-img"));
-
                 }else if (str == '/sort.html') {
-
                 }else if (str == '/brand.html') {
-
                 }else if (str == '/sort.html') {
-
+                }else if (str == '/orders.html') {
                 }else if (str == '/getPassWord.html') {
                     $(".tp-btn").click(function () {
                         var classStr = $(this).attr("class");
@@ -360,12 +386,10 @@
                         }
                     });
                     changeImg($("#captcha-img"));
-
                 } else if (str == '/acount.html') {
                     var name = localStorage.getItem("name");
-                    $("#acountName").html(name);
                     $("#quanbudingdan").attr("href", "orders.html?name=" + name + "&status=9999");
-                    $("#waitDeliveryOrderList").attr("href", "orders.html?name=" + name + "&status=1100");
+                    $("#waitDeliveryOrderList").attr("href", "orders.html?name=" + name + "&status=1101");
                     $("#waite4Payment").attr("href", "orders.html?name=" + name + "&status=1000");
                 } else {
                     if ($(".touchsliderPro").data("touchslider") != null) {

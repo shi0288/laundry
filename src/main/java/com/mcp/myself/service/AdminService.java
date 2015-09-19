@@ -48,13 +48,17 @@ public class AdminService {
         return false;
     }
 
-    public boolean register(String name, String password) {
+    public boolean register(String name, String password,String openId) {
         DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_MEMBER);
         BasicDBObject query = new BasicDBObject();
         query.put("name", name);
         List list = collection.find(query).toArray();
         if (list.size() == 0) {
             query.put("password", MD5.MD5Encode(password));
+            query.put("recharge", 0);
+            if(openId!=null){
+                query.put("openId", openId);
+            }
             collection.insert(query);
             return true;
         }

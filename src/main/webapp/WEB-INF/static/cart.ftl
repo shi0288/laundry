@@ -22,7 +22,8 @@
                             全选
                         </td>
                         <td width="49%">
-                            <p><span class="pl15">金额合计：</span><span class="ff6">￥0.00</span></p>
+                            <p><span class="pl15">金额合计：</span><span class="ff6">￥0.00</span><span id="ff7" style="display: none">(含外送费)</span>
+                                <span id="ff8" style="display: none;color: red">(免外送费)</span></p>
                         </td>
                         <td width="20%">
                             <button onclick="toConform()" data-role="none"

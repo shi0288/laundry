@@ -23,6 +23,9 @@
                     <li>
                         <a href="../../ljj/product/list.htm?toWhat=1">限量</a>
                     </li>
+                    <li>
+                        <a href="../../ljj/product/list.htm?toWhat=2">套餐</a>
+                    </li>
                 </ul>
             <#--<!--breadcrumbs end &ndash;&gt;-->
             </div>
@@ -246,6 +249,7 @@
                                             <select id="inToWhat" name="toWhat" class="form-control">
                                                 <option value="0">商品</option>
                                                 <option value="1">限量</option>
+                                                <option value="2">套餐</option>
                                             </select>
                                         </div>
                                     </div>

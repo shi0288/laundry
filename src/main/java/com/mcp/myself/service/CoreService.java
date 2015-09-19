@@ -4,14 +4,23 @@ package com.mcp.myself.service;
 import com.mcp.myself.message.resp.MessageResponse;
 import com.mcp.myself.robot.TulingApiProcess;
 import com.mcp.myself.util.MessageUtil;
+import com.mcp.myself.util.MongoConst;
+import com.mcp.myself.util.MongoUtil;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import org.apache.log4j.Logger;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 import java.util.Map;
 
 
 public class CoreService {
 
-	
+
+
+	private static Logger logger = Logger.getLogger(CoreService.class);
+
 	/**
 	 * 处理微信发来的请求
 	 * 
@@ -39,7 +48,17 @@ public class CoreService {
 			String content = requestMap.get("Content");
 			// 从HashMap中取出消息中的字段；
 
-			System.out.println("fromUserName is:" +fromUserName+" toUserName is:" +toUserName+" msgType is:" +msgType);
+			logger.info("fromUserName is:" + fromUserName + " toUserName is:" + toUserName + " msgType is:" + msgType);
+
+
+			DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_MEMBER);
+			BasicDBObject query = new BasicDBObject();
+			query.put("name", fromUserName);
+			List list = collection.find(query).toArray();
+			if(list.size()==0){
+				AdminService adminService=new AdminService();
+				adminService.register(fromUserName, "12345609", fromUserName);
+			}
 
 			// 文本消息
 			if (msgType.equals(MessageUtil.REQ_MESSAGE_TYPE_TEXT)) {

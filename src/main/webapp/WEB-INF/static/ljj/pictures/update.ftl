@@ -24,6 +24,17 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">链接</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="urlName"
+                                               placeholder="输入链接" id="${(e.urlName)!""}">
+                                        </input>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
                                     <label class="col-sm-2 control-label">图片上传</label>
                                     <div class="col-sm-10">
                                         <input type="file"  class="form-control" name="file" id="inputFile"/>

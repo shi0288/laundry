@@ -14,7 +14,7 @@ Array.prototype.remove = function (obj) {
 };
 
 function before() {
-    $("body").append('<div class="cover3" id="before-cover" style="display:block"></div><img id="login-img" src="../static/common/css/images/009.gif">');
+    $("body").append('<div class="cover3" id="before-cover" style="display:block"></div><img id="login-img" src="./static/common/css/images/009.gif">');
     var height = $(window).height();
     if (height < $(document).height()) {
         height = $(document).height();
@@ -67,15 +67,52 @@ function dealPrice() {
             total += totalPrice;
         }
     });
-    $(".ff6").html(total.toFixed(2));
+    if(total>0){
+        $.ajax({
+            type: "POST",
+            url: "manage/initPrice.json?timestamp=" + new Date().getTime(),
+            dataType: "json",
+            cache: false,
+            data: {},
+            success: function (rst) {
+                if (rst.result) {
+                    if (rst.object == null || rst.object == undefined) {
+                    } else {
+                        var initPriceObj = JSON.parse(rst.object);
+                        var initPrice = initPriceObj.price * 1;
+                        if (total < initPrice) {
+                            var sendPrice = initPriceObj.sendPrice * 1;
+                            total+=sendPrice;
+                            $("#ff7").show();
+                            $("#ff8").hide();
+                        }else{
+                            $("#ff7").hide();
+                            $("#ff8").show();
+                        }
+                    }
+                    $(".ff6").html(total.toFixed(2));
+                } else {
+                    alert("操作失败，请重试");
+                }
+            },
+            error: function () {
+                alert('请求出错');
+            }
+        });
+    }else{
+        $(".ff6").html(total.toFixed(2));
+    }
+
+
+
 }
 
 function toAmount() {
     var name = localStorage.getItem("name");
     if (name) {
-        $.mobile.changePage('acount.html?name=' + name, 'slide');
+        $.mobile.changePage('acount.html?name=' + name, 'pop');
     } else {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html', 'pop');
     }
 
 }
@@ -103,6 +140,34 @@ function selectAddress(id) {
         }
     });
 }
+
+
+function selectAccountAddress(id, obj) {
+    var name = localStorage.getItem("name");
+    $.ajax({
+        type: "POST",
+        url: "manage/selectAddress.json?timestamp=" + new Date().getTime(),
+        dataType: "json",
+        cache: false,
+        data: {
+            name: name,
+            id: id
+        },
+        success: function (rst) {
+            if (rst.result) {
+                $(".ia-l").remove();
+                var addStr = '<div class="ia-l"></div>';
+                $(obj).before(addStr);
+            } else {
+                alert("操作失败，请重试");
+            }
+        },
+        error: function () {
+            alert('请求出错');
+        }
+    });
+}
+
 
 function saveAddress() {
     var name = localStorage.getItem("name");
@@ -168,6 +233,10 @@ function getTuanP(onClick) {
     var tuanP = parseInt($("#tuanP").val());
     tuanP += 1;
     var tuanStr = $("#tuanStr").val();
+    if(tuanStr==null || tuanStr==undefined ||tuanStr==''){
+        $(document).unbind("scroll");
+        return;
+    }
     var sortStr = tuanStr.split(";")[0];
     var orderBy = tuanStr.split(";")[1];
     $.ajax({
@@ -192,7 +261,6 @@ function getTuanP(onClick) {
                         + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>';
                     $("#tuan-goodlist").append(htmlStr);
                 });
-                onClick = null;
                 if (onClick) {
                     $("#tuanP").val(tuanP);
                     onClick();
@@ -208,16 +276,68 @@ function getTuanP(onClick) {
 
 }
 
+function getTaoP(onClick) {
+    var tuanP = parseInt($("#taoP").val());
+    tuanP += 1;
+    var tuanStr = $("#taoStr").val();
+    if(tuanStr==null || tuanStr==undefined ||tuanStr==''){
+        $(document).unbind("scroll");
+        return;
+    }
+    var sortStr = tuanStr.split(";")[0];
+    var orderBy = tuanStr.split(";")[1];
+    $.ajax({
+        type: "POST",
+        url: "taoP.json?timestamp=" + new Date().getTime(),
+        dataType: "json",
+        cache: false,
+        data: {
+            p: tuanP,
+            orderBy: orderBy,
+            sortStr: sortStr
+        },
+        success: function (rst) {
+            if (rst.result) {
+                var list = rst.object;
+                $.each(list, function (key, val) {
+                    var obj = JSON.parse(val);
+                    var htmlStr = '<div class="tao-list"><div class="img120"><a href="proDetail.html?proId=' + obj._id.$oid + '"><dfn></dfn>'
+                        + '<img src="../../upload/img/' + obj.fileNames[0] + '"  onerror="nofind();"/><a/></div>'
+                        + '<a href="proDetail.html?proId=' + obj._id.$oid + '" class="title">' + obj.name + '</a>'
+                        + '<p> <span class="pxui-color-yellow">数量：<span class="red">' + obj.num + '</span></span> </p>'
+                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>';
+                    $("#tao-goodlist").append(htmlStr);
+                });
+                if (onClick) {
+                    $("#taoP").val(tuanP);
+                    onClick();
+                }
+            } else {
+                alert("添加失败，请重试");
+            }
+        },
+        error: function () {
+            alert('请求出错');
+        }
+    });
+}
+
 
 function getPP(onClick) {
     var pP = parseInt($("#pP").val());
     pP += 1;
     var pStr = $("#pStr").val();
+    if(pStr==null || pStr==undefined ||pStr==''){
+        $(document).unbind("scroll");
+        return;
+    }
     var sortStr = pStr.split(";")[0];
     var orderBy = pStr.split(";")[1];
     var mainProId = pStr.split(";")[2];
     var sortProId = pStr.split(";")[3];
     var brandId = pStr.split(";")[4];
+    console.log(pP);
+    console.log(pStr);
     $.ajax({
         type: "POST",
         url: "pP.json?timestamp=" + new Date().getTime(),
@@ -234,6 +354,7 @@ function getPP(onClick) {
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
+                console.log(list);
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
                     var htmlStr = '<a href="proDetail.html?proId=' + obj._id.$oid + '" data-transition="slide" style="width:33%;min-width: 0px;height:203px; ">'
@@ -245,7 +366,6 @@ function getPP(onClick) {
 
                     $("#js-goodlist").append(htmlStr);
                 });
-                onClick = null;
                 if (onClick) {
                     $("#pP").val(pP);
                     onClick();
@@ -258,7 +378,6 @@ function getPP(onClick) {
             alert('请求出错');
         }
     });
-
 }
 
 
@@ -370,7 +489,7 @@ function delAddress() {
     }
 }
 
-function goToPay(id){
+function goToPay(id) {
     before();
     $.ajax({
         type: "POST",
@@ -382,16 +501,16 @@ function goToPay(id){
         },
         success: function (rst) {
             if (rst.result) {
-                    WeixinJSBridge.invoke('getBrandWCPayRequest',JSON.parse(rst.object),function(res){
-                        //支付成功或失败前台判断
-                        after();
-                        if(res.err_msg=='get_brand_wcpay_request:ok'){
-                            alert('恭喜您，支付成功!');
-                            toAmount();
-                        }else{
-                            alert('支付失败');
-                        }
-                    });
+                WeixinJSBridge.invoke('getBrandWCPayRequest', JSON.parse(rst.object), function (res) {
+                    //支付成功或失败前台判断
+                    after();
+                    if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                        alert('恭喜您，支付成功!');
+                        toAmount();
+                    } else {
+                        alert('支付失败');
+                    }
+                });
             } else {
                 after();
                 alert(rst.msg);
@@ -401,7 +520,7 @@ function goToPay(id){
             after();
             alert('请求出错');
         }
-})
+    })
 }
 
 function commitOrder() {
@@ -435,7 +554,7 @@ function commitOrder() {
         var payType = 0;
         $("input[name='radio-choice-1']").each(function () {
             var is = $(this).attr("data-cacheval");
-            if (is=='false') {
+            if (is == 'false') {
                 payType = $(this).val();
                 return false;
             }
@@ -456,7 +575,7 @@ function commitOrder() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    if(payType==1){
+                    if (payType == 1) {
                         var commitOrder = orderStr.split(";");
                         var order = localStorage.getItem("order");
                         order = order.split(";");
@@ -483,18 +602,18 @@ function commitOrder() {
                             order = order.join(";");
                             localStorage.setItem("order", order.toString());
                         }
-                        WeixinJSBridge.invoke('getBrandWCPayRequest',JSON.parse(rst.object),function(res){
-                                //支付成功或失败前台判断
-                                if(res.err_msg=='get_brand_wcpay_request:ok'){
-                                    after();
-                                    alert('恭喜您，支付成功!');
-                                }else{
-                                    after();
-                                    alert('支付失败');
-                                }
-                                toAmount();
-                            });
-                    }else{
+                        WeixinJSBridge.invoke('getBrandWCPayRequest', JSON.parse(rst.object), function (res) {
+                            //支付成功或失败前台判断
+                            if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                                after();
+                                alert('恭喜您，支付成功!');
+                            } else {
+                                after();
+                                alert('支付失败');
+                            }
+                            toAmount();
+                        });
+                    } else {
                         after();
                         var commitOrder = orderStr.split(";");
                         var order = localStorage.getItem("order");
@@ -629,6 +748,48 @@ function register() {
         }
     });
 }
+
+
+function bangding() {
+    var name = $("#r_mobile").val();
+    var captcha = $("#r_captcha").val();
+    var msgCode = $("#r_msgCode").val();
+    if (name == null || name == "") {
+        alert("用户名不能为空");
+        return;
+    }
+    if (captcha == null || captcha == "") {
+        alert("验证码不能为空");
+        return;
+    }
+    if (msgCode == null || msgCode == "") {
+        alert("短信验证码不能为空");
+        return;
+    }
+    $.ajax({
+        type: "POST",
+        url: "manage/bangding.json?timestamp=" + new Date().getTime(),
+        dataType: "json",
+        cache: false,
+        data: {
+            name: name,
+            captcha: captcha,
+            msgCode: msgCode
+        },
+        success: function (rst) {
+            if (rst.result) {
+                toAmount();
+            } else {
+                alert(rst.msg);
+            }
+        },
+        error: function () {
+            alert('请求出错');
+        }
+    });
+}
+
+
 
 function nofind() {
     var img = event.srcElement;
@@ -909,23 +1070,23 @@ function goToCart() {
             } else {
                 order = order.split(";");
             }
-            var is=true;
+            var is = true;
             for (var i = 0; i < order.length; i++) {
                 var jsonStr = order[i];
                 var obj = JSON.parse(jsonStr);
                 if (obj.proId == proId) {
-                    var tempNumbers=parseInt(obj.numbers);
-                    tempNumbers=tempNumbers+parseInt(numbers);
-                    obj.numbers=tempNumbers;
+                    var tempNumbers = parseInt(obj.numbers);
+                    tempNumbers = tempNumbers + parseInt(numbers);
+                    obj.numbers = tempNumbers;
                     order.remove(i);
                     order.push(JSON.stringify(obj));
                     order = order.join(";");
                     localStorage.setItem("order", order.toString());
-                    is=false;
+                    is = false;
                     break;
                 }
             }
-            if(is){
+            if (is) {
                 order.push(JSON.stringify(product));
                 order = order.join(";");
                 localStorage.setItem("order", order.toString());
@@ -1021,7 +1182,7 @@ function chgUrl(url) {
  * @param acceleration 速度
  * @param stime 时间间隔 (毫秒)
  **/
-function gotoTop(acceleration,stime) {
+function gotoTop(acceleration, stime) {
     acceleration = acceleration || 0.1;
     stime = stime || 10;
     var x1 = 0;
@@ -1051,7 +1212,7 @@ function gotoTop(acceleration,stime) {
     window.scrollTo(Math.floor(x / speeding), Math.floor(y / speeding));
 
     // 如果距离不为零, 继续调用函数
-    if(x > 0 || y > 0) {
+    if (x > 0 || y > 0) {
         var run = "gotoTop(" + acceleration + ", " + stime + ")";
         window.setTimeout(run, stime);
     }

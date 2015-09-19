@@ -26,7 +26,7 @@
             <#if m.key=='ZZ'>
                 <div id="0-9" name="0-9" class="letter-title">
                     <b>0-9</b>
-                    <a href="#"   onclick="gotoTop();return false;">返回顶部<i class="arrow2-top"></i></a>
+                    <a href="#"   onclick="gotoTop();">返回顶部<i class="arrow2-top"></i></a>
                 </div>
                 <div class="brands">
                     <div class="brandbox">
@@ -38,12 +38,12 @@
             <#else>
                 <div id="${m.key}" name="${m.key}" class="letter-title">
                     <b>${m.key}</b>
-                    <a href="#"  onclick="gotoTop();return false;">返回顶部<i class="arrow2-top"></i></a>
+                    <a href="#"  onclick="gotoTop();">返回顶部<i class="arrow2-top"></i></a>
                 </div>
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="../../upload/img/${b.fileName}" onerror="nofind()'" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="../../upload/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>

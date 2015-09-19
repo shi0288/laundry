@@ -1536,6 +1536,12 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
 .tuan-list p span {
     margin-right: 5px;
 }
+
+
+.tuan-list p span {
+    margin-right: 5px;
+}
+
 .pxui-color-red {
     color: #FB4E3A;
 }
@@ -1544,9 +1550,57 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     color: #ABABAB;
 }
 
-.tuan-list p span {
-    margin-right: 5px;
-}
+
 .pxui-color-yellow {
     color: #ffc832;
+}
+
+/**
+ 套餐
+*/
+
+/**
+限量
+*/
+
+.tao-list {
+    height: 120px;
+    background: #fff;
+    overflow: hidden;
+    border-bottom: 1px solid #b5bfd7;
+    margin-bottom: 5px;
+}
+
+
+.tao-list .img120 {
+    float: left;
+    margin-right: 10px;
+}
+
+.tao-list .title, .tao-list .detail {
+    display: block;
+    overflow: hidden;
+    color: #575757;
+    font-size: 14px;
+}
+
+.tao-list .title {
+    height: 40px;
+    padding-top: 6px;
+    line-height: 20px;
+    padding-right: 10px;
+}
+
+.tao-list p {
+    height: 24px;
+    overflow: hidden;
+}
+
+.tao-list p span {
+    margin-right: 5px;
+}
+
+
+.tao-list p span {
+    margin-right: 5px;
 }

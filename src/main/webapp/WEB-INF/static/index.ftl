@@ -6,7 +6,7 @@
         <div class="touchslider-viewport" style="width:100%;overflow:hidden">
             <div>
             <#list pictures as p>
-                <div class="touchslider-item"><a href="topic/739.html"><img
+                <div class="touchslider-item"><a href="${p.urlName!"#"}"><img
                         src="../../upload/img/${p.fileName}"
                         style="vertical-align:top;width:100%"/></a></div>
             </#list>
@@ -32,7 +32,7 @@
             <a class="selected"><i></i>首页<span></span></a>
             <a href="sort.html"><i></i>分类<span></span></a>
             <a href="brand.html"><i></i>品牌<span></span></a>
-            <a href="tuan.html?sortStr=jump&orderBy=-1"><i></i>团购<span></span></a>
+            <a href="tuan.html?sortStr=jump&orderBy=-1"><i></i>抢限量<span></span></a>
         </div>
     </div>
 
@@ -42,9 +42,9 @@
             <table border="0" cellspacing="5" cellpadding="0">
                 <tbody>
                 <tr>
-                    <td colspan="2"><a href="help/app.html"><i></i>乐小购APP<br>总能找到你的至爱</a></td>
-                    <td><a href="topic/612.html"><i></i>3折封顶</a></td>
-                    <td rowspan="2"><a href="topic/612.html"><i></i>限<br>时<br>促<br>销</a></td>
+                    <td colspan="2"><a href="tao.html?sortStr=jump&orderBy=-1"><i></i>套餐专区<br>实惠方便价更优</a></td>
+                    <td><a href="action.html"><i></i>更多好玩</a></td>
+                    <td rowspan="2"><a href="tuan.html?sortStr=jump&orderBy=-1"><i></i>限<br>时<br>促<br>销</a></td>
                 </tr>
                 <tr>
                     <td><a href="topic/612.html"><b>最新</b><br>上架</a></td>
@@ -171,7 +171,7 @@
     <!-- **********************   底部导航 ********************** -->
 
     <div class="com-footer-nav">
-        <a href="index.html">首页</a><a href="help/index.html">帮助中心</a><a href="feedback/index.html">反馈建议</a>
+        <a href="main.html">首页</a><a href="#">帮助中心</a><a href="#">反馈建议</a>
     </div>
 
     <!-- **********************   页尾  ********************** -->
@@ -181,7 +181,7 @@
                 <a class="pxui-color-white" href="javascript:void(0)">
                     <i></i>
 							<span>自营商品<br>
-							满9.9包邮</span>
+							满15.8包邮</span>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <a class="pxui-color-white" href="javascript:void(0)">
                     <i style="background-position:-40px -108px;"></i>
@@ -192,20 +192,19 @@
         </p>
         <br>
         <br>
-
-        <p>
-            <strong>
-                <a style="color:#769fbf;" href="login.html">登录</a>&nbsp;&nbsp;
-                <a style="color:#769fbf;" href="regest.html">注册</a>
-            </strong>
-        </p>
+        <#--<p>-->
+            <#--<strong>-->
+                <#--<a style="color:#769fbf;" href="#">登录</a>&nbsp;&nbsp;-->
+                <#--<a style="color:#769fbf;" href="#">注册</a>-->
+            <#--</strong>-->
+        <#--</p>-->
         <br>
 
         <p>
             <strong>
-                <a href="../wap.paixie.net/default.htm">极速版</a>&nbsp;&nbsp;
-                <a href="default.htm">触屏版</a>&nbsp;&nbsp;
-                <a href="help/app.html">客户端</a>
+                <a href="#">极速版</a>&nbsp;&nbsp;
+                <a href="#">触屏版</a>&nbsp;&nbsp;
+                <a href="#">客户端</a>
             </strong>
         </p>
         <br>

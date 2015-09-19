@@ -51,6 +51,7 @@
                             <thead>
                             <tr>
                                 <th>名称</th>
+                                <th>链接</th>
                                 <th>顺序</th>
                                 <th>状态</th>
                                 <th>创建时间</th>
@@ -62,6 +63,9 @@
                             <tr class="gradeA odd">
                                 <td>
                                 ${e.name}
+                                </td>
+                                <td>
+                                ${(e.urlName)!""}
                                 </td>
                                 <td>
                                 ${e.sort}
@@ -126,6 +130,17 @@
                                             <input type="text" style="font-size:15px;width: 300px;" class="form-control"
                                                    name="name"
                                                    placeholder="输入图片名称" id="name">
+                                            </input>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">链接</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                                   name="urlName"
+                                                   placeholder="输入链接" id="urlName">
                                             </input>
                                         </div>
                                     </div>

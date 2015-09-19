@@ -164,7 +164,6 @@ public class BrandController extends BaseAction {
         if(fileName!=null){
             dbObject.put("fileName", fileName);
         }
-        dbObject.put("createTime",System.currentTimeMillis());
         json.setResult(brandService.update(dbObject));
         return json;
     }

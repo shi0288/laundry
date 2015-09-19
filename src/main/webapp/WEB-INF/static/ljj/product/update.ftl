@@ -23,6 +23,7 @@
                                         <select id="inToWhat"  name="toWhat" class="form-control">
                                             <option value="0" <#if p.toWhat==0>selected</#if> >商品</option>
                                             <option value="1" <#if p.toWhat==1>selected</#if> >限量</option>
+                                            <option value="2" <#if p.toWhat==2>selected</#if> >套餐</option>
                                         </select>
                                     </div>
                                 </div>
@@ -108,7 +109,7 @@
                                     <div class="col-sm-10">
                                         <select name="tip" class="form-control">
                                             <option value="0" <#if p.tip==0>selected</#if> >不显示</option>
-                                            <option value="1" <#if p.tip==0>selected</#if> >显示</option>
+                                            <option value="1" <#if p.tip==1>selected</#if> >显示</option>
                                         </select>
                                     </div>
                                 </div>
@@ -130,7 +131,7 @@
                                     </div>
                                 <#list p.fileNames as fileName>
                                   <#if fileName_index==0>
-                                      <img style="margin-left: 200px" width="100px" height="100px" src="../../upload/img/${fileName}" />
+                                      <img style="margin-left: 200px" width="100px" height="100px" src="../../../upload/img/${fileName}" />
                                   </#if>
                                 </#list>
                                 </div>
@@ -142,7 +143,7 @@
                                     </div>
                                 <#list p.fileNames as fileName>
                                     <#if fileName_index==1>
-                                        <img style="margin-left: 200px"  width="100px" height="100px" src="../../upload/img/${fileName}" />
+                                        <img style="margin-left: 200px"  width="100px" height="100px" src="../../../upload/img/${fileName}" />
                                     </#if>
                                 </#list>
                                 </div>

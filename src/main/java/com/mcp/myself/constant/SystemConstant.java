@@ -40,7 +40,7 @@ public class SystemConstant {
 	/**
 	 *  分页数量
 	 */
-	public static final int ROW = 10;
+	public static final int ROW = 24;
 
 	/**
 	 *  短信模板ID
