@@ -23,7 +23,6 @@
             $.mobile.page.prototype.options.domCache = false;
             $.mobile.pageLoadErrorMessage = '功能正在完善，敬请期待';
             $.mobile.transitionFallbacks.slideout = "none";
-            console.log(browser.versions);
             if(browser.versions.iPhone==true||browser.versions.iPad==true||browser.versions.ios==true){
                 $.mobile.defaultPageTransition = "pop";
             }else{

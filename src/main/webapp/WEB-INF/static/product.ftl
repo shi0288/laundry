@@ -47,11 +47,11 @@
             <div class="pxui-shoes product-list">
                 <div id="js-goodlist" style="position: relative;">
                 <#list pageVo.list as e >
-                    <a href="proDetail.html?proId=${e._id}" 
-                       style="width:33%;min-width: 0px; ">
+                    <a href="#"
+                       style="width:33%;min-width: 0px;height:100%  ">
                         <#list e.fileNames as f>
                             <#if f_index==0>
-                                <div class="img160" style="background-image: none;width:100%;height: 120px">
+                                <div onclick="$.mobile.changePage('proDetail.html?proId=${e._id}');"  class="img160" style="background-image: none;width:100%;height: 120px">
                                     <dfn></dfn><img style="max-height: 90px;" src="../../upload/img/${f}"
                                                     onerror="nofind();"/></div>
                             </#if>
@@ -59,12 +59,16 @@
                         <span style="padding-top: 0px;" class="name">${e.name}</span>
                         <span class="price">￥${e.price}</span>
                         <del class="price">￥${e.oldPrice}</del>
+                        <button  onclick="ProMoveBox(this,'${e._id}@${e.name}@${e.price}@${e.oldPrice}@${e.fileNames[0]}')">加入购物车</button>
                     </a>
                 </#list>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="pro" id="pro"><img width="25px" height="25px" src="./static/common/css/images/cart.gif"></div>
+
 </div>
 <!-- /content -->
 

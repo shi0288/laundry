@@ -44,9 +44,14 @@
                     <span class="pxui-color-red">￥${e.price}</span>
                     <del class="pxui-color-gray">￥${e.oldPrice}</del>
                 </p>
+                <p style="height:100%">
+                    <a class="hengAddBox" href="#" onclick="ProMoveBox(this,'${e._id}@${e.name}@${e.price}@${e.oldPrice}@${e.fileNames[0]}')" >加入购物车</a>
+                </p>
+
             </div>
         </#list>
         </div>
+        <div class="pro" id="pro"><img width="25px" height="25px" src="./static/common/css/images/cart.gif"></div>
     </div>
     <!-- /content -->
 </div>

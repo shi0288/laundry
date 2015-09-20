@@ -357,8 +357,6 @@ function getPP(onClick) {
     var mainProId = pStr.split(";")[2];
     var sortProId = pStr.split(";")[3];
     var brandId = pStr.split(";")[4];
-    console.log(pP);
-    console.log(pStr);
     $.ajax({
         type: "POST",
         url: "pP.json?timestamp=" + new Date().getTime(),
@@ -375,7 +373,6 @@ function getPP(onClick) {
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
-                console.log(list);
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
                     var htmlStr = '<a href="proDetail.html?proId=' + obj._id.$oid + '" style="width:33%;min-width: 0px;height:203px; ">'
@@ -919,7 +916,6 @@ function sendPassWordMsg() {
     }, 1000);
 
     var z_captcha = $("#z_captcha").val();
-    console.log(z_captcha);
     var z_mobile = $("#z_mobile").val();
     $.ajax({
         type: "POST",
@@ -1124,7 +1120,7 @@ function goToCart() {
     });
 }
 
-function MoveBox(obj) {
+function MoveBox(objRu) {
     var proId = $("#proId").val();
     var numbers = $(".Amount").val();
     testProduct(proId, numbers, function (is) {
@@ -1147,16 +1143,36 @@ function MoveBox(obj) {
             } else {
                 order = order.split(";");
             }
-            order.push(JSON.stringify(product));
-            order = order.join(";");
-            localStorage.setItem("order", order.toString());
-            var num = parseInt($("#header-cart-num").html()) + 1;
-            $("b[name='header-cart-num']").each(function (index) {
-                $(this).html(num);
-            });
+
+
+            var panduan = true;
+            for (var i = 0; i < order.length; i++) {
+                var jsonStr = order[i];
+                var obj = JSON.parse(jsonStr);
+                if (obj.proId == proId) {
+                    var tempNumbers = parseInt(obj.numbers);
+                    tempNumbers = tempNumbers + parseInt(numbers);
+                    obj.numbers = tempNumbers;
+                    order.remove(i);
+                    order.push(JSON.stringify(obj));
+                    order = order.join(";");
+                    localStorage.setItem("order", order.toString());
+                    panduan = false;
+                    break;
+                }
+            }
+            if (panduan) {
+                order.push(JSON.stringify(product));
+                order = order.join(";");
+                localStorage.setItem("order", order.toString());
+                var num = parseInt($("#header-cart-num").html()) + 1;
+                $("b[name='header-cart-num']").each(function (index) {
+                    $(this).html(num);
+                });
+            }
             $("#pro").show();
-            var divTop = $(obj).offset().top;
-            var divLeft = $(obj).offset().left;
+            var divTop = $(objRu).offset().top;
+            var divLeft = $(objRu).offset().left;
             $("#pro").css({
                 "position": "absolute",
                 "z-index": "500",
@@ -1180,6 +1196,83 @@ function MoveBox(obj) {
         }
     });
 }
+
+
+function ProMoveBox(objRu,str) {
+    var valArr=str.split("@");
+    var proId = valArr[0];
+    var name = valArr[1];
+    var price = valArr[2];
+    var oldPrice = valArr[3];
+    var fileName = valArr[4];
+    var numbers = 1;
+    testProduct(proId, numbers, function (is) {
+        if (is) {
+            var product = {
+                proId: proId,
+                name: name,
+                price: price,
+                oldPrice: oldPrice,
+                fileName: fileName,
+                numbers: numbers
+            };
+            var order = localStorage.getItem("order");
+            if (!order) {
+                order = [];
+            } else {
+                order = order.split(";");
+            }
+            var panduan = true;
+            for (var i = 0; i < order.length; i++) {
+                var jsonStr = order[i];
+                var obj = JSON.parse(jsonStr);
+                if (obj.proId == proId) {
+                    var tempNumbers = parseInt(obj.numbers);
+                    tempNumbers = tempNumbers + parseInt(numbers);
+                    obj.numbers = tempNumbers;
+                    order.remove(i);
+                    order.push(JSON.stringify(obj));
+                    order = order.join(";");
+                    localStorage.setItem("order", order.toString());
+                    panduan = false;
+                    break;
+                }
+            }
+            if (panduan) {
+                order.push(JSON.stringify(product));
+                order = order.join(";");
+                localStorage.setItem("order", order.toString());
+                var num = parseInt($("#header-cart-num").html()) + 1;
+                $("b[name='header-cart-num']").each(function (index) {
+                    $(this).html(num);
+                });
+            }
+            $("#pro").show();
+            var divTop = $(objRu).offset().top;
+            var divLeft = $(objRu).offset().left;
+            $("#pro").css({
+                "position": "absolute",
+                "z-index": "500",
+                "left": divLeft + "px",
+                "top": divTop + "px"
+            });
+            $("#pro").animate({
+                    "left": $(window).width() - 25 + "px",
+                    "top": $("#header-cart-num").offset().top + "px",
+                    "width": "50px",
+                    "height": "25px",
+                    opacity: "0.1"
+                },
+                500, null, function () {
+                    $("#pro").attr("style","display: 123");
+                }).hide(0);
+        } else {
+            alert("该商品暂缺，正在补货");
+        }
+    });
+}
+
+
 
 function changeImg(obj) {
     var imgSrc = $(obj).find("img");
