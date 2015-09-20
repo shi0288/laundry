@@ -16,14 +16,14 @@
             <div class="well sortList" style="padding: 0">
                 <div class="pxui-list">
                     <#list mainPro as e>
-                        <a href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1">
+                        <a href="product.html?status=0&mainProId=${e._id}&sortStr=jump&orderBy=-1">
                             <span></span>
                             <b>${e.name}</b>
                             <i class="arrow-right"></i>
                         </a>
                         <p>
                         <#list e.sortList as s>
-                            <a href="product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1">${s.name}</a>&nbsp;
+                            <a href="product.html?status=0&sortProId=${s._id}&sortStr=jump&orderBy=-1">${s.name}</a>&nbsp;
                          </#list>
                         </p>
                     </#list>

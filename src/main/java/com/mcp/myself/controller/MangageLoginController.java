@@ -269,16 +269,13 @@ public class MangageLoginController {
     public JsonVo goToPay(@RequestParam(value = "id") String id) {
         JsonVo<String> json = new JsonVo<String>();
         DBObject query = new BasicDBObject();
-        System.out.println(id);
         query.put("orderId", id);
         List list = MongoUtil.getDb().getCollection(MongoConst.MONGO_PREPAY).find(query).toArray();
-        System.out.println("list:" + list.size());
         if (list.size() == 1) {
             DBObject dbObject = (DBObject) list.get(0);
             String prepay_id = (String) dbObject.get("prepay_id");
-            System.out.println("prepay_id:" + prepay_id);
             long createTime = (long) dbObject.get("createTime");
-            if (System.currentTimeMillis() - createTime > 300000) {
+            if (System.currentTimeMillis() - createTime > 600000) {
                 json.setResult(false);
                 json.setMsg("该订单支付时间超时，请重新下单");
                 return json;

@@ -8,7 +8,7 @@
                 绑定手机号
             </div>
             <div class="form-group">
-                <label class="col-sm-2 col-sm-2 control-label">当前绑定：${(e.mobile)!"无绑定"}"</label>
+                <label class="col-sm-2 col-sm-2 control-label">当前绑定：${(e.mobile)!"无绑定"}</label>
             </div>
             <div class="main">
                 <div class="item item-captcha">

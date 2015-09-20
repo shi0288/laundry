@@ -65,7 +65,7 @@
                             <ul class="dropdown-menu extended logout">
                                 <div class="log-arrow-up"></div>
                                 <li><a href="#"><i class="icon-cog"></i> 修改密码</a></li>
-                                <li><a href="../ljj/user/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
+                                <li><a href="../../ljj/user/logout.htm"><i class="icon-key"></i> 安全退出</a></li>
                             </ul>
                         </li>
                         <!-- user login dropdown end -->
@@ -103,6 +103,9 @@
                     </li>
                     <li class="">
                         <a <#if menu="initPrice">class="active"</#if> href="../../ljj/initPrice/update.htm"> <i class="icon-cogs"></i> <span>起送额度</span></a>
+                    </li>
+                    <li class="">
+                        <a <#if menu="initPrice">class="active"</#if> href="../../ljj/action/list.htm"> <i class="icon-cogs"></i> <span>活动列表</span></a>
                     </li>
                 </ul>
             </div>

@@ -32,19 +32,18 @@
                     </#list>
                     </div>
                 </div>
-                <div class="pxui-list" data-model="radio">
-                    <a>【踏青一站购】361°满99减10、199减20、299减30<i class="arrow-right"></i></a>
+                <#--<div class="pxui-list" data-model="radio">-->
+                    <#--<a>【踏青一站购】361°满99减10、199减20、299减30<i class="arrow-right"></i></a>-->
 
-                    <div class="pxui-list-con" style="display:none;">
-                        <!--  <strong>【踏青一站购】361°满99减10、199减20、299减30</strong><br/>-->
-                        2014-04-08 09:40 到 2014-04-20 23:59<br>
-                        <strong>·</strong> 满<b>99元</b>,减<b>10元</b><br><strong>·</strong>
-                        满<b>199元</b>,减<b>20元</b><br><strong>·</strong> 满<b>299元</b>,减<b>30元</b><br>
-                        <!--  -->
-                    </div>
-                    <div style="clear:both;height:4px;margin: 0;padding: 0px; width:100%;"></div>
-                </div>
-
+                    <#--<div class="pxui-list-con" style="display:none;">-->
+                        <#--<!--  <strong>【踏青一站购】361°满99减10、199减20、299减30</strong><br/>&ndash;&gt;-->
+                        <#--2014-04-08 09:40 到 2014-04-20 23:59<br>-->
+                        <#--<strong>·</strong> 满<b>99元</b>,减<b>10元</b><br><strong>·</strong>-->
+                        <#--满<b>199元</b>,减<b>20元</b><br><strong>·</strong> 满<b>299元</b>,减<b>30元</b><br>-->
+                        <#--<!--  &ndash;&gt;-->
+                    <#--</div>-->
+                    <#--<div style="clear:both;height:4px;margin: 0;padding: 0px; width:100%;"></div>-->
+                <#--</div>-->
                 <ul class="goodinfo" id="js-goodinfo">
                     <li>
                         <b name="detail_mao" id="detail_mao">价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格:</b>
@@ -62,7 +61,7 @@
                         <b>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费:</b>
                         <div>
                             <p>
-                                <span>免运费,支持货到付款。</span>
+                                <span>15.8免运费,支持货到付款。</span>
                             </p>
                         </div>
                     </li>

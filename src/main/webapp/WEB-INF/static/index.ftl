@@ -32,7 +32,7 @@
             <a class="selected"><i></i>首页<span></span></a>
             <a href="sort.html"><i></i>分类<span></span></a>
             <a href="brand.html"><i></i>品牌<span></span></a>
-            <a href="tuan.html?sortStr=jump&orderBy=-1"><i></i>抢限量<span></span></a>
+            <a href="tuan.html?status=0&sortStr=jump&orderBy=-1"><i></i>抢限量<span></span></a>
         </div>
     </div>
 
@@ -42,9 +42,9 @@
             <table border="0" cellspacing="5" cellpadding="0">
                 <tbody>
                 <tr>
-                    <td colspan="2"><a href="tao.html?sortStr=jump&orderBy=-1"><i></i>套餐专区<br>实惠方便价更优</a></td>
+                    <td colspan="2"><a href="tao.html?status=0&sortStr=jump&orderBy=-1"><i></i>套餐专区<br>实惠方便价更优</a></td>
                     <td><a href="action.html"><i></i>更多好玩</a></td>
-                    <td rowspan="2"><a href="tuan.html?sortStr=jump&orderBy=-1"><i></i>限<br>时<br>促<br>销</a></td>
+                    <td rowspan="2"><a href="tuan.html?status=0&sortStr=jump&orderBy=-1"><i></i>限<br>时<br>促<br>销</a></td>
                 </tr>
                 <tr>
                     <td><a href="topic/612.html"><b>最新</b><br>上架</a></td>
@@ -61,7 +61,7 @@
 
     <div class="container-fluid index">
         <div class="pxui-area">
-            <h3><b>Top5</b> 热销推荐<a class="pxui-button" href="product.html?sortStr=jump&orderBy=-1"><span>+</span> 更多 &gt;&gt;</a>
+            <h3><b>Top5</b> 热销推荐<a class="pxui-button" href="product.html?status=0&sortStr=jump&orderBy=-1"><span>+</span> 更多 &gt;&gt;</a>
             </h3>
 
             <div class="pxui-shoes">
@@ -109,23 +109,23 @@
         <div class="container-fluid">
             <div class="pxui-area styles">
                 <h2 style="background-color: ${(e.colorTip)!""} ; "><a
-                        href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1"
+                        href="product.html?status=0&mainProId=${e._id}&sortStr=jump&orderBy=-1"
                         style="color:#FFFFFF;">${(e.name)!""}</a>
                 </h2>
-                <a class="max" href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1"><img
+                <a class="max" href="product.html?status=0&mainProId=${e._id}&sortStr=jump&orderBy=-1"><img
                         src="../../upload/img/${e.fileName}" width="120" height="140"></a>
 
                 <div>
                     <p>
                         <#list e.sortList as s>
                             <#if s.tip==0>
-                                <a href="product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1"
+                                <a href="product.html?status=0&sortProId=${s._id}&sortStr=jump&orderBy=-1"
                                    style="background-color: ${(e.colorTip)!""} ; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
                             <#else>
-                                <a href="product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1">${s.name}</a>
+                                <a href="product.html?status=0&sortProId=${s._id}&sortStr=jump&orderBy=-1">${s.name}</a>
                             </#if>
                         </#list>
-                        <a href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1" class="more">更多
+                        <a href="product.html?status=0&mainProId=${e._id}&sortStr=jump&orderBy=-1" class="more">更多
                             <del><i class="arrow-right"></i></del>
                         </a>
                     </p>
@@ -139,23 +139,23 @@
                     <p>
                         <#list e.sortList as s>
                             <#if s.tip==0>
-                                <a href="product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1"
+                                <a href="product.html?status=0&sortProId=${s._id}&sortStr=jump&orderBy=-1"
                                    style="margin-left:3px;margin-right:0px;background-color: ${(e.colorTip)!""}; color:#FFFFFF;border: 1px solid ${(e.colorTip)!""}; ">${s.name}</a>
                             <#else>
-                                <a href="product.html?sortProId=${s._id}&sortStr=jump&orderBy=-1">${s.name}</a>
+                                <a href="product.html?status=0&sortProId=${s._id}&sortStr=jump&orderBy=-1">${s.name}</a>
                             </#if>
                         </#list>
-                        <a href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1" class="more">更多
+                        <a href="product.html?status=0&mainProId=${e._id}&sortStr=jump&orderBy=-1" class="more">更多
                             <del><i class="arrow-right"></i></del>
                         </a>
                     </p>
                 </div>
-                <a class="max" href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1"><img
+                <a class="max" href="product.html?status=0&mainProId=${e._id}&sortStr=jump&orderBy=-1"><img
                         src="../../upload/img/${e.fileName}" width="120"
                         height="140"></a>
 
                 <h2 style="background-color: ${(e.colorTip)!""}"><a
-                        href="product.html?mainProId=${e._id}&sortStr=jump&orderBy=-1"
+                        href="product.html?status=0&mainProId=${e._id}&sortStr=jump&orderBy=-1"
                         style="color:#FFFFFF;">${(e.name)!""}</a>
                 </h2>
             </div>

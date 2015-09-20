@@ -20,7 +20,7 @@
                 <li>
                     <a id="waitDeliveryOrderList" href="#">
                         <p id="waitDeliveryOrderListSum">${(waitNum)!"0"}</p>
-                        <p>待收货</p>
+                        <p>派送中</p>
                     </a>
                 </li>
             </ul>

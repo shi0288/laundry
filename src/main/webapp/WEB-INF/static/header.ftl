@@ -10,13 +10,18 @@
     <META HTTP-EQUIV="Expires" CONTENT="0">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="static/common/css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.4"/>
+    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.6"/>
     <script src="static/common/js/jquery-1.8.2.min.js"></script>
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
+<<<<<<< HEAD
     <script src="static/common/js/basic.js?v=0.4.2"></script>
     <script src="static/ljj/common/js/jQueryRotateCompressed.js"></script>
     <link rel="stylesheet" href="static/common/css/index.css"/>
+=======
+    <script src="static/common/js/basic.js?v=0.4.8"></script>
+    <link rel="stylesheet" href="static/common/css/index.css?v=0.0.1"/>
+>>>>>>> d62565cbd93cd43e13cc88b4813ecf149d62c8a4
     <script>
         $(document).bind("mobileinit", function () {
             //$.mobile.ajaxEnabled=false;
@@ -24,7 +29,11 @@
             $.mobile.page.prototype.options.domCache = false;
             $.mobile.pageLoadErrorMessage = '功能正在完善，敬请期待';
             $.mobile.transitionFallbacks.slideout = "none";
-            $.mobile.defaultPageTransition = "pop";
+            if(browser.versions.iPhone==true||browser.versions.iPad==true||browser.versions.ios==true){
+                $.mobile.defaultPageTransition = "pop";
+            }else{
+                $.mobile.defaultPageTransition = "none";
+            }
             $.mobile.buttonMarkup.hoverDelay = "false";
         });
     </script>
@@ -49,6 +58,25 @@
                 });
             }
             jQuery(function ($) {
+                var browser={
+                    versions:function(){
+                        var u = navigator.userAgent, app = navigator.appVersion;
+                        return {
+                            trident: u.indexOf('Trident') > -1, //IE内核
+                            presto: u.indexOf('Presto') > -1, //opera内核
+                            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+                            mobile: !!u.match(/AppleWebKit.*Mobile.*/)||!!u.match(/AppleWebKit/), //是否为移动终端
+                            ios: !!u.match(/(i[^;]+\;(U;)? CPU.+Mac OS X)/), //ios终端
+                            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+                            iPad: u.indexOf('iPad') > -1, //是否iPad
+                            webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+                        }
+                    }(),
+                    language:(navigator.browserLanguage || navigator.language).toLowerCase()
+                }
+
                 var str = window.location.pathname;
                 var temp=str.split('/');
                 if(temp.length>2){
@@ -112,9 +140,7 @@
                         }
                     }
                 } else if (str == '/' || str == '/index.html' || str.indexOf("index.html")!=-1||str=="") {
-                    $.mobile.changePage("main.html", {
-                        transition: "pop"
-                    });
+                    $.mobile.changePage("main.html");
                 } else if (str == '/toAccount.html') {
                     toAmount();
                 }else if (str == '/mobile.html') {
@@ -203,7 +229,7 @@
                     if (orderPrice) {
                         $("#payMoney").html("￥" + localStorage.getItem("orderPrice"));
                     } else {
-                        $.mobile.changePage('main.html', 'slide');
+                        $.mobile.changePage('main.html');
                         return;
                     }
                     var name = localStorage.getItem("name");
@@ -258,7 +284,7 @@
                         var sctop = $(window).scrollTop();
                         if (sctop >= dheight - wheight) {
                             is = false;
-                            getTuanP(function (much) {
+                            getTuanP(function () {
                                 is = true;
                             });
                         }
@@ -273,11 +299,8 @@
                         if (is) {
                             if (sctop >= dheight - wheight) {
                                 is = false;
-                                getTaoP(function (much) {
+                                getTaoP(function () {
                                     is = true;
-                                    if(!much){
-                                        $(document).unbind(e);
-                                    }
                                 });
                             }
                         }
@@ -338,7 +361,7 @@
                             }
                         });
                     } else {
-                        $.mobile.changePage('login.html', 'slide');
+                        $.mobile.changePage('login.html');
                     }
                 } else if (str == '/editAddress.html') {
                     $("#adrBtn").click(function () {
@@ -448,9 +471,7 @@
                     if ($(".touchsliderPro").data("touchslider") != null) {
                         $(".touchsliderPro").data("touchslider").stop(); // stop the slider
                     };
-                    $.mobile.changePage("main.html", {
-                        transition: "pop"
-                    });
+                    $.mobile.changePage("main.html");
                 }
             });
         });

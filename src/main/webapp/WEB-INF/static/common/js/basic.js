@@ -13,6 +13,31 @@ Array.prototype.remove = function (obj) {
     }
 };
 
+String.prototype.trim = function() {
+    return this.replace(/\s+/g,"");
+};
+
+
+var browser = {
+    versions: function () {
+        var u = navigator.userAgent, app = navigator.appVersion;
+        return {
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/) || !!u.match(/AppleWebKit/), //是否为移动终端
+            ios: !!u.match(/(i[^;]+\;(U;)? CPU.+Mac OS X)/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+            iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+        }
+    }(),
+    language: (navigator.browserLanguage || navigator.language).toLowerCase()
+};
+
+
 function before() {
     $("body").append('<div class="cover3" id="before-cover" style="display:block"></div><img id="login-img" src="./static/common/css/images/009.gif">');
     var height = $(window).height();
@@ -110,9 +135,9 @@ function dealPrice() {
 function toAmount() {
     var name = localStorage.getItem("name");
     if (name) {
-        $.mobile.changePage('acount.html?name=' + name, 'pop');
+        $.mobile.changePage('acount.html?name=' + name);
     } else {
-        $.mobile.changePage('login.html', 'pop');
+        $.mobile.changePage('login.html');
     }
 
 }
@@ -130,7 +155,7 @@ function selectAddress(id) {
         },
         success: function (rst) {
             if (rst.result) {
-                $.mobile.changePage('conform.html', 'slide');
+                $.mobile.changePage('conform.html');
             } else {
                 alert("操作失败，请重试");
             }
@@ -212,7 +237,7 @@ function saveAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    $.mobile.changePage('address.html', 'slide');
+                    $.mobile.changePage('address.html');
                 } else {
                     alert("添加失败，请重试");
                 }
@@ -223,7 +248,7 @@ function saveAddress() {
         });
 
     } else {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 
 }
@@ -247,18 +272,21 @@ function getTuanP(onClick) {
         data: {
             p: tuanP,
             orderBy: orderBy,
-            sortStr: sortStr
+            sortStr: sortStr,
+            status:0
         },
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
+                    var funToBox="ProMoveBox(this,'"+obj._id.$oid+"@"+obj.name.trim()+"@"+obj.price+"@"+obj.oldPrice+"@"+obj.fileNames[0]+"')";
+                    var buttonStr="<p style='height:100%'><a  class='hengAddBox' href='#'  onclick="+funToBox+">加入购物车</a></p>";
                     var htmlStr = '<div class="tuan-list"><div class="img120"><a href="proDetail.html?proId=' + obj._id.$oid + '"><dfn></dfn>'
                         + '<img src="../../upload/img/' + obj.fileNames[0] + '"  onerror="nofind();"/><a/></div>'
                         + '<a href="proDetail.html?proId=' + obj._id.$oid + '" class="title">' + obj.name + '</a>'
                         + '<p> <span class="pxui-color-yellow">数量：<span class="red">' + obj.num + '</span></span> </p>'
-                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>';
+                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>'+buttonStr;
                     $("#tuan-goodlist").append(htmlStr);
                 });
                 if (onClick) {
@@ -294,18 +322,21 @@ function getTaoP(onClick) {
         data: {
             p: tuanP,
             orderBy: orderBy,
-            sortStr: sortStr
+            sortStr: sortStr,
+            status:0
         },
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
+                    var funToBox="ProMoveBox(this,'"+obj._id.$oid+"@"+obj.name.trim()+"@"+obj.price+"@"+obj.oldPrice+"@"+obj.fileNames[0]+"')";
+                    var buttonStr="<p style='height:100%'><a  class='hengAddBox' href='#'  onclick="+funToBox+">加入购物车</a></p>";
                     var htmlStr = '<div class="tao-list"><div class="img120"><a href="proDetail.html?proId=' + obj._id.$oid + '"><dfn></dfn>'
                         + '<img src="../../upload/img/' + obj.fileNames[0] + '"  onerror="nofind();"/><a/></div>'
                         + '<a href="proDetail.html?proId=' + obj._id.$oid + '" class="title">' + obj.name + '</a>'
                         + '<p> <span class="pxui-color-yellow">数量：<span class="red">' + obj.num + '</span></span> </p>'
-                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>';
+                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>'+buttonStr;
                     $("#tao-goodlist").append(htmlStr);
                 });
                 if (onClick) {
@@ -336,8 +367,6 @@ function getPP(onClick) {
     var mainProId = pStr.split(";")[2];
     var sortProId = pStr.split(";")[3];
     var brandId = pStr.split(";")[4];
-    console.log(pP);
-    console.log(pStr);
     $.ajax({
         type: "POST",
         url: "pP.json?timestamp=" + new Date().getTime(),
@@ -349,22 +378,25 @@ function getPP(onClick) {
             sortStr: sortStr,
             mainProId: mainProId,
             sortProId: sortProId,
-            brandId: brandId
+            brandId: brandId,
+            status:0
         },
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
-                console.log(list);
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
-                    var htmlStr = '<a href="proDetail.html?proId=' + obj._id.$oid + '" data-transition="slide" style="width:33%;min-width: 0px;height:203px; ">'
-                        + '<div class="img160" style="background-image: none;width:100%;height: 120px"><dfn></dfn>'
+                    var funToBox="ProMoveBox(this,'"+obj._id.$oid+"@"+obj.name.trim()+"@"+obj.price+"@"+obj.oldPrice+"@"+obj.fileNames[0]+"')";
+                    var buttonStr="<p style='margin-left:16px' class='hengAddBox'  onclick="+funToBox+">加入购物车</p>";
+                    var onclickStr="$.mobile.changePage('proDetail.html?proId="+obj._id.$oid+"');"
+                    var htmlStr = '<a href="#" style="width:33%;min-width: 0px;height:203px; height:100% ">'
+                        + '<div  onclick="'+onclickStr+'"  class="img160" style="background-image: none;width:100%;height: 120px"><dfn></dfn>'
                         + '<img style="max-height: 90px;" src="../../upload/img/' + obj.fileNames[0] + '"onerror="nofind();"/></div>'
                         + '<span style="padding-top: 0px;" class="name">' + obj.name + '</span>'
-                        + '<span class="price">￥' + obj.price + '</span>'
-                        + '<del class="price">￥' + obj.oldPrice + '</del></a>';
-
+                        + '<span class="price">￥' + obj.price + '</span><br/>'
+                        + '<del class="price">￥' + obj.oldPrice + '</del><br/>'+buttonStr+'</a>';
                     $("#js-goodlist").append(htmlStr);
+                    $('#button').button();//动态刷新代码
                 });
                 if (onClick) {
                     $("#pP").val(pP);
@@ -445,7 +477,7 @@ function updateAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    $.mobile.changePage('address.html', 'slide');
+                    $.mobile.changePage('address.html');
                 } else {
                     alert("更新失败，请重试");
                 }
@@ -456,7 +488,7 @@ function updateAddress() {
         });
 
     } else {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 }
 
@@ -474,7 +506,7 @@ function delAddress() {
             },
             success: function (rst) {
                 if (rst.result) {
-                    $.mobile.changePage('address.html', 'slide');
+                    $.mobile.changePage('address.html');
                 } else {
                     alert("删除失败，请重试");
                 }
@@ -485,7 +517,7 @@ function delAddress() {
         });
 
     } else {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 }
 
@@ -642,7 +674,11 @@ function commitOrder() {
                             localStorage.setItem("order", order.toString());
                         }
                         alert('恭喜您，下单成功!');
+<<<<<<< HEAD
                         $.mobile.changePage('zhuanpan.html', 'slide');
+=======
+                        $.mobile.changePage('main.html');
+>>>>>>> d62565cbd93cd43e13cc88b4813ecf149d62c8a4
 
                     }
                 } else {
@@ -658,7 +694,7 @@ function commitOrder() {
 
     } else {
         after();
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
     }
 }
 
@@ -692,7 +728,7 @@ function login() {
         success: function (rst) {
             if (rst.result) {
                 localStorage.setItem("name", name);
-                $.mobile.changePage('main.html', 'slide');
+                $.mobile.changePage('main.html');
             } else {
                 alert(rst.msg);
             }
@@ -738,7 +774,7 @@ function register() {
         success: function (rst) {
             if (rst.result) {
                 localStorage.setItem("name", name);
-                $.mobile.changePage('main.html', 'slide');
+                $.mobile.changePage('main.html');
             } else {
                 alert(rst.msg);
             }
@@ -898,7 +934,6 @@ function sendPassWordMsg() {
     }, 1000);
 
     var z_captcha = $("#z_captcha").val();
-    console.log(z_captcha);
     var z_mobile = $("#z_mobile").val();
     $.ajax({
         type: "POST",
@@ -963,7 +998,7 @@ function getPassWord() {
             if (rst.result) {
                 localStorage.setItem("name", name);
                 alert("修改成功");
-                $.mobile.changePage('main.html', 'slide');
+                $.mobile.changePage('main.html');
             } else {
                 alert(rst.msg);
             }
@@ -981,7 +1016,7 @@ function toConform() {
 
     var name = localStorage.getItem("name");
     if (!name) {
-        $.mobile.changePage('login.html', 'slide');
+        $.mobile.changePage('login.html');
         return;
     }
     var order = localStorage.getItem("order");
@@ -1017,7 +1052,7 @@ function toConform() {
     localStorage.setItem("orderPrice", orderPrice);
     order = order.join(";");
     localStorage.setItem("order", order.toString());
-    $.mobile.changePage('conform.html?showwxpaytitle=1', 'slide');
+    $.mobile.changePage('conform.html?showwxpaytitle=1');
 }
 
 
@@ -1095,7 +1130,7 @@ function goToCart() {
                     $(this).html(num);
                 });
             }
-            $.mobile.changePage('cart.html', 'slide');
+            $.mobile.changePage('cart.html');
         } else {
             alert("该商品暂缺，正在补货");
         }
@@ -1103,7 +1138,7 @@ function goToCart() {
     });
 }
 
-function MoveBox(obj) {
+function MoveBox(objRu) {
     var proId = $("#proId").val();
     var numbers = $(".Amount").val();
     testProduct(proId, numbers, function (is) {
@@ -1126,16 +1161,36 @@ function MoveBox(obj) {
             } else {
                 order = order.split(";");
             }
-            order.push(JSON.stringify(product));
-            order = order.join(";");
-            localStorage.setItem("order", order.toString());
-            var num = parseInt($("#header-cart-num").html()) + 1;
-            $("b[name='header-cart-num']").each(function (index) {
-                $(this).html(num);
-            });
+
+
+            var panduan = true;
+            for (var i = 0; i < order.length; i++) {
+                var jsonStr = order[i];
+                var obj = JSON.parse(jsonStr);
+                if (obj.proId == proId) {
+                    var tempNumbers = parseInt(obj.numbers);
+                    tempNumbers = tempNumbers + parseInt(numbers);
+                    obj.numbers = tempNumbers;
+                    order.remove(i);
+                    order.push(JSON.stringify(obj));
+                    order = order.join(";");
+                    localStorage.setItem("order", order.toString());
+                    panduan = false;
+                    break;
+                }
+            }
+            if (panduan) {
+                order.push(JSON.stringify(product));
+                order = order.join(";");
+                localStorage.setItem("order", order.toString());
+                var num = parseInt($("#header-cart-num").html()) + 1;
+                $("b[name='header-cart-num']").each(function (index) {
+                    $(this).html(num);
+                });
+            }
             $("#pro").show();
-            var divTop = $(obj).offset().top;
-            var divLeft = $(obj).offset().left;
+            var divTop = $(objRu).offset().top;
+            var divLeft = $(objRu).offset().left;
             $("#pro").css({
                 "position": "absolute",
                 "z-index": "500",
@@ -1159,6 +1214,83 @@ function MoveBox(obj) {
         }
     });
 }
+
+
+function ProMoveBox(objRu,str) {
+    var valArr=str.split("@");
+    var proId = valArr[0];
+    var name = valArr[1];
+    var price = valArr[2];
+    var oldPrice = valArr[3];
+    var fileName = valArr[4];
+    var numbers = 1;
+    testProduct(proId, numbers, function (is) {
+        if (is) {
+            var product = {
+                proId: proId,
+                name: name,
+                price: price,
+                oldPrice: oldPrice,
+                fileName: fileName,
+                numbers: numbers
+            };
+            var order = localStorage.getItem("order");
+            if (!order) {
+                order = [];
+            } else {
+                order = order.split(";");
+            }
+            var panduan = true;
+            for (var i = 0; i < order.length; i++) {
+                var jsonStr = order[i];
+                var obj = JSON.parse(jsonStr);
+                if (obj.proId == proId) {
+                    var tempNumbers = parseInt(obj.numbers);
+                    tempNumbers = tempNumbers + parseInt(numbers);
+                    obj.numbers = tempNumbers;
+                    order.remove(i);
+                    order.push(JSON.stringify(obj));
+                    order = order.join(";");
+                    localStorage.setItem("order", order.toString());
+                    panduan = false;
+                    break;
+                }
+            }
+            if (panduan) {
+                order.push(JSON.stringify(product));
+                order = order.join(";");
+                localStorage.setItem("order", order.toString());
+                var num = parseInt($("#header-cart-num").html()) + 1;
+                $("b[name='header-cart-num']").each(function (index) {
+                    $(this).html(num);
+                });
+            }
+            $("#pro").show();
+            var divTop = $(objRu).offset().top;
+            var divLeft = $(objRu).offset().left;
+            $("#pro").css({
+                "position": "absolute",
+                "z-index": "500",
+                "left": divLeft + "px",
+                "top": divTop + "px"
+            });
+            $("#pro").animate({
+                    "left": $(window).width() - 25 + "px",
+                    "top": $("#header-cart-num").offset().top + "px",
+                    "width": "50px",
+                    "height": "25px",
+                    opacity: "0.1"
+                },
+                500, null, function () {
+                    $("#pro").attr("style","display: 123");
+                }).hide(0);
+        } else {
+            alert("该商品暂缺，正在补货");
+        }
+    });
+}
+
+
 
 function changeImg(obj) {
     var imgSrc = $(obj).find("img");
