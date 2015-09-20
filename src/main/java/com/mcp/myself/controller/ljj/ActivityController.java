@@ -117,17 +117,17 @@ public class ActivityController extends BaseAction {
 //            json.setMsg("查无此用户");
 //            return json;
 //        }
-        //2.判断今天是否领取，领取返回提示已经领取
+        //2.判断是否符合抽奖条件
         activity = activityService.zhuanP(userName, activeId);
         if(!activity.isCheck()){
             json.setResult(true);
-            json.setMsg("亲，你已经才加过此次活动，下次再来哦！");
+            json.setMsg("亲，下单购买之后就有机会哦！");
             json.setObject(activity);
             return json;
         }
         //3.没有领取调用抽奖算法
         json.setResult(true);
-        json.setMsg("恭喜你算命成功");
+        json.setMsg("恭喜你抽奖成功成功");
         json.setObject(activity);
         return json;
     }

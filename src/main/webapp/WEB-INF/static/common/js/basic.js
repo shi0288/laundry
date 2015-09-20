@@ -642,7 +642,7 @@ function commitOrder() {
                             localStorage.setItem("order", order.toString());
                         }
                         alert('恭喜您，下单成功!');
-                        $.mobile.changePage('main.html', 'slide');
+                        $.mobile.changePage('zhuanpan.html', 'slide');
 
                     }
                 } else {
@@ -1216,4 +1216,53 @@ function gotoTop(acceleration, stime) {
         var run = "gotoTop(" + acceleration + ", " + stime + ")";
         window.setTimeout(run, stime);
     }
+}
+
+//活动
+function getResult(d,info){
+    var result_arr = ['手撕牛肉一袋','猫耳仔一袋','黑白配一袋','大大泡泡糖两块','真知棒一个',
+        '阿尔卑斯棒棒糖','舒肤佳香皂一块','心心相印纸巾一包','堵嘴薯片一袋','洗衣皂一块','卫龙面筋一个',
+        '馋大嘴巴一袋','',''];
+
+    var msg  = result_arr[d];
+    if(d<=11){
+        d = d * 30 + 15;
+        $('#arrow-img').stopRotate();
+        $("#arrow-img").rotate({
+            angle:0,
+            duration: 5000,
+            animateTo: d+1440,
+            callback:function(){
+                var w = $(document).width();
+                var l;
+                var r_w = $("#result").width();
+                l = w/2 - (r_w/2);
+                $("#result").css("left", l + "px");
+                $("#info").text(msg);
+                $("#t-info").text(info);
+                $("#result").show();
+            }
+        });
+    }else if(d==12){
+        msg = "您已完成一次抽奖";
+        var w = $(document).width();
+        var l;
+        var r_w = $("#result").width();
+        l = w/2 - (r_w/2);
+        $("#result").css("left", l + "px");
+        $("#info").text(msg);
+        $("#t-info").text(info);
+        $("#result").show();
+    }else if(d==13){
+        msg = info;
+        var w = $(document).width();
+        var l;
+        var r_w = $("#result").width();
+        l = w/2 - (r_w/2);
+        $("#result").css("left", l + "px");
+        $("#info").text(msg);
+        $("#t-info").text(info);
+        $("#result").show();
+    }
+
 }

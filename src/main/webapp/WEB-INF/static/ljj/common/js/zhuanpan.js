@@ -8,10 +8,10 @@
           $(".tool-button").css("padding-top", p_t + "px");
           $("#begin").click(function(){
               var d=0;
-              //sessionStorage.setItem("name","123");
+              sessionStorage.setItem("name","111111");
               //sessionStorage.setItem("passWord","123456");
               var body={
-                  activeId:"1003",
+                  activeId:"1001",
                   actitityType:"zhuanpan",
                   userName: sessionStorage.getItem("name")
                   //passWord: sessionStorage.getItem("passWord")
@@ -34,7 +34,7 @@
                               info=result.object.activeDes;
                           }else{
                               d=12;
-                              info="话说这次活动只能参加一次哦，亲下次活动再来";
+                              info="亲下一次单只能参加一次活动";
                           }
                       }else{
                           d=13;

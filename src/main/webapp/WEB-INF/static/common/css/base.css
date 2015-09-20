@@ -1604,3 +1604,92 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
 .tao-list p span {
     margin-right: 5px;
 }
+
+/*活动begin*/
+#content{
+    padding: 0;
+    margin: 0 auto;
+    width: 100%;
+    height: 90%;
+    /*background: #170220;*/
+    background:#fff;
+}
+label{
+    font-size:24px;
+}
+.tool-button{
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.tool-button{
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.tool-button span{
+    display: inline-block;
+    width: 5em;
+    height: 2em;
+    line-height: 2em;
+    background: #da4f49;
+    border-radius: 1em;
+    color: #ffffff;
+    margin: 0 2em;
+    padding: 0.2em 1.5em;
+    font-size: 1.5em;
+}
+#round{
+    /* width: 90%;*/
+    height: auto;
+    margin: 0 auto;
+    /*margin-top: 10px;*/
+    background-image: url(../css/images/zhuanpan/zhuanpan.jpg);
+    filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+    -moz-background-size:100% 100%;
+    background-size:100% 100%;
+}
+#arrow{
+    margin: 0 auto;
+    padding-top: 10em;
+    text-align: center;
+}
+#arrow-img{
+    width: 100%;
+    height: auto;
+}
+#result{
+    width: 80%;
+    height: 158px;
+    margin: 0 auto;
+    position: fixed;
+    top:40%;
+    background-image: url(../css/images/zhuanpan/jieguo.png);
+    background-repeat: no-repeat;
+    filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod='scale')";
+    -moz-background-size:100% 100%;
+    background-size:100% 100%;
+    display: none;
+    z-index: 999;
+    padding-left:30px;
+}
+#info{
+    padding-top: 40px;
+    font-weight:800;
+    padding-bottom: 8px;
+    padding-left: 10px;
+    font-size:24px;
+    width:95%;
+    z-index: 999;
+}
+#close{
+    position: absolute;
+    width: 46px;
+    height: 46px;
+    right: 0;
+    margin-top: -5px;
+    margin-right: -5px;
+}
+
+/*活动end*/

@@ -10,6 +10,33 @@ public class Activity {
     private int num;
     private String activeDes;
     private boolean check;
+    private String productName;
+    private int productNum;
+    private double productPrice;
+
+    public void setProductPrice(double productPrice) {
+        this.productPrice = productPrice;
+    }
+
+    public double getProductPrice() {
+        return productPrice;
+    }
+
+    public int getProductNum() {
+        return productNum;
+    }
+
+    public void setProductNum(int productNum) {
+        this.productNum = productNum;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
 
     public void setCheck(boolean check) {
         this.check = check;

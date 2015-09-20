@@ -15,6 +15,7 @@
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
     <script src="static/common/js/basic.js?v=0.4.2"></script>
+    <script src="static/ljj/common/js/jQueryRotateCompressed.js"></script>
     <link rel="stylesheet" href="static/common/css/index.css"/>
     <script>
         $(document).bind("mobileinit", function () {
@@ -374,6 +375,58 @@
                 }else if (str == '/sort.html') {
                 }else if (str == '/orders.html') {
                 }else if (str == '/xieyi.html') {
+                }else if (str == '/zhuanpan.html') {
+                        var width = document.body.clientWidth;
+                        var r_h = width*2;
+                        $("#round").css("height", r_h + "px");
+                        var a_p = width*3/8;
+                        $("#arrow").css("width", a_p + "px");
+                        var p_t = (width/2)-(a_p/2);
+                        $("#arrow").css("padding-top", p_t + "px");
+                        $(".tool-button").css("padding-top", p_t + "px");
+                        $("#begin").click(function(){
+                            var d=0;
+                            sessionStorage.setItem("name","111111");
+                            //sessionStorage.setItem("passWord","123456");
+                            var body={
+                                activeId:"1001",
+                                actitityType:"zhuanpan",
+                                userName: sessionStorage.getItem("name")
+                                //passWord: sessionStorage.getItem("passWord")
+                            }
+                            $.ajax({
+                                type: "POST",
+                                url: "/laundry/activity/zhuanpan.json?timestamp="+ new Date().getTime(),
+                                dataType: "json",
+                                cache: false,
+                                async: false,
+                                data: {
+                                    body: JSON.stringify(body)
+                                },
+                                success: function (result) {
+                                    var repCode = result.result;
+                                    //console.log(result.object);
+                                    if (repCode) {
+                                        if(result.object.check){
+                                            d=result.object.num;
+                                            info=result.object.activeDes;
+                                        }else{
+                                            d=12;
+                                            info="亲下一次单只能参加一次活动,点击左上角去主页看看吧";
+                                        }
+                                    }else{
+                                        d=13;
+                                        info="亲，先登录，才能参加活动的";
+                                    }
+                                    getResult(d,info);
+                                }
+                        });
+                        $("body").on("click", "#close", function(){
+                            $("#result").hide();
+                            $("#ad").show();
+                            $("#content").show();
+                        });
+                    })
                 }else if (str == '/getPassWord.html') {
                     $(".tp-btn").click(function () {
                         var classStr = $(this).attr("class");
