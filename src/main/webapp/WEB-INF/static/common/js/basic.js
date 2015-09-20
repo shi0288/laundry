@@ -674,12 +674,7 @@ function commitOrder() {
                             localStorage.setItem("order", order.toString());
                         }
                         alert('恭喜您，下单成功!');
-<<<<<<< HEAD
                         $.mobile.changePage('zhuanpan.html', 'slide');
-=======
-                        $.mobile.changePage('main.html');
->>>>>>> d62565cbd93cd43e13cc88b4813ecf149d62c8a4
-
                     }
                 } else {
                     after();

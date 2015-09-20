@@ -14,14 +14,9 @@
     <script src="static/common/js/jquery-1.8.2.min.js"></script>
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
-<<<<<<< HEAD
-    <script src="static/common/js/basic.js?v=0.4.2"></script>
     <script src="static/ljj/common/js/jQueryRotateCompressed.js"></script>
-    <link rel="stylesheet" href="static/common/css/index.css"/>
-=======
     <script src="static/common/js/basic.js?v=0.4.8"></script>
     <link rel="stylesheet" href="static/common/css/index.css?v=0.0.1"/>
->>>>>>> d62565cbd93cd43e13cc88b4813ecf149d62c8a4
     <script>
         $(document).bind("mobileinit", function () {
             //$.mobile.ajaxEnabled=false;
