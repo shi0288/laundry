@@ -13,6 +13,10 @@ Array.prototype.remove = function (obj) {
     }
 };
 
+String.prototype.trim = function() {
+    return this.replace(/\s+/g,"");
+};
+
 
 var browser = {
     versions: function () {
@@ -268,18 +272,21 @@ function getTuanP(onClick) {
         data: {
             p: tuanP,
             orderBy: orderBy,
-            sortStr: sortStr
+            sortStr: sortStr,
+            status:0
         },
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
+                    var funToBox="ProMoveBox(this,'"+obj._id.$oid+"@"+obj.name.trim()+"@"+obj.price+"@"+obj.oldPrice+"@"+obj.fileNames[0]+"')";
+                    var buttonStr="<p style='height:100%'><a  class='hengAddBox' href='#'  onclick="+funToBox+">加入购物车</a></p>";
                     var htmlStr = '<div class="tuan-list"><div class="img120"><a href="proDetail.html?proId=' + obj._id.$oid + '"><dfn></dfn>'
                         + '<img src="../../upload/img/' + obj.fileNames[0] + '"  onerror="nofind();"/><a/></div>'
                         + '<a href="proDetail.html?proId=' + obj._id.$oid + '" class="title">' + obj.name + '</a>'
                         + '<p> <span class="pxui-color-yellow">数量：<span class="red">' + obj.num + '</span></span> </p>'
-                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>';
+                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>'+buttonStr;
                     $("#tuan-goodlist").append(htmlStr);
                 });
                 if (onClick) {
@@ -315,18 +322,21 @@ function getTaoP(onClick) {
         data: {
             p: tuanP,
             orderBy: orderBy,
-            sortStr: sortStr
+            sortStr: sortStr,
+            status:0
         },
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
+                    var funToBox="ProMoveBox(this,'"+obj._id.$oid+"@"+obj.name.trim()+"@"+obj.price+"@"+obj.oldPrice+"@"+obj.fileNames[0]+"')";
+                    var buttonStr="<p style='height:100%'><a  class='hengAddBox' href='#'  onclick="+funToBox+">加入购物车</a></p>";
                     var htmlStr = '<div class="tao-list"><div class="img120"><a href="proDetail.html?proId=' + obj._id.$oid + '"><dfn></dfn>'
                         + '<img src="../../upload/img/' + obj.fileNames[0] + '"  onerror="nofind();"/><a/></div>'
                         + '<a href="proDetail.html?proId=' + obj._id.$oid + '" class="title">' + obj.name + '</a>'
                         + '<p> <span class="pxui-color-yellow">数量：<span class="red">' + obj.num + '</span></span> </p>'
-                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>';
+                        + ' <p> <span class="pxui-color-red">￥' + obj.price + '</span> <del class="pxui-color-gray">' + obj.oldPrice + '</del></p>'+buttonStr;
                     $("#tao-goodlist").append(htmlStr);
                 });
                 if (onClick) {
@@ -368,21 +378,25 @@ function getPP(onClick) {
             sortStr: sortStr,
             mainProId: mainProId,
             sortProId: sortProId,
-            brandId: brandId
+            brandId: brandId,
+            status:0
         },
         success: function (rst) {
             if (rst.result) {
                 var list = rst.object;
                 $.each(list, function (key, val) {
                     var obj = JSON.parse(val);
-                    var htmlStr = '<a href="proDetail.html?proId=' + obj._id.$oid + '" style="width:33%;min-width: 0px;height:203px; ">'
-                        + '<div class="img160" style="background-image: none;width:100%;height: 120px"><dfn></dfn>'
+                    var funToBox="ProMoveBox(this,'"+obj._id.$oid+"@"+obj.name.trim()+"@"+obj.price+"@"+obj.oldPrice+"@"+obj.fileNames[0]+"')";
+                    var buttonStr="<p style='margin-left:16px' class='hengAddBox'  onclick="+funToBox+">加入购物车</p>";
+                    var onclickStr="$.mobile.changePage('proDetail.html?proId="+obj._id.$oid+"');"
+                    var htmlStr = '<a href="#" style="width:33%;min-width: 0px;height:203px; height:100% ">'
+                        + '<div  onclick="'+onclickStr+'"  class="img160" style="background-image: none;width:100%;height: 120px"><dfn></dfn>'
                         + '<img style="max-height: 90px;" src="../../upload/img/' + obj.fileNames[0] + '"onerror="nofind();"/></div>'
                         + '<span style="padding-top: 0px;" class="name">' + obj.name + '</span>'
-                        + '<span class="price">￥' + obj.price + '</span>'
-                        + '<del class="price">￥' + obj.oldPrice + '</del></a>';
-
+                        + '<span class="price">￥' + obj.price + '</span><br/>'
+                        + '<del class="price">￥' + obj.oldPrice + '</del><br/>'+buttonStr+'</a>';
                     $("#js-goodlist").append(htmlStr);
+                    $('#button').button();//动态刷新代码
                 });
                 if (onClick) {
                     $("#pP").val(pP);

@@ -93,9 +93,9 @@ Top5
 .pxui-shoes .img220{margin:auto;}
 .pxui-shoes a{width:50%;float:left;border-bottom:1px solid #d3d3d3;overflow:hidden;min-width:120px;position:relative;height:230px;padding-top:10px;color:#575757;}
 .pxui-shoes a:nth-child(2n+1){margin-left:-1px;border-right:1px solid #d3d3d3;}
-.pxui-shoes .name{display:block;font-size:16px;max-height:48px;overflow:hidden;padding-left:12px;padding-top: 12px;text-align:left;text-overflow: ellipsis;}
+.pxui-shoes .name{display:block;font-size:16px;max-height:24px;overflow:hidden;padding-left:12px;padding-top: 12px;text-align:left;text-overflow: ellipsis;}
 .pxui-shoes .price{margin-left:12px;display:inline-block;vertical-align:bottom;color:#fb4e3a;font-size:18px;}
-.pxui-shoes del.price{margin-left:0;color:#A9A9A9;font-size:14px;}
+.pxui-shoes del.price{margin-left:12px;color:#A9A9A9;font-size:14px;}
 .pxui-shoes .tag{position:absolute;top:0px;left:0px;}
 .pxui-shoes span.tag{width:28px;height:27px;color:#fff;font-size:16px;line-height:26px;text-align:center;margin-left:12px;}
 

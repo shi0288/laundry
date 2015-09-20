@@ -58,8 +58,10 @@
                         </#list>
                         <span style="padding-top: 0px;" class="name">${e.name}</span>
                         <span class="price">￥${e.price}</span>
+                        <br/>
                         <del class="price">￥${e.oldPrice}</del>
-                        <button  onclick="ProMoveBox(this,'${e._id}@${e.name}@${e.price}@${e.oldPrice}@${e.fileNames[0]}')">加入购物车</button>
+                        <br/>
+                        <p style='margin-left:12px' class="hengAddBox" onclick="ProMoveBox(this,'${e._id}@${e.name}@${e.price}@${e.oldPrice}@${e.fileNames[0]}')">加入购物车</p>
                     </a>
                 </#list>
                 </div>
