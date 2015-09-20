@@ -31,7 +31,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="../../upload/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="product.html?status=0&brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="../../upload/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="brands">
                     <div class="brandbox">
                         <#list m.brandList as b>
-                            <a href="product.html?brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="../../upload/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
+                            <a href="product.html?status=0&brandId=${b._id}&sortStr=jump&orderBy=-1"><i><img src="../../upload/img/${b.fileName}" onerror="nofind()" alt="${b.name}" width="100" height="50"></i></a>
                         </#list>
                     </div>
                 </div>

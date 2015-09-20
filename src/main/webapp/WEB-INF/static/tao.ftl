@@ -10,19 +10,19 @@
         <div class="pxui-tab product-tab" style="margin-bottom:10px;">
             <input  type="hidden"  id="taoP"  value="${(p)!"1"}" />
             <input  type="hidden"  id="taoStr"  value="${(cond.sortStr)!""};${(cond.orderBy)!""}" />
-            <a href="tao.html?sortStr=jump&orderBy=-1" <#if cond.sortStr=='jump'>
+            <a href="tao.html?status=0&sortStr=jump&orderBy=-1" <#if cond.sortStr=='jump'>
                class="selected" </#if> style="width: 24.4%;">推 荐</a>
-            <a href="tao.html?sortStr=price&orderBy=<#if cond.sortStr=='price' && cond.orderBy==1>-1<#elseif cond.sortStr=='price' && cond.orderBy==-1>1<#else>-1</#if>" <#if cond.sortStr=='price'>
+            <a href="tao.html?status=0&sortStr=price&orderBy=<#if cond.sortStr=='price' && cond.orderBy==1>-1<#elseif cond.sortStr=='price' && cond.orderBy==-1>1<#else>-1</#if>" <#if cond.sortStr=='price'>
                class="selected" </#if> style="width: 24.4%;">
                 价 格
                 <i class="arrow2-top <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==-1>gray</#if></#if> "></i>
                 <i class="arrow2-bottom <#if cond.sortStr?? && cond.sortStr=='price'><#if cond.orderBy==1>gray</#if></#if> "></i>
             </a>
             <a  <#if cond.sortStr=='saleNum'> class="selected" </#if>
-                                              href="tao.html?sortStr=saleNum&orderBy=-1"
+                                              href="tao.html?status=0&sortStr=saleNum&orderBy=-1"
                                               style="width: 24.4%;">销 量</a>
             <a  <#if cond.sortStr=='createTime'> class="selected" </#if>
-                                                 href="tao.html?sortStr=createTime&orderBy=-1"
+                                                 href="tao.html?status=0&sortStr=createTime&orderBy=-1"
                                                  style="width: 24.4%;">最 新</a>
         </div>
         <div id="tao-goodlist" style="position: relative;">

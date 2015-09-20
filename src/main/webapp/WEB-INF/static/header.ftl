@@ -10,11 +10,11 @@
     <META HTTP-EQUIV="Expires" CONTENT="0">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="static/common/css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.4"/>
+    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.5"/>
     <script src="static/common/js/jquery-1.8.2.min.js"></script>
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
-    <script src="static/common/js/basic.js?v=0.4.2"></script>
+    <script src="static/common/js/basic.js?v=0.4.3"></script>
     <link rel="stylesheet" href="static/common/css/index.css"/>
     <script>
         $(document).bind("mobileinit", function () {
