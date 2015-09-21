@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                     <td><a href="topic/612.html"><b>最新</b><br>上架</a></td>
-                    <td colspan="2"><a href="help/weixin.html">乐小购微信<br>你的随身好帮手<i></i></a></td>
+                    <td colspan="2"><a href="zhuanpan.html">幸运大抽奖<br>下单抽礼品<i></i></a></td>
                 </tr>
                 </tbody>
             </table>

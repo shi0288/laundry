@@ -140,8 +140,9 @@
                                         查看详情
                                     </a>
                                     <#if  e.status==1100><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101,${e.name})" title="打印">打印</a>
-                                    <#elseif  e.status==1000><a href="javascript:void(0)" onclick="printOrder('${e._id}',1300,${e.name})" title="取消订单">取消订单</a>
                                     <#elseif  e.status==1101> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200,${e.name})" title="派送成功">派送成功</a>
+                                    </#if>
+                                    <#if  e.status!=1300><a href="javascript:void(0)" onclick="printOrder('${e._id}',1300,${e.name})" title="取消订单">取消订单</a>
                                     </#if>
                                 </td>
                             </tr>
@@ -207,7 +208,7 @@
                         });
                     }else if(orderType==1300){
                         bootbox.alert("修改成功，将刷新页面", function () {
-                            location.href = "list.htm?status=1000";
+                            location.href = "list.htm?status=1100";
                         });
                     }
                 } else {

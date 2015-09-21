@@ -105,11 +105,19 @@ function printDetail(order,activity){
 
         }
     }
-
-    LODOP.ADD_PRINT_TEXT(last+15,20,46,20,"合计：");
-    LODOP.ADD_PRINT_TEXT(last+15,126,100,20,'人民币：'+orderPrice+'元');
-    LODOP.ADD_PRINT_TEXT(last+30,91,130,20,'乐小购祝您生活愉快！');
-    LODOP.ADD_PRINT_TEXT(last+45,126,100,20,'');
+    var len = 0;
+    for (var j=0; j<str.length; j++) {
+        if (str.charCodeAt(j)>127 || str.charCodeAt(j)==94) {
+            len += 2;
+        } else {
+            len ++;
+        }
+    }
+    var num =  Math.floor(len/12);
+    LODOP.ADD_PRINT_TEXT(last+15+num*15,20,46,20,"合计：");
+    LODOP.ADD_PRINT_TEXT(last+15+num*15,126,100,20,'人民币：'+orderPrice+'元');
+    LODOP.ADD_PRINT_TEXT(last+30+num*15,91,130,20,'乐小购祝您生活愉快！');
+    LODOP.ADD_PRINT_TEXT(last+45+num*15,126,100,20,'');
     var is = LODOP.PRINT();
     if(is){
         bootbox.alert("打印成功，将刷新页面", function () {

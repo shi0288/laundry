@@ -1371,7 +1371,7 @@ function getResult(d,info){
             }
         });
     }else if(d==12){
-        msg = "您已完成一次抽奖";
+        msg = "下单之后才有机会";
         var w = $(document).width();
         var l;
         var r_w = $("#result").width();
