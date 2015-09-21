@@ -63,9 +63,9 @@
                             <thead>
                             <tr>
                                 <th>用户名</th>
-                                <th>证件类型</th>
-                                <th>证件号码</th>
-                                <th>状态</th>
+                                <th>微信名称</th>
+                                <th>手机号</th>
+                                <th>积分</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
@@ -77,20 +77,20 @@
                                     ${(e.name)!""}
                                     </td>
                                     <td>
-                                    ${(e.cardType)!"无"}
+                                    ${(e.nickName)!"无"}
                                     </td>
                                     <td>
-                                    ${(e.cardNum)!"未填写"}
+                                    ${(e.moible)!"未填写"}
                                     </td>
                                     <td>
-                                    ${(e.status)!"未填写"}
+                                    ${(e.recharge)!"0"}
                                     </td>
                                     <td>
-                                    ${(e.createTime)!"11"}
+                                    ${(e.createTime)!""}
                                     </td>
                                     <td>
                                         <!-- Icons -->
-                                        <a href="static/business/user/update.htm?userId=${(e.name)!""}" title="编辑">
+                                        <a href="#" title="编辑">
                                             编辑
                                         </a>
                                     </td>

@@ -23,10 +23,6 @@
                 <div class="s-item bdb-1px">
                     <select id="address_provice">
                             
-                        <option value="standard">选择地址</option>
-                            
-                        <option value="正定县">正定县</option>
-                            
                         <option value="经贸学院">经贸学院</option>
                     </select>
                 </div>

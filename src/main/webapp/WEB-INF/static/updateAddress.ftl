@@ -21,8 +21,6 @@
                 </div>
                 <div class="s-item bdb-1px">
                     <select id="update_provice">
-                            <option value="">选择地址</option>
-                            <option value="正定县" <#if e.provice=='正定县'> selected</#if> > 正定县</option>
                             <option value="经贸学院" <#if e.provice=='经贸学院'> selected</#if>>经贸学院</option>
                     </select>
                 </div>
