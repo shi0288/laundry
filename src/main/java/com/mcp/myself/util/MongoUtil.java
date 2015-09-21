@@ -105,6 +105,17 @@ public class MongoUtil {
         return collection.findOne(query);
     }
 
+    public static int update(String table,DBObject beforeDb,DBObject backDb){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        return collection.update(beforeDb,backDb).getN();
+    }
+
+    public static List<DBObject> query(String table,DBObject findObject){
+        DBCollection collection = MongoUtil.getDb().getCollection(table);
+        DBCursor cur = collection.find(findObject);
+        return cur.toArray();
+    }
+
     public static void main(String[] args) {
         DBObject dbObject=new BasicDBObject();
         dbObject.put("name","w44");

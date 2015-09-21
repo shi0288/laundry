@@ -31,6 +31,9 @@
                     <li>
                         <a href="../../ljj/order/list.htm?status=1200">派送成功(${sendCount})</a>
                     </li>
+                    <li>
+                        <a href="../../ljj/order/list.htm?status=1300">取消订单(${cancelCount})</a>
+                    </li>
                 </ul>
                 <#--<!--breadcrumbs end &ndash;&gt;-->
             </div>
@@ -66,6 +69,7 @@
                                     <option <#if (cond.status)??> <#if  cond.status==1100>selected</#if> </#if> value="1100">派送中</option>
                                     <option <#if (cond.status)??> <#if  cond.status==1101>selected</#if> </#if>  value="1101">已经打印</option>
                                     <option <#if (cond.status)??> <#if  cond.status==1200>selected</#if> </#if>  value="1200">确认收货</option>
+                                    <option <#if (cond.status)??> <#if  cond.status==1300>selected</#if> </#if>  value="1200">取消订单</option>
                                 </select>
                             </td>
                         </tr>
@@ -132,11 +136,13 @@
                                    <#if e.payType?? > <#if  '${e.payType}'=="0">货到付款<#elseif  '${e.payType}'=="1">微信支付</#if>  </#if>
                                 </td>
                                 <td>
-                                    <a href="../../ljj/order/update.htm?torderId=${e._id}" title="查看详情">
+                                    <a href="../../ljj/order/update.htm?torderId=${e._id}&name=${e.name}" title="查看详情">
                                         查看详情
                                     </a>
-                                    <#if  '${e.status}'=='1100'><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101)" title="打印">打印</a>
-                                    <#elseif  '${e.status}'=='1101'> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200)" title="派送成功">派送成功</a>
+                                    <#if  e.status==1100><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101,${e.name})" title="打印">打印</a>
+                                    <#elseif  e.status==1101> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200,${e.name})" title="派送成功">派送成功</a>
+                                    </#if>
+                                    <#if  e.status!=1300><a href="javascript:void(0)" onclick="printOrder('${e._id}',1300,${e.name})" title="取消订单">取消订单</a>
                                     </#if>
                                 </td>
                             </tr>
@@ -180,7 +186,7 @@
             $('#query_form').submit();
         });
     });
-    function printOrder(id,orderType){
+    function printOrder(id,orderType,name){
         $.ajax({
             type: "POST",
             url: "../../ljj/order/getDetail.json?timestamp=" + new Date().getTime(),
@@ -188,7 +194,8 @@
             cache: false,
             data: {
                 torderId: id,
-                status:orderType
+                status:orderType,
+                name:name
             },
             success: function (result) {
                 var res = result.result;
@@ -198,6 +205,10 @@
                     }else if(orderType==1200){
                         bootbox.alert("修改成功，将刷新页面", function () {
                             location.href = "list.htm?status=1101";
+                        });
+                    }else if(orderType==1300){
+                        bootbox.alert("修改成功，将刷新页面", function () {
+                            location.href = "list.htm?status=1100";
                         });
                     }
                 } else {

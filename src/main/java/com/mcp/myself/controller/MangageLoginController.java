@@ -423,8 +423,15 @@ public class MangageLoginController {
         dbObject.put("orderPrice", orderPrice);
         dbObject.put("status", 1100);
         dbObject.put("createTime", System.currentTimeMillis());
+        //为了活动增加
+        DBObject dbActyvity = new BasicDBObject();
+        dbActyvity.put("activeId","1001");
+        dbActyvity.put("userName",name);
+        dbActyvity.put("createTime", System.currentTimeMillis());
+        dbActyvity.put("activeState",0);
         try {
             MongoUtil.insert(MongoConst.MONGO_ORDERS, dbObject);
+            MongoUtil.insert(MongoConst.MONGO_ACTIVITY, dbActyvity);//为了活动增加
             json.setResult(true);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             WeixinMessage.sendOrderPaySuccess(name, sdf.format(new Date()));

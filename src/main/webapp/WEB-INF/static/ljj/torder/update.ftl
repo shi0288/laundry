@@ -108,6 +108,46 @@
                     </div>
                 </div>
             </div>
+
+
+            <div class="panel-body">
+                <div class="adv-table">
+                    <div role="grid" class="dataTables_wrapper" id="hidden-table-info_wrapper">
+                        <table class="table table-striped table-advance table-hover">
+                            <thead>
+                            <tr>
+                                <th>活动ID</th>
+                                <th>赠品名称</th>
+                                <th>活动描述</th>
+                                <th>数量</th>
+                            </tr>
+                            </thead>
+                            <tbody role="alert" aria-live="polite" aria-relevant="all">
+                            <#list activity as e>
+                            <tr class="gradeA odd">
+                                <td>
+                                ${e.activeId}
+                                </td>
+                                <td>
+                                ${e.productName}
+                                </td>
+                                <td>
+                                ${e.activeName}
+                                </td>
+                                <td>
+                                ${e.productNum}
+                                </td>
+                            </tr>
+                            </#list>
+                            </tbody>
+                        </table>
+                        <div style="height: 30px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </section>
     </section>
 </section>
