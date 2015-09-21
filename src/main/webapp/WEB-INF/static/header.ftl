@@ -404,7 +404,7 @@
                         $(".tool-button").css("padding-top", p_t + "px");
                         $("#begin").click(function(){
                             var d=0;
-                            sessionStorage.setItem("name","111111");
+                            //sessionStorage.setItem("name","111111");
                             //sessionStorage.setItem("passWord","123456");
                             var body={
                                 activeId:"1001",
