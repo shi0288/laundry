@@ -6,6 +6,7 @@ import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -18,6 +19,9 @@ import java.util.Random;
  */
 @Service
 public class ActivityService extends BaseService{
+
+    private static Logger logger = Logger.getLogger(ActivityService.class);
+
 
     private String MONGO_NAME=MongoConst.MONGO_ACTIVITY;
 
@@ -90,7 +94,6 @@ public class ActivityService extends BaseService{
     private int randomNo() {
         Random random = new Random();
         int n = random.nextInt(100);
-        System.out.println("n:" + n);
         return n;
     }
     private boolean getCheck(String userName, String activeId) {
@@ -98,7 +101,6 @@ public class ActivityService extends BaseService{
         DBObject param = new BasicDBObject();
         param.put("activeId", activeId);
         param.put("userName",userName);
-        param.put("currentDate", getDate());
         int count = MongoUtil.queryCount(MongoConst.MONGO_ACTIVITY, param);
         if (count == 0) {
             chou = false;
@@ -110,7 +112,6 @@ public class ActivityService extends BaseService{
         DBObject param = new BasicDBObject();
         param.put("activeId",activeId);
         param.put("userName",userName);
-        //param.put("currentDate", getDate());
         int count = MongoUtil.queryCount(MongoConst.MONGO_ACTIVITY, param);
         if(count<num){
             chou = false;
@@ -123,7 +124,6 @@ public class ActivityService extends BaseService{
         param.put("activeId",activeId);
         param.put("userName",userName);
         param.put("activeState",state);
-        //param.put("currentDate", getDate());
         int count = MongoUtil.queryCount(MongoConst.MONGO_ACTIVITY, param);
         if(count<1){
             chou = false;

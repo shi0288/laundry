@@ -404,14 +404,10 @@
                         $(".tool-button").css("padding-top", p_t + "px");
                         $("#begin").click(function(){
                             var d=0;
-                            //sessionStorage.setItem("name","111111");
-                            //sessionStorage.setItem("passWord","123456");
                             var body={
                                 activeId:"1001",
-                                actitityType:"zhuanpan",
-                                userName: sessionStorage.getItem("name")
-                                //passWord: sessionStorage.getItem("passWord")
-                            }
+                                userName: localStorage.getItem("name")
+                            };
                             $.ajax({
                                 type: "POST",
                                 url: "/laundry/activity/zhuanpan.json?timestamp="+ new Date().getTime(),
@@ -423,7 +419,6 @@
                                 },
                                 success: function (result) {
                                     var repCode = result.result;
-                                    //console.log(result.object);
                                     if (repCode) {
                                         if(result.object.check){
                                             d=result.object.num;

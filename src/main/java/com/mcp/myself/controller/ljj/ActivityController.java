@@ -5,6 +5,7 @@ import com.mcp.myself.bean.JsonVo;
 import com.mcp.myself.service.ActivityService;
 import com.mongodb.DBObject;
 import net.sf.json.JSONObject;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +16,10 @@ import java.io.IOException;
 @Controller
 @RequestMapping("activity")
 public class ActivityController extends BaseAction {
+
+
+    private static Logger logger = Logger.getLogger(ActivityController.class);
+
 
     @Autowired
     private ActivityService activityService;
@@ -62,7 +67,6 @@ public class ActivityController extends BaseAction {
     public JsonVo<DBObject> ggLe(String body) throws IOException {
         Activity activity = new Activity();
         JsonVo json = new JsonVo();
-        System.out.println("body:"+body);
         JSONObject jsonObject = JSONObject.fromObject(body);
         String userName = jsonObject.getString("userName");
         String activeId = jsonObject.getString("activeId");
@@ -103,8 +107,6 @@ public class ActivityController extends BaseAction {
         JSONObject jsonObject = JSONObject.fromObject(body);
         String userName = jsonObject.getString("userName");
         String activeId = jsonObject.getString("activeId");
-//        String passWord = jsonObject.getString("passWord");
-        String actitityType = jsonObject.getString("actitityType");
         //1.判断是否登录
         if(userName==null||"".equals(userName)){
             json.setResult(false);

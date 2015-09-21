@@ -9,9 +9,9 @@
     <div id="info">
     </div>
 
-    <div id="tools">
+    <div id="tools" style="padding-right: 10px;">
       <span id="share">
-      <img src="" /><span id="t-info"></span>
+      <span id="t-info"></span>
     </span>
     </div>
 </div>

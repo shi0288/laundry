@@ -1364,7 +1364,7 @@ function getResult(d,info){
                 var l;
                 var r_w = $("#result").width();
                 l = w/2 - (r_w/2);
-                $("#result").css("left", l + "px");
+                $("#result").css("left", l-10 + "px");
                 $("#info").text(msg);
                 $("#t-info").text(info);
                 $("#result").show();
@@ -1376,7 +1376,7 @@ function getResult(d,info){
         var l;
         var r_w = $("#result").width();
         l = w/2 - (r_w/2);
-        $("#result").css("left", l + "px");
+        $("#result").css("left", l-10 + "px");
         $("#info").text(msg);
         $("#t-info").text(info);
         $("#result").show();
@@ -1386,7 +1386,7 @@ function getResult(d,info){
         var l;
         var r_w = $("#result").width();
         l = w/2 - (r_w/2);
-        $("#result").css("left", l + "px");
+        $("#result").css("left", l-10 + "px");
         $("#info").text(msg);
         $("#t-info").text(info);
         $("#result").show();
