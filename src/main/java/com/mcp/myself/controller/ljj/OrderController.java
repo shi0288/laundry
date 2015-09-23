@@ -90,23 +90,25 @@ public class OrderController extends BaseAction {
         JsonVo<DBObject> json = new JsonVo<DBObject>();
         DBObject dbObject = orderService.getById(torderId);
         String s = dbObject.toString();
+        if(status==1101){
+            List list = orderService.getByName(name);
+            String str[] = {s,list.toString()};
+            json.setObject(str);
+        }
 
-        List list = orderService.getByName(name);
-        String str[] = {s,list.toString()};
 
         DBObject upObject = new BasicDBObject();
         upObject.put("_id", new ObjectId(torderId));
         upObject.put("status", status);
         boolean update = orderService.update(upObject);
-
-        DBCollection activityCollection = MongoUtil.getDb().getCollection(MongoConst.MONGO_ACTIVITY);
-        DBObject beforObj = new BasicDBObject();
-        beforObj.put("activeState", 1);
-        beforObj.put("userName", name);
-        BasicDBObject activitySet = new BasicDBObject("$set", new BasicDBObject("activeState", 2));
-        activityCollection.update(beforObj, activitySet, false, true);
-
         if(status==1200){
+            DBCollection activityCollection = MongoUtil.getDb().getCollection(MongoConst.MONGO_ACTIVITY);
+            DBObject beforObj = new BasicDBObject();
+            beforObj.put("activeState", 1);
+            beforObj.put("userName", name);
+            BasicDBObject activitySet = new BasicDBObject("$set", new BasicDBObject("activeState", 2));
+            activityCollection.update(beforObj, activitySet, false, true);
+
             String openId= (String) dbObject.get("name");
             String orderPrice= (String) dbObject.get("orderPrice");
             BasicDBObject query = new BasicDBObject();
@@ -124,7 +126,6 @@ public class OrderController extends BaseAction {
                 WeixinMessage.sendOrderFinish(openId,torderId);
             }
         }
-        json.setObject(str);
         json.setResult(update);
         return json;
     }

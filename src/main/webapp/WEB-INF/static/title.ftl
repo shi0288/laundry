@@ -3,7 +3,7 @@
     <div data-role="header" data-position="fixed">
         <div class="com-header-area">
             <a href="main.html" class="com-header-logo"></a>
-            <dfn></dfn>
+            <dfn name="schoolName" style="float: left; margin: 12px 0 8px 0px;font-size: 15px;font-style: normal;"></dfn><a style="float: left; margin: 12px 0 8px 0px;font-size: 15px;color: #AF4141;" href="school.html" >[切换]</a>
             <p>
                 <a href="javascript:toAmount()" class="com-header-user ">
                     <del></del>

@@ -52,6 +52,18 @@ public class MangageLoginController {
 
 
     @ResponseBody
+    @RequestMapping(value = "saleAdmin.json", method = RequestMethod.POST)
+    public JsonVo saleAdmin(@RequestParam(value = "username") String username,
+                             @RequestParam(value = "password") String password,
+                             HttpServletRequest request, ModelMap modelMap) {
+        JsonVo<String> json = new JsonVo<String>();
+        json.setResult(adminService.saleAdmin(username, password, request));
+        return json;
+    }
+
+
+
+    @ResponseBody
     @RequestMapping(value = "register.json", method = RequestMethod.POST)
     public JsonVo register(@RequestParam(value = "name") String name,
                            @RequestParam(value = "password") String password,
@@ -293,6 +305,8 @@ public class MangageLoginController {
     @ResponseBody
     @RequestMapping(value = "commitOrder.json", method = RequestMethod.POST)
     public JsonVo commitOrder(@RequestParam(value = "name") String name,
+                              @RequestParam(value = "schoolId") String schoolId,
+                              @RequestParam(value = "schoolName") String schoolName,
                               @RequestParam(value = "conName") String conName,
                               @RequestParam(value = "conMobile") String conMobile,
                               @RequestParam(value = "conAddress") String conAddress,
@@ -304,6 +318,8 @@ public class MangageLoginController {
         JsonVo<String> json = new JsonVo<String>();
         DBObject dbObject = new BasicDBObject();
         dbObject.put("name", name);
+        dbObject.put("schoolId", schoolId);
+        dbObject.put("schoolName", schoolName);
         dbObject.put("conName", conName);
         dbObject.put("conMobile", conMobile);
         dbObject.put("conAddress", conAddress);
@@ -311,12 +327,10 @@ public class MangageLoginController {
         dbObject.put("payType", payType);
         //处理订单
         String[] orders = orderStr.split(";");
-        double yuanOrderPrice = 0;
+      //  double yuanOrderPrice = 0;
         boolean is = true;
         String tempStr = "";
         Map<String, Integer> map = new HashMap<String, Integer>();
-
-        String ordersNumber = String.valueOf(orders.length);
         for (int i = 0; i < orders.length; i++) {
             JSONObject jsonObject = null;
             try {
@@ -325,11 +339,11 @@ public class MangageLoginController {
                 int num = Integer.parseInt((String) jsonObject.get("numbers"));
                 //缓存商品和数量
                 map.put(proId, num);
-                double price = Double.parseDouble((String) jsonObject.get("price"));
+                //double price = Double.parseDouble((String) jsonObject.get("price"));
                 DBObject productObj = MongoUtil.findOne(MongoConst.MONGO_PRODUCT, proId);
                 int yuanNum = (int) productObj.get("num");
                 int status = (int) productObj.get("status");
-                double yuanPrice = Double.parseDouble((String) productObj.get("price"));
+               // double yuanPrice = Double.parseDouble((String) productObj.get("price"));
                 tempStr = (String) productObj.get("name");
                 //商品状态不出售
                 if (status != 0) {
@@ -353,13 +367,13 @@ public class MangageLoginController {
                     break;
                 }
                 //商品价格不一致
-                if (price != yuanPrice) {
-                    json.setResult(false);
-                    json.setMsg("对不起," + tempStr + "：商品数据有问题，请重试！");
-                    is = false;
-                    break;
-                }
-                yuanOrderPrice = (yuanOrderPrice * 100 + (yuanPrice * 100 * num)) / 100;
+//                if (price != yuanPrice) {
+//                    json.setResult(false);
+//                    json.setMsg("对不起," + tempStr + "：商品数据有问题，请重试！");
+//                    is = false;
+//                    break;
+//                }
+              //  yuanOrderPrice = (yuanOrderPrice * 100 + (yuanPrice * 100 * num)) / 100;
             } catch (JSONException e) {
                 e.printStackTrace();
                 json.setResult(false);
@@ -375,32 +389,32 @@ public class MangageLoginController {
 
         //-------------------活动减费逻辑
 
-        //外送费校验
-        DBCursor dbCursor = MongoUtil.getDb().getCollection(MongoConst.MONGO_INITPRICE).find();
-        List list = dbCursor.toArray();
-        if (list.size() == 1) {
-            DBObject initPriceObj = (DBObject) list.get(0);
-            double initPrice = Double.parseDouble(initPriceObj.get("price").toString());
-            if (yuanOrderPrice < initPrice) {
-                double sendPrice = Double.parseDouble(initPriceObj.get("sendPrice").toString());
-                yuanOrderPrice = (yuanOrderPrice * 100 + (sendPrice * 100)) / 100;
-            }
-        }
+//        //外送费校验
+//        DBCursor dbCursor = MongoUtil.getDb().getCollection(MongoConst.MONGO_INITPRICE).find();
+//        List list = dbCursor.toArray();
+//        if (list.size() == 1) {
+//            DBObject initPriceObj = (DBObject) list.get(0);
+//            double initPrice = Double.parseDouble(initPriceObj.get("price").toString());
+//            if (yuanOrderPrice < initPrice) {
+//                double sendPrice = Double.parseDouble(initPriceObj.get("sendPrice").toString());
+//                yuanOrderPrice = (yuanOrderPrice * 100 + (sendPrice * 100)) / 100;
+//            }
+//        }
 
         //.....
 
-        double tempOrderPrice = Double.parseDouble(orderPrice);
+//        double tempOrderPrice = Double.parseDouble(orderPrice);
+//
+//        logger.info("============传的钱");
+//        logger.info(tempOrderPrice);
+//        logger.info("============算的钱");
+//        logger.info(yuanOrderPrice);
 
-        logger.info("============传的钱");
-        logger.info(tempOrderPrice);
-        logger.info("============算的钱");
-        logger.info(yuanOrderPrice);
-
-        if (tempOrderPrice != yuanOrderPrice) {
-            json.setResult(false);
-            json.setMsg("对不起,订单金额数据有问题，请重试！");
-            return json;
-        }
+//        if (tempOrderPrice != yuanOrderPrice) {
+//            json.setResult(false);
+//            json.setMsg("对不起,订单金额数据有问题，请重试！");
+//            return json;
+//        }
 
         //0 货到付款  1微信  2支付宝
         if (payType == 1) {
@@ -421,7 +435,8 @@ public class MangageLoginController {
         }
 
         dbObject.put("orderPrice", orderPrice);
-        dbObject.put("status", 1100);
+        //直接1101  不再打印
+        dbObject.put("status", 1101);
         dbObject.put("createTime", System.currentTimeMillis());
         //为了活动增加
         DBObject dbActyvity = new BasicDBObject();

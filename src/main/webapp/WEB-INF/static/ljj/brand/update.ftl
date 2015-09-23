@@ -12,7 +12,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                修改品牌信息
+                                修改学校信息
                             </header>
                             <div class="panel-body">
                                 <div class="form-group">
@@ -24,11 +24,24 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="col-sm-2 control-label">图片上传</label>
+                                    <label class="col-sm-2 control-label">用户名</label>
                                     <div class="col-sm-10">
-                                        <input type="file"  class="form-control" name="file" id="inputFile"/>
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="userName"
+                                               id="userNameme" value="${e.userName!''}">
+                                        </input>
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">名称</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="passWord"
+                                               value="${e.passWord!''}" id="passWord">
+                                        </input>
+                                    </div>
+                                </div>
+
 
                                 <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">状态</label>

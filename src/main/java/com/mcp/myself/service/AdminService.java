@@ -48,6 +48,28 @@ public class AdminService {
         return false;
     }
 
+    public boolean saleAdmin(String name, String password,
+                              HttpServletRequest request) {
+        DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_SCHOOLS);
+        BasicDBObject query = new BasicDBObject();
+        query.put("userName", name);
+        query.put("passWord", MD5.MD5Encode(password));
+        List list = collection.find(query).toArray();
+        if (list.size() == 1) {
+            DBObject dbObject = (DBObject) list.get(0);
+            HttpSession session = request.getSession();
+            dbObject.removeField("passWord");
+            session.setAttribute(SystemConstant.SESSION_SALE,
+                    name);
+            String id= ((ObjectId)dbObject.get("_id")).toString();
+            session.setAttribute("saleId",
+                    id);
+            return true;
+        }
+        return false;
+    }
+
+
     public boolean register(String name, String password,String openId) {
         DBCollection collection = MongoUtil.getDb().getCollection(MongoConst.MONGO_MEMBER);
         BasicDBObject query = new BasicDBObject();

@@ -54,10 +54,10 @@ public class IndexController {
         return "sort";
     }
 
-    @RequestMapping("brand.html")
+    @RequestMapping("school.html")
     public String brand(ModelMap modelMap) {
         modelMap = indexService.getIndexBrand(modelMap);
-        return "brand";
+        return "school";
     }
 
     @RequestMapping("product.html")
@@ -242,8 +242,6 @@ public class IndexController {
     }
 
 
-
-
     @RequestMapping("toAccount.html")
     public String toAccount(ModelMap modelMap, HttpServletRequest request) {
         return "jump";
@@ -304,6 +302,12 @@ public class IndexController {
     @RequestMapping("haohao/login.html")
     public String ljjAdmin(ModelMap modelMap) {
         return "ljj/login";
+    }
+
+
+    @RequestMapping("student/login.html")
+    public String saleAdmin(ModelMap modelMap) {
+        return "sale/login";
     }
 
     @RequestMapping("zhuanpan.html")

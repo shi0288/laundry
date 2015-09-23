@@ -155,8 +155,6 @@ public class PayCoreUtil {
             return prepay_id;
         }
         prepay_id  = (String) map.get("prepay_id");
-        System.out.println("获取交易ID:  "+prepay_id);
-
         SortedMap<String, String> finalpackage = new TreeMap<String, String>();
         String timestamp = String.valueOf(System.currentTimeMillis() / 1000);
         String packages = "prepay_id="+prepay_id;
@@ -193,7 +191,6 @@ public class PayCoreUtil {
         prePayObj.put("createTime",System.currentTimeMillis());
         prePayObj.put("prepay_id",prepay_id);
         prePayCollection.insert(prePayObj);
-        System.out.println("V3 jsApi package:"+resultJSON.toString());
         return prepay_id;
 
     }

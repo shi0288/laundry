@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public class BrandService extends BaseService{
 
 
-    private String MONGO_NAME=MongoConst.MONGO_BRAND;
+    private String MONGO_NAME=MongoConst.MONGO_SCHOOLS;
 
 
     public ModelMap getAllListPage(ModelMap modelMap,HttpServletRequest request) {

@@ -226,8 +226,18 @@ public class WeiXinController {
                 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 String openId=m.get("openid").toString();
                 WeixinMessage.sendOrderPaySuccess(openId, sdf.format(new Date()));
-                BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1100));
+                //直接1101  不再打印
+                BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1101));
                 MongoUtil.getDb().getCollection(MongoConst.MONGO_ORDERS).update(dbObject, set, false, false);
+
+                //增加活动
+                DBObject dbActyvity = new BasicDBObject();
+                dbActyvity.put("activeId","1001");
+                dbActyvity.put("userName",openId);
+                dbActyvity.put("createTime", System.currentTimeMillis());
+                dbActyvity.put("activeState",0);
+                MongoUtil.insert(MongoConst.MONGO_ACTIVITY, dbActyvity);//为了活动增加
+
             }
             resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>"
                     + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";

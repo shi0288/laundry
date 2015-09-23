@@ -64,6 +64,17 @@
         <url-pattern>/ljj/*</url-pattern>
     </filter-mapping>
 
+    <!-- 过滤ftl直接访问 -->
+    <filter>
+        <filter-name>sale</filter-name>
+        <filter-class>com.mcp.myself.filter.SaleFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>sale</filter-name>
+        <url-pattern>/sale/*</url-pattern>
+    </filter-mapping>
+
 
 
       <!-- 设置  spring MVC字符集 -->

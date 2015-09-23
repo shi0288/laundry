@@ -21,7 +21,7 @@
                         <tr>
                             <td colspan="3" style="font-size: 14px;font-weight:bold;">订单信息：<span
                                     style="color:red"><#if o.status==1101>派送中<#elseif o.status==1100>等待派送<#elseif o.status==1200>
-                                已完成<#elseif o.status==1000><a href="#" onclick="goToPay('${(o._id)!""}')">继续付款</a></#if></span>，${(o.orderPrice)!""}
+                                已完成<#elseif o.status==1300>已取消<#elseif o.status==1000><a href="#" onclick="goToPay('${(o._id)!""}')">点击继续付款</a></#if></span>，${(o.orderPrice)!""}
                                 元，${(o.createTime?number?number_to_datetime)!""}</td>
                         </tr>
                         <tr>

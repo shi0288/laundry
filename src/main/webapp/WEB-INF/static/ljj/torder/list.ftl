@@ -102,6 +102,7 @@
                             <thead>
                             <tr>
                                 <th>账户</th>
+                                <th>销售点</th>
                                 <th>金额</th>
                                 <th>收货人</th>
                                 <th>联系</th>
@@ -116,6 +117,9 @@
                             <tr class="gradeA odd">
                                 <td>
                                   ${e.name}
+                                </td>
+                                <td>
+                                ${(e.schoolName)!'无'}
                                 </td>
                                 <td>
                                 ${e.orderPrice}
@@ -139,10 +143,10 @@
                                     <a href="../../ljj/order/update.htm?torderId=${e._id}&name=${e.name}" title="查看详情">
                                         查看详情
                                     </a>
-                                    <#if  e.status==1100><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101,${e.name})" title="打印">打印</a>
-                                    <#elseif  e.status==1101> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200,${e.name})" title="派送成功">派送成功</a>
+                                    <#if  e.status==1100><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101,'${e.name}')" title="打印">打印</a>
+                                    <#elseif  e.status==1101> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200,'${e.name}')" title="派送成功">派送成功</a>
                                     </#if>
-                                    <#if  e.status!=1300><a href="javascript:void(0)" onclick="printOrder('${e._id}',1300,${e.name})" title="取消订单">取消订单</a>
+                                    <#if  e.status!=1300><a href="javascript:void(0)" onclick="printOrder('${e._id}',1300,'${e.name}')" title="取消订单">取消订单</a>
                                     </#if>
                                 </td>
                             </tr>
@@ -162,22 +166,6 @@
 <!--main content end-->
 <script type="text/javascript">
     $(function () {
-        $('#update_user_form').ajaxForm({
-            beforeSubmit: function(){
-                $('#submit').button('loading');
-            },
-            success: function (data) {
-                $('#submit').button('reset');
-                if (data.result) {
-                    bootbox.alert("修改成功，将刷新页面", function () {
-                        location.href = "../../ljj/sortPro/list.htm";
-                    });
-                } else {
-                    bootbox.alert(data.msg, function () {
-                    });
-                }
-            }
-        });
         $('#back').click(function(){
             location.href = "../../ljj/torder/list.htm";
         })

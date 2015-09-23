@@ -10,7 +10,7 @@
     <META HTTP-EQUIV="Expires" CONTENT="0">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="static/common/css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.7"/>
+    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.8"/>
     <script src="static/common/js/jquery-1.8.2.min.js"></script>
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
@@ -52,6 +52,17 @@
                     $(this).html(order.length);
                 });
             }
+            var schoolName = localStorage.getItem("schoolName");
+            if (!schoolName) {
+                $("dfn[name='schoolName']").each(function (index) {
+                    $(this).html('请选择');
+                });
+            } else {
+                $("dfn[name='schoolName']").each(function (index) {
+                    $(this).html(schoolName.split(">")[1]);
+                });
+            }
+
             jQuery(function ($) {
                 var browser={
                     versions:function(){
@@ -389,7 +400,7 @@
                     });
                     changeImg($("#captcha-img"));
                 }else if (str == '/sort.html') {
-                }else if (str == '/brand.html') {
+                }else if (str == '/school.html') {
                 }else if (str == '/sort.html') {
                 }else if (str == '/orders.html') {
                 }else if (str == '/xieyi.html') {
@@ -454,6 +465,7 @@
                     changeImg($("#captcha-img"));
                 } else if (str == '/acount.html') {
                     var name = localStorage.getItem("name");
+                    $("#acountName").html(name);
                     $("#quanbudingdan").attr("href", "orders.html?name=" + name + "&status=9999");
                     $("#waitDeliveryOrderList").attr("href", "orders.html?name=" + name + "&status=1101");
                     $("#waite4Payment").attr("href", "orders.html?name=" + name + "&status=1000");

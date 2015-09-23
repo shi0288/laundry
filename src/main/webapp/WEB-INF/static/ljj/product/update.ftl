@@ -62,17 +62,6 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label">品牌</label>
-                                    <div class="col-sm-10">
-                                        <select name="brandId" class="form-control">
-                                            <option value="">请选择所属品牌</option>
-                                        <#list brand as e>
-                                            <option value="${e._id}"  <#if e._id==p.brandId>selected</#if> >${e.name}</option>
-                                        </#list>
-                                        </select>
-                                    </div>
-                                </div>
 
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">原价</label>

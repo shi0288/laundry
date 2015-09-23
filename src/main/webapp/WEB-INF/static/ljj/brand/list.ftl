@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-lg-8">
                         <a class="btn btn-primary" style="float:right;" data-toggle="modal"
-                           data-target="#myModal">增加品牌</a>
+                           data-target="#myModal">增加学校</a>
                     </div>
                 </div>
             </header>
@@ -50,7 +50,8 @@
                         <table class="table table-striped table-advance table-hover">
                             <thead>
                             <tr>
-                                <th>品牌名称</th>
+                                <th>增加学校名称</th>
+                                <th>用户名</th>
                                 <th>状态</th>
                                 <th>创建时间</th>
                                 <th>操作</th>
@@ -61,6 +62,9 @@
                             <tr class="gradeA odd">
                                 <td>
                                 ${e.name}
+                                </td>
+                                <td>
+                                ${e.userName!''}
                                 </td>
                                 <td>
                                     <#if e.status==0>
@@ -104,7 +108,7 @@
                     &times;
                 </button>
                 <h4 class="modal-title" id="myModalLabel">
-                    添加新品牌
+                    添加新学校
                 </h4>
             </div>
             <div class="modal-body">
@@ -120,15 +124,26 @@
                                         <div class="col-sm-10">
                                             <input type="text" style="font-size:15px;width: 300px;" class="form-control"
                                                    name="name"
-                                                   placeholder="输入品牌名称" id="name">
+                                                   placeholder="输入学校名称" id="name">
                                             </input>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">图片上传</label>
+                                        <label class="col-sm-2 control-label">用户名</label>
                                         <div class="col-sm-10">
-                                            <input type="file"  class="form-control" name="file" id="inputFile"/>
+                                            <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                                   name="userName"
+                                                   placeholder="输入用户名" id="userNameme">
+                                            </input>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">名称</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                                   name="passWord"
+                                                   placeholder="输入密码" id="passWord">
+                                            </input>
                                         </div>
                                     </div>
 

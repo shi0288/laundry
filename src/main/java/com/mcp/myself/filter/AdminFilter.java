@@ -30,11 +30,7 @@ public class AdminFilter implements Filter {
 		DBObject admin = (DBObject) request.getSession().getAttribute(
 				SystemConstant.SESSION_ADMIN);
 		if (admin == null) {
-			String path = request.getContextPath();
-			String basePath = request.getScheme() + "://"
-					+ request.getServerName() + ":" + request.getServerPort()
-					+ path;
-			response.sendRedirect(basePath + "/haohao/login.html");
+			response.sendRedirect("/laundry/haohao/login.html");
 		} else {
 			chain.doFilter(request, response);
 		}

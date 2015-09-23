@@ -17,6 +17,13 @@
                             </header>
                             <div class="panel-body">
                                 <div class="form-group">
+                                    <label class="col-sm-2 col-sm-2 control-label">售卖点：</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" style="font-size:15px;width: 300px;" class="form-control"
+                                               name="schoolName" id="schoolName" value="${(e.schoolName)!'无'}"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-sm-2 col-sm-2 control-label">收货人姓名：</label>
                                     <div class="col-sm-10">
                                         <input type="text" style="font-size:15px;width: 300px;" class="form-control"
@@ -154,22 +161,6 @@
 <!--main content end-->
 <script type="text/javascript">
     $(function () {
-        $('#update_user_form').ajaxForm({
-            beforeSubmit: function(){
-                $('#submit').button('loading');
-            },
-            success: function (data) {
-                $('#submit').button('reset');
-                if (data.result) {
-                    bootbox.alert("修改成功，将刷新页面", function () {
-                        location.href = "../../ljj/sortPro/list.htm";
-                    });
-                } else {
-                    bootbox.alert(data.msg, function () {
-                    });
-                }
-            }
-        });
         $('#back').click(function(){
             location.href = "../../ljj/torder/list.htm";
         })

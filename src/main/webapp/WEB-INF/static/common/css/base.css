@@ -163,8 +163,8 @@ body, html, h1, h2, h3, h4, p, ul, li, form {
 .pxui-tab-nav a.selected:nth-child(1) i{background-position:-33px 0;}
 .pxui-tab-nav a:nth-child(2) i{background-position:-120px 0;}
 .pxui-tab-nav a.selected:nth-child(2) i{background-position:-91px 0;}
-.pxui-tab-nav a:nth-child(3) i{background-position:-149px 0;}
-.pxui-tab-nav a:nth-child(4) i{background-position:-178px 0;}
+.pxui-tab-nav a:nth-child(3) i{background-position:-178px 0;}
+.pxui-tab-nav a:nth-child(4) i{background-position:-149px 0;}
 
 a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #575757;}
 
@@ -406,7 +406,7 @@ a:visited,a:link,a:hover,a:active,a{text-decoration:none;cursor:pointer;color: #
     float: left;
     border-bottom: 1px dashed #d7d7d7;
     padding: 0;
-    width: 25%;
+    /*width: 25%;*/
 }
 
 .brandbox a {

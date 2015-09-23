@@ -92,41 +92,43 @@ function dealPrice() {
             total += totalPrice;
         }
     });
-    if(total>0){
-        $.ajax({
-            type: "POST",
-            url: "manage/initPrice.json?timestamp=" + new Date().getTime(),
-            dataType: "json",
-            cache: false,
-            data: {},
-            success: function (rst) {
-                if (rst.result) {
-                    if (rst.object == null || rst.object == undefined) {
-                    } else {
-                        var initPriceObj = JSON.parse(rst.object);
-                        var initPrice = initPriceObj.price * 1;
-                        if (total < initPrice) {
-                            var sendPrice = initPriceObj.sendPrice * 1;
-                            total+=sendPrice;
-                            $("#ff7").show();
-                            $("#ff8").hide();
-                        }else{
-                            $("#ff7").hide();
-                            $("#ff8").show();
-                        }
-                    }
-                    $(".ff6").html(total.toFixed(2));
-                } else {
-                    alert("操作失败，请重试");
-                }
-            },
-            error: function () {
-                alert('请求出错');
-            }
-        });
-    }else{
-        $(".ff6").html(total.toFixed(2));
-    }
+    //if(total>0){
+    //    $.ajax({
+    //        type: "POST",
+    //        url: "manage/initPrice.json?timestamp=" + new Date().getTime(),
+    //        dataType: "json",
+    //        cache: false,
+    //        data: {},
+    //        success: function (rst) {
+    //            if (rst.result) {
+    //                if (rst.object == null || rst.object == undefined) {
+    //                } else {
+    //                    var initPriceObj = JSON.parse(rst.object);
+    //                    var initPrice = initPriceObj.price * 1;
+    //                    if (total < initPrice) {
+    //                        var sendPrice = initPriceObj.sendPrice * 1;
+    //                        total+=sendPrice;
+    //                        $("#ff7").show();
+    //                        $("#ff8").hide();
+    //                    }else{
+    //                        $("#ff7").hide();
+    //                        $("#ff8").show();
+    //                    }
+    //                }
+    //                $(".ff6").html(total.toFixed(2));
+    //            } else {
+    //                alert("操作失败，请重试");
+    //            }
+    //        },
+    //        error: function () {
+    //            alert('请求出错');
+    //        }
+    //    });
+    //}else{
+    //    $(".ff6").html(total.toFixed(2));
+    //}
+
+    $(".ff6").html(total.toFixed(2));
 
 
 
@@ -559,6 +561,8 @@ function commitOrder() {
 
     before();
     var name = localStorage.getItem("name");
+    var schoolId = localStorage.getItem("schoolId");
+    var schoolName = localStorage.getItem("schoolName");
     if (name) {
         var conName = $("#conName").html();
         var conMobile = $("#conMobile").html();
@@ -598,6 +602,8 @@ function commitOrder() {
             cache: false,
             data: {
                 name: name,
+                schoolId: schoolId,
+                schoolName: schoolName,
                 conName: conName,
                 conMobile: conMobile,
                 conAddress: conAddress,
@@ -643,7 +649,8 @@ function commitOrder() {
                                 after();
                                 alert('支付失败');
                             }
-                            toAmount();
+                            //toAmount();
+                            $.mobile.changePage('zhuanpan.html');
                         });
                     } else {
                         after();
@@ -674,7 +681,7 @@ function commitOrder() {
                             localStorage.setItem("order", order.toString());
                         }
                         alert('恭喜您，下单成功!');
-                        $.mobile.changePage('zhuanpan.html', 'slide');
+                        $.mobile.changePage('zhuanpan.html');
                     }
                 } else {
                     after();
@@ -732,6 +739,15 @@ function login() {
             alert('请求出错');
         }
     });
+}
+
+
+function conformScholl(id,name){
+
+    localStorage.setItem("schoolId",id);
+    localStorage.setItem("schoolName",name);
+    window.history.back();
+
 }
 
 function register() {
@@ -1014,6 +1030,13 @@ function toConform() {
         $.mobile.changePage('login.html');
         return;
     }
+    var schoolId = localStorage.getItem("schoolId");
+    if (!schoolId) {
+        alert("请选择销售点",function(){
+            $.mobile.changePage('school.html');
+        });
+        return;
+    }
     var order = localStorage.getItem("order");
     if (!order) {
         alert("购物车为空");
@@ -1156,7 +1179,6 @@ function MoveBox(objRu) {
             } else {
                 order = order.split(";");
             }
-
 
             var panduan = true;
             for (var i = 0; i < order.length; i++) {

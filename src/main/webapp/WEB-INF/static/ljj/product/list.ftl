@@ -87,15 +87,6 @@
                                     </#list>
                                 </select>
                             </td>
-                            <td>品牌</td>
-                            <td>
-                                <select name="brandId" class="form-control">
-                                    <option value="">所有</option>
-                                <#list brand as e>
-                                    <option <#if (cond.brandId)??> <#if  cond.brandId==e._id>selected</#if> </#if> value="${e._id}">${e.name}</option>
-                                </#list>
-                                </select>
-                            </td>
                         </tr>
                         <tr>
                         </tr>
@@ -129,7 +120,6 @@
                                 <th>商品名称</th>
                                 <th>主题</th>
                                 <th>分类</th>
-                                <th>品牌</th>
                                 <th>状态</th>
                                 <th>首页</th>
                                 <th>推荐</th>
@@ -154,9 +144,6 @@
                                 </td>
                                 <td>
                                 ${e.sortPro.name}
-                                </td>
-                                <td>
-                                ${e.brand.name}
                                 </td>
                                 <td>
                                     <#if e.status==0>
@@ -282,18 +269,6 @@
                                             <select name="sortProId" class="form-control">
                                                 <option value="">请选择所属分类</option>
                                             <#list sortPro as e>
-                                                <option value="${e._id}">${e.name}</option>
-                                            </#list>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">品牌</label>
-                                        <div class="col-sm-10">
-                                            <select name="brandId" class="form-control">
-                                                <option value="">请选择所属品牌</option>
-                                            <#list brand as e>
                                                 <option value="${e._id}">${e.name}</option>
                                             </#list>
                                             </select>

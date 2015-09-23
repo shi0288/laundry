@@ -54,14 +54,14 @@ public class IndexService extends BaseService {
 
 
     public ModelMap getIndexBrand(ModelMap modelMap){
-        List marks = MongoUtil.queryByGroup(MongoConst.MONGO_BRAND, "mark", new BasicDBObject().append("status", 0));
+        List marks = MongoUtil.queryByGroup(MongoConst.MONGO_SCHOOLS, "mark", new BasicDBObject().append("status", 0));
         modelMap.put("marks", marks);
         Collections.sort(marks);
         for(int i=0;i<marks.size();i++){
             String mark= (String) marks.get(i);
             DBObject dbObject=new BasicDBObject();
             dbObject.put("key", mark);
-            List brandList = MongoUtil.queryAll(MongoConst.MONGO_BRAND, new BasicDBObject().append("status", 0).append("mark",mark), "createTime", -1);
+            List brandList = MongoUtil.queryAll(MongoConst.MONGO_SCHOOLS, new BasicDBObject().append("status", 0).append("mark",mark), "createTime", -1);
             dbObject.put("brandList", brandList);
             marks.remove(i);
             marks.add(i,dbObject);

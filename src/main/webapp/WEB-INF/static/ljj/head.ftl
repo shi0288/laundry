@@ -93,7 +93,7 @@
                         <a <#if menu="sortPro">class="active"</#if> href="../../ljj/sortPro/list.htm"> <i class="icon-comments"></i> <span>分类管理</span></a>
                     </li>
                     <li class="">
-                        <a <#if menu="brand">class="active"</#if> href="../../ljj/brand/list.htm"> <i class="icon-folder-open"></i> <span>品牌管理</span></a>
+                        <a <#if menu="brand">class="active"</#if> href="../../ljj/brand/list.htm"> <i class="icon-folder-open"></i> <span>销售点管理</span></a>
                     </li>
                     <li class="">
                         <a <#if menu="pictures">class="active"</#if> href="../../ljj/pictures/list.htm"> <i class="icon-cogs"></i> <span>轮播图管理</span></a>

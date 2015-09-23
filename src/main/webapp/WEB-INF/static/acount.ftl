@@ -5,8 +5,8 @@
 
         <div class="page-role container-fluid">
             <div class="head-img">
-                <span class="my-img" style="background-image:url(${(headImgUrl)!''})"></span>
-                <p id="acountName">${nickName}</p>
+                <span class="my-img" style="background-image:url(${(headImgUrl)!'static/common/css/images/defaul.png'})"></span>
+                <p id="acountName"></p>
                 <p>铜牌用户</p>
             </div>
 

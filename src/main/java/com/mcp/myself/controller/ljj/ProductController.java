@@ -50,7 +50,7 @@ public class ProductController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("add.json")
-    public JsonVo<DBObject> add(int toWhat, String name, int status, int tip,int jump,int num, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
+    public JsonVo<DBObject> add(int toWhat, String name, int status, int tip,int jump,int num, String mainProId, String sortProId, double oldPrice, double price, String desc,
                                 MultipartHttpServletRequest request) throws
             IOException {
         List<MultipartFile> files = request.getFiles("files");
@@ -106,11 +106,6 @@ public class ProductController extends BaseAction {
             json.setResult(false);
             return json;
         }
-        if (StringUtils.isBlank(brandId)) {
-            json.setMsg("品牌不能为空");
-            json.setResult(false);
-            return json;
-        }
         if (StringUtils.isBlank(desc)) {
             json.setMsg("描述不能为空");
             json.setResult(false);
@@ -121,7 +116,6 @@ public class ProductController extends BaseAction {
         dbObject.put("status", status);
         dbObject.put("mainProId", mainProId);
         dbObject.put("sortProId", sortProId);
-        dbObject.put("brandId", brandId);
         DecimalFormat df = new DecimalFormat("######0.00");
         dbObject.put("oldPrice", df.format(oldPrice));
         dbObject.put("price", df.format(price));
@@ -159,7 +153,7 @@ public class ProductController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("update.json")
-    public JsonVo<DBObject> updatePro( int toWhat,String id, String name,int num, int status,int tip,int jump, String mainProId, String sortProId, String brandId, double oldPrice, double price, String desc,
+    public JsonVo<DBObject> updatePro( int toWhat,String id, String name,int num, int status,int tip,int jump, String mainProId, String sortProId, double oldPrice, double price, String desc,
                                       MultipartHttpServletRequest request) throws
             IOException {
 
@@ -216,11 +210,6 @@ public class ProductController extends BaseAction {
             json.setResult(false);
             return json;
         }
-        if (StringUtils.isBlank(brandId)) {
-            json.setMsg("品牌不能为空");
-            json.setResult(false);
-            return json;
-        }
         if (StringUtils.isBlank(desc)) {
             json.setMsg("描述不能为空");
             json.setResult(false);
@@ -235,7 +224,6 @@ public class ProductController extends BaseAction {
         dbObject.put("toWhat", toWhat);
         dbObject.put("num", num);
         dbObject.put("jump", jump);
-        dbObject.put("brandId", brandId);
         DecimalFormat df = new DecimalFormat("######0.00");
         dbObject.put("oldPrice", df.format(oldPrice));
         dbObject.put("price", df.format(price));

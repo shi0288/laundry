@@ -4,6 +4,7 @@ import com.mcp.myself.bean.JsonVo;
 import com.mcp.myself.constant.SystemConstant;
 import com.mcp.myself.service.BrandService;
 import com.mcp.myself.util.ChinaInitial;
+import com.mcp.myself.util.MD5;
 import com.mcp.myself.util.MongoConst;
 import com.mcp.myself.util.MongoUtil;
 import com.mongodb.BasicDBObject;
@@ -40,45 +41,31 @@ public class BrandController extends BaseAction {
 
     @ResponseBody
     @RequestMapping("add.json")
-    public JsonVo<DBObject> add(String name,int status,MultipartFile file,HttpServletRequest request) throws
+    public JsonVo<DBObject> add(String name,int status,String userName,String passWord,HttpServletRequest request) throws
             IOException{
         JsonVo<DBObject> json = new JsonVo<DBObject>();
 
-        String fileName=null;
-        if (file!=null) {
-            //获取文件 存储位置
-            String realPath = SystemConstant.UPLOAD_FOLDER+"/img";
-            File pathFile = new File(realPath);
-            if (!pathFile.exists()) {
-                //文件夹不存 创建文件
-                pathFile.mkdirs();
-            }
-            long fileSize= file.getSize();
-            if(fileSize>SystemConstant.UPLOAD_FILE_SIZE){
-                json.setMsg("文件太大了，弄小点");
-                json.setResult(false);
-                return json;
-            }
-            //将文件copy上传到服务器
-            String[] jpgArr=file.getOriginalFilename().split("\\.");
-            String jpg=jpgArr[jpgArr.length-1];
-            if(!"jpg".equals(jpg)){
-                json.setMsg("文件格式不支持上传");
-                json.setResult(false);
-                return json;
-            }
-            fileName = System.currentTimeMillis()+"."+jpg;
-            file.transferTo(new File(realPath + "/" + fileName));
-        }
         //校验
         if (StringUtils.isBlank(name)) {
             json.setMsg("名字不能为空");
             json.setResult(false);
             return json;
         }
+        if (StringUtils.isBlank(userName)) {
+            json.setMsg("用户名不能为空");
+            json.setResult(false);
+            return json;
+        }
+        if (StringUtils.isBlank(passWord)) {
+            json.setMsg("密码不能为空");
+            json.setResult(false);
+            return json;
+        }
         DBObject dbObject = new BasicDBObject();
         dbObject.put("name", name);
         dbObject.put("status", status);
+        dbObject.put("userName", userName);
+        dbObject.put("passWord", MD5.MD5Encode(passWord));
         String mark = ChinaInitial.getPYIndexStr(name.split("")[1],true);
         if(mark!=null&&!"".equals(mark)){
             try {
@@ -88,11 +75,8 @@ public class BrandController extends BaseAction {
             }
             dbObject.put("mark", mark);
         }
-        if(fileName!=null){
-            dbObject.put("fileName", fileName);
-        }
         dbObject.put("createTime",System.currentTimeMillis());
-        MongoUtil.getDb().getCollection(MongoConst.MONGO_BRAND).insert(dbObject);
+        MongoUtil.getDb().getCollection(MongoConst.MONGO_SCHOOLS).insert(dbObject);
         json.setResult(true);
         return json;
     }
@@ -115,36 +99,10 @@ public class BrandController extends BaseAction {
      */
     @ResponseBody
     @RequestMapping("update.json")
-    public JsonVo<DBObject> updateEntity(String id,String name,String mark,int status,MultipartFile file,HttpServletRequest request) throws
+    public JsonVo<DBObject> updateEntity(String id,String name,String userName,String passWord,String mark,int status,HttpServletRequest request) throws
             IOException {
         //获取文件 存储位置
         JsonVo<DBObject> json = new JsonVo<DBObject>();
-        String fileName=null;
-        if (file!=null) {
-            //获取文件 存储位置
-            String realPath =SystemConstant.UPLOAD_FOLDER+"/img";
-            File pathFile = new File(realPath);
-            if (!pathFile.exists()) {
-                //文件夹不存 创建文件
-                pathFile.mkdirs();
-            }
-            long fileSize= file.getSize();
-            if(fileSize>SystemConstant.UPLOAD_FILE_SIZE){
-                json.setMsg("文件太大了，弄小点");
-                json.setResult(false);
-                return json;
-            }
-            //将文件copy上传到服务器
-            String[] jpgArr=file.getOriginalFilename().split("\\.");
-            String jpg=jpgArr[jpgArr.length-1];
-            if(!"jpg".equals(jpg)){
-                json.setMsg("文件格式不支持上传");
-                json.setResult(false);
-                return json;
-            }
-            fileName = System.currentTimeMillis()+"."+jpg;
-            file.transferTo(new File(realPath + "/" + fileName));
-        }
         //校验
         if (StringUtils.isBlank(name)) {
             json.setMsg("名字不能为空");
@@ -156,14 +114,23 @@ public class BrandController extends BaseAction {
             json.setResult(false);
             return json;
         }
+        if (StringUtils.isBlank(userName)) {
+            json.setMsg("用户名不能为空");
+            json.setResult(false);
+            return json;
+        }
+        if (StringUtils.isBlank(passWord)) {
+            json.setMsg("密码不能为空");
+            json.setResult(false);
+            return json;
+        }
         DBObject dbObject = new BasicDBObject();
         dbObject.put("_id",new ObjectId(id));
         dbObject.put("name", name);
+        dbObject.put("userName", userName);
+        dbObject.put("passWord", MD5.MD5Encode(passWord));
         dbObject.put("status", status);
         dbObject.put("mark", mark);
-        if(fileName!=null){
-            dbObject.put("fileName", fileName);
-        }
         json.setResult(brandService.update(dbObject));
         return json;
     }

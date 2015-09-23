@@ -22,8 +22,7 @@
                 </div>
                 <div class="s-item bdb-1px">
                     <select id="address_provice">
-                            
-                        <option value="经贸学院">经贸学院</option>
+                        <option value="河北经贸大学">河北经贸大学</option>
                     </select>
                 </div>
 
@@ -42,7 +41,7 @@
                         <div class="sattr">设为默认地址</div>
                     </div>
                     <div class="sitem-r">
-                        <div id="adrBtn" class="switch"></div>
+                        <div id="adrBtn" class="switch switched"></div>
                     </div>
                 </div>
                 <div class="bar-btn02">
