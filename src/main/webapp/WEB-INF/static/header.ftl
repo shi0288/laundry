@@ -151,6 +151,7 @@
                     toAmount();
                 }else if (str == '/mobile.html') {
                 }else if (str == '/action.html') {
+                }else if (str == '/join.html') {
                 }else if (str == '/cart.html') {
                     var order = localStorage.getItem("order");
                     if (!order) {

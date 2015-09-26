@@ -33,7 +33,7 @@
             <a class="selected"><i></i>首页<span></span></a>
             <a href="sort.html"><i></i>分类<span></span></a>
             <a href="tuan.html?status=0&sortStr=jump&orderBy=-1"><i></i>抢限量<span></span></a>
-            <a href="#"><i></i>加入我们<span></span></a>
+            <a href="join.html"><i></i>加入我们<span></span></a>
         </div>
     </div>
 
