@@ -14,7 +14,7 @@ public class MenuTest {
 
     public static void main(String[] args) throws Exception{
 
-        String token = "LKbIAtAAF-OS7yOop_ab7cT79qY4iJLSBsk_hMOJ4ElCNTjPXlH7CGL_DZNgZ1mduLN8UWb2uM3FN88M7EaZ-bkJXfzKIBC6CByypslG3Go";
+        String token = "zy7sM9tVIeYKGeNB-3zOaxBVYx7uBHA-knvHCfV304Nv4z0v5-DRpPVhAYXEHyZ39EFE19yB0K8t_9yfdN7PySyOZItjMM0KkJMY-rrHtGA";
 
 
         String url = URL+token;
@@ -43,9 +43,9 @@ public class MenuTest {
         subObj4.put("key", "recharge");
 
         JSONObject subObj5 = new JSONObject();
-        subObj5.put("type", "click");
-        subObj5.put("name", "最新优惠");
-        subObj5.put("key", "youhui");
+        subObj5.put("type", "view");
+        subObj5.put("name", "登陆入口");
+        subObj5.put("url", "http://www.mcp8.net/laundry/student/login.html");
         JSONArray subArray2 = new JSONArray();
         subArray2.put(subObj4);
         subArray2.put(subObj5);

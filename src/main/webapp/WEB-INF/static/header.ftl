@@ -37,10 +37,12 @@
 
     <script>
         var openId="${openId!''}";
+        var nickName="${nickName!''}";
         if(openId==''){
         }else{
             localStorage.setItem("openId",openId);
             localStorage.setItem("name",openId);
+            localStorage.setItem("nickName",nickName);
         }
         $(document).on("pagebeforeshow", function (event) {
             $('.com-header-area').css('width', $(window).width());
@@ -465,7 +467,12 @@
                     changeImg($("#captcha-img"));
                 } else if (str == '/acount.html') {
                     var name = localStorage.getItem("name");
-                    $("#acountName").html(name);
+                    var nickName = localStorage.getItem("nickName");
+                    if(nickName==null||nickName==undefined||nickName==''){
+                        $("#acountName").html(name);
+                    }else{
+                        $("#acountName").html(nickName);
+                    }
                     $("#quanbudingdan").attr("href", "orders.html?name=" + name + "&status=9999");
                     $("#waitDeliveryOrderList").attr("href", "orders.html?name=" + name + "&status=1101");
                     $("#waite4Payment").attr("href", "orders.html?name=" + name + "&status=1000");

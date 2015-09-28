@@ -180,7 +180,7 @@
                 <a class="pxui-color-white" href="javascript:void(0)">
                     <i></i>
 							<span>自营商品<br>
-							满15.8包邮</span>
+							0元起送</span>
                 </a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <a class="pxui-color-white" href="javascript:void(0)">
                     <i style="background-position:-40px -108px;"></i>

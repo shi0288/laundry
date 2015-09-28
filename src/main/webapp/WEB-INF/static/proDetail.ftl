@@ -61,7 +61,7 @@
                         <b>运&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;费:</b>
                         <div>
                             <p>
-                                <span>15.8免运费,支持货到付款。</span>
+                                <span>0元起送,支持货到付款。</span>
                             </p>
                         </div>
                     </li>
