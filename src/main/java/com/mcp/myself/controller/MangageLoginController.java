@@ -445,6 +445,9 @@ public class MangageLoginController {
         dbActyvity.put("createTime", System.currentTimeMillis());
         dbActyvity.put("activeState",0);
         try {
+            int a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
+            String msgCode = String.valueOf(a);
+            DigestPassDeom.SendMsg("13321176503",msgCode);
             MongoUtil.insert(MongoConst.MONGO_ORDERS, dbObject);
             MongoUtil.insert(MongoConst.MONGO_ACTIVITY, dbActyvity);//为了活动增加
             json.setResult(true);
