@@ -268,6 +268,11 @@ public class IndexController {
         modelMap = indexService.getIndexAction(modelMap);
         return "action";
     }
+    @RequestMapping("join.html")
+    public String join(ModelMap modelMap, HttpServletRequest request) {
+        modelMap = indexService.getIndexAction(modelMap);
+        return "join";
+    }
     @RequestMapping("regest.html")
     public String regest(ModelMap modelMap, HttpServletRequest request) {
         return "regest";
