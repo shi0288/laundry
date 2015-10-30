@@ -48,8 +48,8 @@
                     <td rowspan="2"><a href="tuan.html?status=0&sortStr=jump&orderBy=-1"><i></i>限<br>时<br>促<br>销</a></td>
                 </tr>
                 <tr>
-                    <td><a href="topic/612.html"><b>最新</b><br>上架</a></td>
-                    <td colspan="2"><a href="zhuanpan.html">幸运大抽奖<br>下单抽礼品<i></i></a></td>
+                    <td><a href="product.html?status=0&sortStr=createTime&orderBy=-1"><b>最新</b><br>上架</a></td>
+                    <td colspan="2"><a href="javascript:alert('活动已经结束，下期更精彩！')">幸运大抽奖<br>下单抽礼品<i></i></a></td>
                 </tr>
                 </tbody>
             </table>
@@ -67,7 +67,7 @@
             <div class="pxui-shoes">
                 <div>
                 <#list tuijian as tui>
-                    <#if (tui_index<2)>
+                    <#if (tui_index<8)>
                         <a href="proDetail.html?proId=${tui._id}">
                             <div class="img160" style="background-image: none;"><dfn></dfn>
                                 <#list tui.fileNames as f>
@@ -87,7 +87,7 @@
             </div>
             <div class="pxui-list">
             <#list tuijian as tui>
-                <#if (tui_index>1) >
+                <#if (tui_index>7) >
                     <a href="proDetail.html?proId=${tui._id}"><span
                             class="pxui-bg-blue pxui-color-white">${tui_index+1}</span>
 

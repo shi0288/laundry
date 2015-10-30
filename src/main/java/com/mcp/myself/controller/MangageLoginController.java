@@ -439,17 +439,17 @@ public class MangageLoginController {
         dbObject.put("status", 1101);
         dbObject.put("createTime", System.currentTimeMillis());
         //为了活动增加
-        DBObject dbActyvity = new BasicDBObject();
-        dbActyvity.put("activeId","1001");
-        dbActyvity.put("userName",name);
-        dbActyvity.put("createTime", System.currentTimeMillis());
-        dbActyvity.put("activeState",0);
+//        DBObject dbActyvity = new BasicDBObject();
+//        dbActyvity.put("activeId","1001");
+//        dbActyvity.put("userName",name);
+//        dbActyvity.put("createTime", System.currentTimeMillis());
+//        dbActyvity.put("activeState",0);
+//        MongoUtil.insert(MongoConst.MONGO_ACTIVITY, dbActyvity);//为了活动增加
         try {
             int a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
             String msgCode = String.valueOf(a);
-            DigestPassDeom.SendMsg("13321176503",msgCode);
+            DigestPassDeom.SendMsg("13321176503", msgCode);
             MongoUtil.insert(MongoConst.MONGO_ORDERS, dbObject);
-            MongoUtil.insert(MongoConst.MONGO_ACTIVITY, dbActyvity);//为了活动增加
             json.setResult(true);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             WeixinMessage.sendOrderPaySuccess(name, sdf.format(new Date()));

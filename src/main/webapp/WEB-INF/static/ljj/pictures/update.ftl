@@ -28,7 +28,7 @@
                                     <div class="col-sm-10">
                                         <input type="text" style="font-size:15px;width: 300px;" class="form-control"
                                                name="urlName"
-                                               placeholder="输入链接" id="${(e.urlName)!""}">
+                                               placeholder="输入链接" value="${(e.urlName)!""}">
                                         </input>
                                     </div>
                                 </div>

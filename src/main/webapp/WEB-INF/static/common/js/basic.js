@@ -558,7 +558,6 @@ function goToPay(id) {
 }
 
 function commitOrder() {
-
     before();
     var name = localStorage.getItem("name");
     var schoolId = localStorage.getItem("schoolId");
@@ -649,8 +648,8 @@ function commitOrder() {
                                 after();
                                 alert('支付失败');
                             }
-                            //toAmount();
-                            $.mobile.changePage('zhuanpan.html');
+                            toAmount();
+                           // $.mobile.changePage('zhuanpan.html');
                         });
                     } else {
                         after();
@@ -681,7 +680,8 @@ function commitOrder() {
                             localStorage.setItem("order", order.toString());
                         }
                         alert('恭喜您，下单成功!');
-                        $.mobile.changePage('zhuanpan.html');
+                        toAmount();
+                        //$.mobile.changePage('zhuanpan.html');
                     }
                 } else {
                     after();

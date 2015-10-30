@@ -27,6 +27,7 @@
                 </div>
             </div>
 
+
             <div class="well cart" style="padding: 5px;margin-top: 10px">
                 <ul id="orderList">
                     <li class="proTwo">
@@ -38,14 +39,21 @@
                     </li>
                 </ul>
             </div>
+
+            <div class="well" style="padding: 5px;">
+                <fieldset data-role="controlgroup">
+                    <legend><span style="font-size: 14px;font-weight:bold;">送货时间:</span><br/>11:00至14:00&nbsp&nbsp,&nbsp&nbsp17:00至21:30</legend>
+                </fieldset>
+            </div>
+
 <input  type="hidden"  id="proWhere"  />
             <div class="well" style="padding: 10px;margin-bottom: 100px">
                 <fieldset data-role="controlgroup">
                     <legend>支付方式:</legend>
-                    <input type="radio" name="radio-choice-1" value="0" id="radio-choice-1" data-cacheval="false"  checked="checked">
-                    <label for="radio-choice-1">货到付款</label>
-                    <input type="radio" name="radio-choice-1" value="1" id="radio-choice-2" data-cacheval="true">
+                    <input type="radio" name="radio-choice-1" value="1" id="radio-choice-2" data-cacheval="false"  checked="checked">
                     <label for="radio-choice-2">微信支付</label>
+                    <input type="radio" name="radio-choice-1" value="0" id="radio-choice-1" data-cacheval="true" >
+                    <label for="radio-choice-1">货到付款</label>
                 </fieldset>
             </div>
 

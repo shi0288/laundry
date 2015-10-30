@@ -140,7 +140,7 @@
                         <li>
                             <a href="#" style="width:100px;height:30px" onclick="toStatus('${order._id}','1200')">确认完成</a>
                         </li>
-                        <li>
+                        <li style="margin-top: 5px">
                             <a href="#" style="width:100px;height:30px" onclick="toStatus('${order._id}','1300')">取消订单</a>
                         </li>
                     </ul>
@@ -154,26 +154,30 @@
 <script type="text/javascript">
 
     function toStatus(id,status){
-        $.ajax({
-            type: "POST",
-            url: "updateStatus.json?timestamp=" + new Date().getTime(),
-            dataType: "json",
-            cache: false,
-            data: {
-                id: id,
-                status:status
-            },
-            success: function (rst) {
-                if (rst.result) {
-                    window.location.href="waitOrder.htm";
-                } else {
-                    alert("操作失败，请重试");
+        var r=confirm("确认此操作吗？");
+        if (r==true)
+        {
+            $.ajax({
+                type: "POST",
+                url: "updateStatus.json?timestamp=" + new Date().getTime(),
+                dataType: "json",
+                cache: false,
+                data: {
+                    id: id,
+                    status:status
+                },
+                success: function (rst) {
+                    if (rst.result) {
+                        window.location.href="waitOrder.htm";
+                    } else {
+                        alert("操作失败，请重试");
+                    }
+                },
+                error: function () {
+                    alert('请求出错');
                 }
-            },
-            error: function () {
-                alert('请求出错');
-            }
-        });
+            });
+        }
     }
 </script>
 

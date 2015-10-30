@@ -57,7 +57,7 @@ public class WaitOrderController extends BaseAction {
         String saleId= (String) request.getSession().getAttribute("saleId");
         query.put("schoolId", saleId);
         query.put("$or", values);
-        List list = MongoUtil.getDb().getCollection(MongoConst.MONGO_ORDERS).find(query).skip(0).limit(20).toArray();
+        List list = MongoUtil.getDb().getCollection(MongoConst.MONGO_ORDERS).find(query).skip(0).limit(20).sort(new BasicDBObject("createTime", -1)).toArray();
         modelMap.put("e", list);
         if(id !=null){
             DBObject dbObject= MongoUtil.findOne(MongoConst.MONGO_ORDERS, id);

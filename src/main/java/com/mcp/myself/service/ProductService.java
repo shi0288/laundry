@@ -33,9 +33,9 @@ public class ProductService extends BaseService{
             String sortProId= (String) dbObject.get("sortProId");
             DBObject sortPro=MongoUtil.findOne(MongoConst.MONGO_SORTPRO, sortProId);
             dbObject.put("sortPro",sortPro);
-            String brandId= (String) dbObject.get("brandId");
-            DBObject brand=MongoUtil.findOne(MongoConst.MONGO_BRAND, brandId);
-            dbObject.put("brand",brand);
+//            String brandId= (String) dbObject.get("brandId");
+//            DBObject brand=MongoUtil.findOne(MongoConst.MONGO_BRAND, brandId);
+//            dbObject.put("brand",brand);
         }
         return modelMap;
     }

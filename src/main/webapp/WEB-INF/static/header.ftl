@@ -10,13 +10,13 @@
     <META HTTP-EQUIV="Expires" CONTENT="0">
     <meta name="format-detection" content="telephone=no"/>
     <link rel="stylesheet" href="static/common/css/jquery.mobile-1.4.5.min.css"/>
-    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.8"/>
+    <link rel="stylesheet" href="static/common/css/base.css?v=0.0.9"/>
     <script src="static/common/js/jquery-1.8.2.min.js"></script>
     <script src="static/common/js/jquery.touchslider.min.js"></script>
     <script src="static/common/js/jquery.Spinner.js"></script>
     <script src="static/ljj/common/js/jQueryRotateCompressed.js"></script>
-    <script src="static/common/js/basic.js?v=0.4.9"></script>
-    <link rel="stylesheet" href="static/common/css/index.css?v=0.0.1"/>
+    <script src="static/common/js/basic.js?v=0.5.3"></script>
+    <link rel="stylesheet" href="static/common/css/index.css?v=0.0.2"/>
     <script>
         $(document).bind("mobileinit", function () {
             //$.mobile.ajaxEnabled=false;
@@ -83,7 +83,7 @@
                         }
                     }(),
                     language:(navigator.browserLanguage || navigator.language).toLowerCase()
-                }
+                };
 
                 var str = window.location.pathname;
                 var temp=str.split('/');

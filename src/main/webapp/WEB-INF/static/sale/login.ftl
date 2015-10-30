@@ -31,8 +31,8 @@
 <div class="page-container">
     <h1>店主登陆</h1>
     <form  action="../manage/saleAdmin.json" id="adminForm" method="post">
-        <input type="text" name="username" class="username" placeholder="请输入您的用户名！">
-        <input type="password" name="password" class="password" placeholder="请输入您的用户密码！">
+        <input type="text" id="username" name="username" class="username" placeholder="请输入您的用户名！">
+        <input type="password" id="password" name="password" class="password" placeholder="请输入您的用户密码！">
         <button type="submit" class="submit_button">登录</button>
         <div class="error"><span>+</span></div>
     </form>
@@ -49,12 +49,41 @@
 
 <script type="text/javascript">
     $(function () {
+        var username = localStorage.getItem("username");
+        var password = localStorage.getItem("password");
+        if (username) {
+            $.ajax({
+                type: "POST",
+                url: "../manage/saleAdmin.json?timestamp=" + new Date().getTime(),
+                dataType: "json",
+                cache: false,
+                data: {
+                    username: username,
+                    password: password
+                },
+                success: function (rst) {
+                    if (rst.result) {
+                        location.href = "../sale/order/waitOrder.htm";
+                    } else {
+                        alert("用户名或密码错误");
+                    }
+                },
+                error: function () {
+                    alert('请求出错');
+                }
+            });
+
+        }
         $('#adminForm')
                 .ajaxForm(
                 {
                     dataType: 'json',
                     success: function (data) {
                         if (data.result) {
+                            var username=$("#username").val();
+                            var password=$("#password").val();
+                            localStorage.setItem("username",username);
+                            localStorage.setItem("password",password);
                             location.href = "../sale/order/waitOrder.htm";
                         } else {
                             alert("用户名或密码错误");

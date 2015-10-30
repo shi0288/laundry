@@ -143,10 +143,11 @@
                                     <a href="../../ljj/order/update.htm?torderId=${e._id}&name=${e.name}" title="查看详情">
                                         查看详情
                                     </a>
-                                    <#if  e.status==1100><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101,'${e.name}')" title="打印">打印</a>
-                                    <#elseif  e.status==1101> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200,'${e.name}')" title="派送成功">派送成功</a>
+                                    <#if  e.status==1100><a href="javascript:void(0)" onclick="printOrder('${e._id}',1101,'${e.name}',false)" title="打印">打印</a>
+                                    <#elseif  e.status==1101> <a href="javascript:void(0)" onclick="printOrder('${e._id}',1200,'${e.name}',false)" title="派送成功">派送成功</a>
+                                        <a href="javascript:void(0)" onclick="printOrder('${e._id}',1101,'${e.name}',true)" title="打印">打印</a>
                                     </#if>
-                                    <#if  e.status!=1300><a href="javascript:void(0)" onclick="printOrder('${e._id}',1300,'${e.name}')" title="取消订单">取消订单</a>
+                                    <#if  e.status!=1300><a href="javascript:void(0)" onclick="printOrder('${e._id}',1300,'${e.name}',false)" title="取消订单">取消订单</a>
                                     </#if>
                                 </td>
                             </tr>
@@ -174,39 +175,46 @@
             $('#query_form').submit();
         });
     });
-    function printOrder(id,orderType,name){
-        $.ajax({
-            type: "POST",
-            url: "../../ljj/order/getDetail.json?timestamp=" + new Date().getTime(),
-            dataType: "json",
-            cache: false,
-            data: {
-                torderId: id,
-                status:orderType,
-                name:name
-            },
-            success: function (result) {
-                var res = result.result;
-                if (res) {
-                    if(orderType==1101){
-                        printProduct(result.object);
-                    }else if(orderType==1200){
-                        bootbox.alert("修改成功，将刷新页面", function () {
-                            location.href = "list.htm?status=1101";
-                        });
-                    }else if(orderType==1300){
-                        bootbox.alert("修改成功，将刷新页面", function () {
-                            location.href = "list.htm?status=1100";
-                        });
+    function printOrder(id,orderType,name,is){
+        if(is){
+            printProduct(result.object);
+        }else{
+            $.ajax({
+                type: "POST",
+                url: "../../ljj/order/getDetail.json?timestamp=" + new Date().getTime(),
+                dataType: "json",
+                cache: false,
+                data: {
+                    torderId: id,
+                    status:orderType,
+                    name:name
+                },
+                success: function (result) {
+                    var res = result.result;
+                    if (res) {
+                        if(orderType==1101){
+                            printProduct(result.object);
+                        }else if(orderType==1200){
+                            bootbox.alert("修改成功，将刷新页面", function () {
+                                location.href = "list.htm?status=1101";
+                            });
+                        }else if(orderType==1300){
+                            bootbox.alert("修改成功，将刷新页面", function () {
+                                location.href = "list.htm?status=1100";
+                            });
+                        }
+                    } else {
+                        alert('查询请求出错');
                     }
-                } else {
-                    alert('查询请求出错');
+                },
+                error: function () {
+                    alert('请求出错');
                 }
-            },
-            error: function () {
-                alert('请求出错');
-            }
-        });
+            });
+
+        }
+
+
     }
 </script>
 <#include "/ljj/foot.ftl">

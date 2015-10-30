@@ -315,10 +315,10 @@ public class IndexController {
         return "sale/login";
     }
 
-    @RequestMapping("zhuanpan.html")
-    public String activiteZhuan(ModelMap modelMap) {
-        return "zhuanpan";
-    }
+//    @RequestMapping("zhuanpan.html")
+//    public String activiteZhuan(ModelMap modelMap) {
+//        return "zhuanpan";
+//    }
 
     @RequestMapping("xieyi.html")
     public String xieyi(ModelMap modelMap) {

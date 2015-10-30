@@ -22,6 +22,9 @@
                 <div class="s-item bdb-1px">
                     <select id="update_provice">
                             <option value="经贸学院" <#if e.provice=='经贸学院'> selected</#if>>经贸学院</option>
+                            <option value="河北经贸大学" <#if e.provice=='河北经贸大学'> selected</#if>>河北经贸大学</option>
+                            <option value="铁路职业学院" <#if e.provice=='铁路职业学院'> selected</#if>>铁路职业学院</option>
+                            <option value="石家庄学院" <#if e.provice=='石家庄学院'> selected</#if>>石家庄学院</option>
                     </select>
                 </div>
 

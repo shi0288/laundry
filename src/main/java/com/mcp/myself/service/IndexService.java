@@ -42,10 +42,10 @@ public class IndexService extends BaseService {
         Map queryValues =new HashMap();
         queryValues.put("tip",1);
         queryValues.put("status",0);
-        List tuijian = MongoUtil.queryForPage(MongoConst.MONGO_PRODUCT, queryValues, 1, 5, "createTime", 1);
-        if(tuijian.size()!=5){
+        List tuijian = MongoUtil.queryForPage(MongoConst.MONGO_PRODUCT, queryValues, 1, 10, "createTime", 1);
+        if(tuijian.size()!=10){
             queryValues.remove("tip");
-            tuijian=MongoUtil.queryForPage(MongoConst.MONGO_PRODUCT, queryValues, 1, 5, "createTime", 1);
+            tuijian=MongoUtil.queryForPage(MongoConst.MONGO_PRODUCT, queryValues, 1, 10, "createTime", 1);
         }
         modelMap.put("tuijian",tuijian);
         return modelMap;
@@ -72,7 +72,7 @@ public class IndexService extends BaseService {
     public ModelMap getIndexAction(ModelMap modelMap){
         DBObject dbObject=new BasicDBObject();
         dbObject.put("status", 0);
-        List list=MongoUtil.getDb().getCollection(MongoConst.MONGO_ACTIONS).find().toArray();
+        List list=MongoUtil.getDb().getCollection(MongoConst.MONGO_ACTIONS).find(dbObject).toArray();
         modelMap.put("list",list);
         return modelMap;
     }

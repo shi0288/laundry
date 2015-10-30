@@ -88,7 +88,6 @@
                                 <th>名称</th>
                                 <th>单价</th>
                                 <th>数量</th>
-                                <th>单品合计</th>
                             </tr>
                             </thead>
                             <tbody role="alert" aria-live="polite" aria-relevant="all">
@@ -102,9 +101,6 @@
                                 </td>
                                 <td>
                                 ${e.numbers}
-                                </td>
-                                <td>
-                                ${e.price}
                                 </td>
                             </tr>
                             </#list>

@@ -23,6 +23,8 @@
                 <div class="s-item bdb-1px">
                     <select id="address_provice">
                         <option value="河北经贸大学">河北经贸大学</option>
+                        <option value="铁路职业学院">铁路职业学院</option>
+                        <option value="石家庄学院">石家庄学院</option>
                     </select>
                 </div>
 

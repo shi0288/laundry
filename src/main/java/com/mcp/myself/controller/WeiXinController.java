@@ -4,10 +4,7 @@ import com.mcp.myself.constant.WeiXinConstant;
 import com.mcp.myself.service.AdminService;
 import com.mcp.myself.service.CoreService;
 import com.mcp.myself.service.WeiXinService;
-import com.mcp.myself.util.HttpClientWrapper;
-import com.mcp.myself.util.MongoConst;
-import com.mcp.myself.util.MongoUtil;
-import com.mcp.myself.util.WeixinMessage;
+import com.mcp.myself.util.*;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBCollection;
 import com.mongodb.DBObject;
@@ -225,19 +222,23 @@ public class WeiXinController {
             if (dbObject != null) {
                 SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 String openId=m.get("openid").toString();
-                WeixinMessage.sendOrderPaySuccess(openId, sdf.format(new Date()));
                 //直接1101  不再打印
-                BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1101));
-                MongoUtil.getDb().getCollection(MongoConst.MONGO_ORDERS).update(dbObject, set, false, false);
-
-                //增加活动
-                DBObject dbActyvity = new BasicDBObject();
-                dbActyvity.put("activeId","1001");
-                dbActyvity.put("userName",openId);
-                dbActyvity.put("createTime", System.currentTimeMillis());
-                dbActyvity.put("activeState",0);
-                MongoUtil.insert(MongoConst.MONGO_ACTIVITY, dbActyvity);//为了活动增加
-
+                int statusTemp= (int) dbObject.get("status");
+                if(statusTemp==1000){
+                    WeixinMessage.sendOrderPaySuccess(openId, sdf.format(new Date()));
+                    BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1101));
+                    MongoUtil.getDb().getCollection(MongoConst.MONGO_ORDERS).update(dbObject, set, false, false);
+                    int a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
+                    String msgCode = String.valueOf(a);
+                    DigestPassDeom.SendMsg("18311436873", msgCode);
+                }
+//                //增加活动
+//                DBObject dbActyvity = new BasicDBObject();
+//                dbActyvity.put("activeId","1001");
+//                dbActyvity.put("userName",openId);
+//                dbActyvity.put("createTime", System.currentTimeMillis());
+//                dbActyvity.put("activeState",0);
+//                MongoUtil.insert(MongoConst.MONGO_ACTIVITY, dbActyvity);//为了活动增加
             }
             resXml = "<xml>" + "<return_code><![CDATA[SUCCESS]]></return_code>"
                     + "<return_msg><![CDATA[OK]]></return_msg>" + "</xml> ";
