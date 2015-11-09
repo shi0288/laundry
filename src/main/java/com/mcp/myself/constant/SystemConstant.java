@@ -51,6 +51,7 @@ public class SystemConstant {
 	 *  短信模板ID
 	 */
 	public static final String MSG_ID = "35000";
+	public static final String MSG_ID_ORDER = "40884";
 
 	/**
 	 *  有效时间 分钟

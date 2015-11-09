@@ -448,7 +448,16 @@ public class MangageLoginController {
         try {
             int a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
             String msgCode = String.valueOf(a);
-            DigestPassDeom.SendMsg("13321176503", msgCode);
+
+            if(schoolName.equals("河北经贸大学>21栋")){
+                DigestPassDeom.SendMsg("15231139753", msgCode,true);
+            }else if(schoolName.equals("河北经贸大学>16栋")){
+                DigestPassDeom.SendMsg("15226518082", msgCode,true);
+            }else if(schoolName.equals("铁路职业学院>铁职")){
+                DigestPassDeom.SendMsg("15530131622", msgCode,true);
+            }else{
+                DigestPassDeom.SendMsg("13321176503", msgCode,true);
+            }
             MongoUtil.insert(MongoConst.MONGO_ORDERS, dbObject);
             json.setResult(true);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");

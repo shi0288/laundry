@@ -224,13 +224,25 @@ public class WeiXinController {
                 String openId=m.get("openid").toString();
                 //直接1101  不再打印
                 int statusTemp= (int) dbObject.get("status");
+                String  schoolName = (String) dbObject.get("schoolName");
                 if(statusTemp==1000){
                     WeixinMessage.sendOrderPaySuccess(openId, sdf.format(new Date()));
                     BasicDBObject set = new BasicDBObject("$set", new BasicDBObject("status", 1101));
                     MongoUtil.getDb().getCollection(MongoConst.MONGO_ORDERS).update(dbObject, set, false, false);
                     int a = (int) (Math.random() * (9999 - 1000 + 1)) + 1000;
                     String msgCode = String.valueOf(a);
-                    DigestPassDeom.SendMsg("18311436873", msgCode);
+
+                    if(schoolName.equals("河北经贸大学>21栋")){
+                        DigestPassDeom.SendMsg("15231139753", msgCode,true);
+                    }else if(schoolName.equals("河北经贸大学>16栋")){
+                        DigestPassDeom.SendMsg("15226518082", msgCode,true);
+                    }else if(schoolName.equals("铁路职业学院>铁职")){
+                        DigestPassDeom.SendMsg("15530131622", msgCode,true);
+                    }else{
+                        DigestPassDeom.SendMsg("18311436873", msgCode,true);
+                    }
+
+
                 }
 //                //增加活动
 //                DBObject dbActyvity = new BasicDBObject();
